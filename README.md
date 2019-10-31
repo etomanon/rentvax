@@ -1,9 +1,9 @@
 Rate apartments
 
 #### Server
-`cd server`
+`cd server`   
 `yarn dev`
 
 #### Client
-`cd client`
+`cd client`  
 `yarn start`
