@@ -1,0 +1,88 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.3.2",
+    "@rebass/grid": "^6.0.0",
+    "@types/react-transition-group": "^4.2.2",
+    "ky": "^0.11.2",
+    "lodash": "^4.17.15",
+    "notistack": "^0.8.9",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "react-swipeable": "^5.4.0",
+    "react-transition-group": "^4.2.2",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "sanitize.css": "^11.0.0",
+    "styled-components": "^4.3.2",
+    "styled-icons": "^8.3.0",
+    "styled-react-modal": "^1.2.4",
+    "styled-system": "^5.0.16",
+    "typesafe-actions": "^4.4.2",
+    "typescript": "3.5.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint:es": "./node_modules/.bin/eslint ./src/**/*.{ts,tsx} --fix",
+    "lint:css": "./node_modules/.bin/stylelint ./src/**/*.{ts,tsx}"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.8",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.5",
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/rebass__grid": "^6.0.5",
+    "@types/styled-components": "^4.1.18",
+    "@types/styled-react-modal": "^1.2.0",
+    "@types/styled-system": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": ">=1",
+    "lint-staged": ">=8",
+    "prettier": "^1.18.2",
+    "stylelint": "^10.1.0",
+    "stylelint-config-recommended": "^2.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{tsx,ts}": [
+      "yarn lint:es",
+      "yarn lint:css",
+      "git add"
+    ]
+  },
+  "proxy": "http://localhost:3001"
+}
