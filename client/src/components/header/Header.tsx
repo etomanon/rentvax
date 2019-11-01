@@ -6,7 +6,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { userLogout, userGet } from "../../redux/user/actions";
 import { selectorUser } from "../../redux/user/selectors";
 
-import { Text } from "../text/Text";
+import { Text } from "../text/styled/Text";
 
 import {
   HeaderTitleWrapper,

@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "styled-react-modal";
 import { Flex } from "@rebass/grid";
 
-import { Text } from "../text/Text";
+import { Text } from "../text/styled/Text";
 import { Button } from "../button/styled/Button";
 
 interface ConfirmProps {

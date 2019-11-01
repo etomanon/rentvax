@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userGet } from "../../redux/user/actions";
 import { selectorUser } from "../../redux/user/selectors";
 
-import { Text } from "../../components/text/Text";
+import { Text } from "../../components/text/styled/Text";
 
 export const Dashboard: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch();
