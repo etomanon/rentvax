@@ -11,7 +11,7 @@ const cssFilled = css`
   &:hover,
   &:focus {
     background: #fff;
-    color: #000;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -45,10 +45,12 @@ export const Button = styled.button<ButtonProps & WidthProps & SpaceProps>`
   border: 2px solid ${({ theme }) => theme.colors.primary};
   background: #fff;
   cursor: pointer;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   justify-content: center;
   transition: all 0.2s ease-in;
   font-size: 1.4rem;
+  box-shadow: 0px 5px 1rem 0px rgba(0,0,0,0.25);
+  font-weight: 500;
   &:hover,
   &:focus {
     background: ${({ theme }) => theme.colors.primary};
@@ -56,6 +58,8 @@ export const Button = styled.button<ButtonProps & WidthProps & SpaceProps>`
   }
   &:focus {
     outline: 0;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.25);
+    transform: translate3d(0, 2px, 0)
   }
   ${props => props.variant === "filled" && cssFilled}
   ${props => props.variant === "error" && cssError}

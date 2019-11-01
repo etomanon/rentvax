@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Flex } from "@rebass/grid";
 import { useSwipeable } from "react-swipeable";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import { userLogout, userGet } from "../../redux/user/actions";
 import { selectorUser } from "../../redux/user/selectors";
 
-import { Link } from "../control/Link";
-import { NavLink } from "../control/NavLink";
 import { Text } from "../text/Text";
 
 import {
+  HeaderTitleWrapper,
+  HeaderLogo,
   HeaderWrapper,
   HeaderWrapperLinks,
   HeaderBurger,
-  HeaderBurgerLine
+  HeaderBurgerLine,
+  HeaderLink,
+  HeaderNavLink
 } from "./styled/Header";
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
@@ -31,60 +32,53 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
   });
   return (
     <>
+      <HeaderBurger active={active} onClick={() => setActive(prev => !prev)}>
+        <HeaderBurgerLine active={active} />
+        <HeaderBurgerLine active={active} />
+        <HeaderBurgerLine active={active} />
+      </HeaderBurger>
       <HeaderWrapper
         m={["1rem 0.5rem", "1rem 0.5rem", "1rem auto"]}
         flexDirection={["column", "row"]}
       >
-        <Flex width={1} justifyContent="center" alignItems="center" mb={3}>
-          <Text
-            ml={2}
-            mr={3}
-            fontSize={4}
-            mb={0}
-            onClick={() => history.push("/")}
-            style={{ cursor: "pointer" }}
-          >
-            Recenze podnájmů
+        <HeaderTitleWrapper onClick={() => history.push("/")}>
+          <HeaderLogo size="3rem" />
+          <Text ml={2} mr={3} fontSize={3} mb={0} style={{ cursor: "pointer" }}>
+            Title
           </Text>
-        </Flex>
-        <HeaderBurger active={active} onClick={() => setActive(prev => !prev)}>
-          <HeaderBurgerLine active={active} />
-          <HeaderBurgerLine active={active} />
-          <HeaderBurgerLine active={active} />
-        </HeaderBurger>
+        </HeaderTitleWrapper>
         <HeaderWrapperLinks active={active} {...handlers}>
-          <NavLink
+          <HeaderNavLink
             exact
             to="/"
-            mr={[0, 3]}
+            mr={[0, "4.5rem", "7rem"]}
             mb={[2, 0]}
             onClick={() => setActive(false)}
           >
             Domů
-          </NavLink>
+          </HeaderNavLink>
           {user.user ? (
             <>
-              <NavLink
+              <HeaderNavLink
                 exact
                 to="/dashboard"
-                mr={[0, 3]}
+                mr={[0, "4.5rem", "7rem"]}
                 mb={[2, 0]}
                 onClick={() => setActive(false)}
               >
                 Dashboard
-              </NavLink>
+              </HeaderNavLink>
               {user.user.role !== "user" && (
-                <NavLink
+                <HeaderNavLink
                   to="/download"
-                  mr={[0, 3]}
+                  mr={[0, "4.5rem", "7rem"]}
                   mb={[2, 0]}
                   onClick={() => setActive(false)}
                 >
                   Soubory
-                </NavLink>
+                </HeaderNavLink>
               )}
-              <Link
-                noUnderline
+              <HeaderLink
                 mt={[4, 0]}
                 onClick={() => {
                   dispatch(userLogout());
@@ -93,16 +87,15 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
                 href="/api/auth/logout"
               >
                 Odhlásit se
-              </Link>
+              </HeaderLink>
             </>
           ) : (
-            <Link
-              noUnderline
+            <HeaderLink
               onClick={() => setActive(false)}
               href="/api/auth/google"
             >
               Přihlásit se
-            </Link>
+            </HeaderLink>
           )}
         </HeaderWrapperLinks>
       </HeaderWrapper>
