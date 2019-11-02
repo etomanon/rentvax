@@ -4,6 +4,7 @@ export const theme = {
     secondary: "#008aff",
     error: "#E21212",
     grey: "#d3d3d3",
+    greyLight: "#E8E8E8",
     text: "#333"
   },
   breakpoints: ["40em", "76em"],

@@ -16,7 +16,11 @@ export const GlobalStyles = createGlobalStyle`
 		color: ${({ theme }) => theme.colors.text}
 	}
   body {
+		padding-top: 5rem;
     font-size: 1.6rem;
+		@media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+			padding-top: 0;
+		}
   }
 
 	#root {

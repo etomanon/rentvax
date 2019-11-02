@@ -35,14 +35,22 @@ export const HeaderLogo = styled(Building2)`
 `;
 
 export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
   max-width: 75em;
   color: ${({ theme }) => theme.colors.text};
+  background: #fff;
   ${space}
   ${flexDirection}
+  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+    position: static;
+  }
 `;
 
 export const Logo = styled.img`
