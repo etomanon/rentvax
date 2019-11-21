@@ -30,6 +30,7 @@
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/ban-ts-ignore": "error",
+    "@typescript-eslint/camelcase": "off",
     "no-console": "off"
   },
   "settings": {
