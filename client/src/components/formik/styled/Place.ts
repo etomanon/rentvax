@@ -6,6 +6,7 @@ export const PlaceSuggestionWrapper = styled.div`
   background: #fff;
   box-shadow: 0px 5px 1rem 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
+  overflow: hidden;
 `;
 
 export const PlaceSuggestionItem = styled.div<any>`

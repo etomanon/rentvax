@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { width, WidthProps, space, SpaceProps } from "styled-system";
 
 const move = keyframes`
@@ -11,7 +11,17 @@ const move = keyframes`
   }
 `;
 
-export const Loader = styled.div`
+const cssLocal = css`
+  position: static;
+  top: auto;
+  left: auto;
+`;
+
+interface LoaderProps {
+  local?: boolean;
+}
+
+export const Loader = styled.div<LoaderProps & SpaceProps>`
   position: fixed;
   top: 0;
   left: 0;
@@ -19,6 +29,8 @@ export const Loader = styled.div`
   height: 0.6rem;
   background: ${({ theme }) => theme.colors.primary};
   animation: ${move} 1s ease-in infinite;
+  ${props => props.local && cssLocal}
+  ${space};
 `;
 
 export const LoaderUpload = styled.div<WidthProps & SpaceProps>`

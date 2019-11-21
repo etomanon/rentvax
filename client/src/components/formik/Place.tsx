@@ -17,7 +17,6 @@ export const Place: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState("");
   const onChange = (address: string) => {
-    console.log("address", address);
     setAddress(address);
   };
 
@@ -27,7 +26,6 @@ export const Place: React.FC = () => {
       const results = await geocodeByAddress(address);
       const result = results[0];
       const { place_id, formatted_address, types } = result;
-
       const latLng = await getLatLng(result);
       dispatch(
         locationSet({
@@ -61,7 +59,7 @@ export const Place: React.FC = () => {
               })}
             />
             <PlaceSuggestionWrapper>
-              {loading && <div>Loading...</div>}
+              {loading && <Loader mt=".5rem" local />}
               {suggestions.map(suggestion => {
                 return (
                   <PlaceSuggestionItem
