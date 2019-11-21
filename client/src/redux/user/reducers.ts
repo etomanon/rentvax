@@ -2,7 +2,7 @@ import { ActionType, getType } from "typesafe-actions";
 import { Reducer } from "redux";
 
 import { pending, rejected, StateCommon } from "../utils/common";
-import { User } from "../../types/user";
+import { User } from "../../utils/types/user";
 
 import * as actions from "./actions";
 

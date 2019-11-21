@@ -1,7 +1,7 @@
 import { ActionType, getType } from "typesafe-actions";
 import { Reducer } from "redux";
 
-import { Location } from "../../types/location";
+import { Location } from "../../utils/types/location";
 
 import * as actions from "./actions";
 

@@ -1,8 +1,8 @@
 import { createAsyncAction, createAction } from "typesafe-actions";
 import { Dispatch } from "redux";
 
-import ky from "../../ky/ky";
-import { User } from "../../types/user";
+import ky from "../../utils/ky/ky";
+import { User } from "../../utils/types/user";
 
 export const userLogout = createAction("USER_LOGOUT");
 
