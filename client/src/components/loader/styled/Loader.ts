@@ -18,7 +18,7 @@ const cssLocal = css`
 `;
 
 interface LoaderProps {
-  local?: boolean;
+  static?: boolean;
 }
 
 export const Loader = styled.div<LoaderProps & SpaceProps>`
@@ -29,7 +29,8 @@ export const Loader = styled.div<LoaderProps & SpaceProps>`
   height: 0.6rem;
   background: ${({ theme }) => theme.colors.primary};
   animation: ${move} 1s ease-in infinite;
-  ${props => props.local && cssLocal}
+  z-index: 999;
+  ${props => props.static && cssLocal}
   ${space};
 `;
 

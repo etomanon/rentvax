@@ -7,12 +7,10 @@ import { initialState } from "./initialState";
 
 export function configureStore() {
   const middlewares = [thunk];
-
-  const finalCreateStore = composeWithDevTools(applyMiddleware(...middlewares))(
-    createStore
+  const store = createStore(
+    reducerRoot,
+    initialState,
+    composeWithDevTools(applyMiddleware(...middlewares))
   );
-
-  const store = finalCreateStore(reducerRoot, initialState);
-
   return store;
 }

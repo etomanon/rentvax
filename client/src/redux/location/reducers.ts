@@ -6,11 +6,11 @@ import { Location } from "../../utils/types/location";
 import * as actions from "./actions";
 
 export interface LocationState {
-  location?: Location;
+  address?: Location;
 }
 
 export const initialLocation: LocationState = {
-  location: undefined
+  address: undefined
 };
 
 export const reducerLocation: Reducer<LocationState, LocationActions> = (
@@ -21,7 +21,7 @@ export const reducerLocation: Reducer<LocationState, LocationActions> = (
     case getType(actions.locationSet):
       return {
         ...state,
-        location: action.payload
+        address: action.payload
       };
     default:
       return state;

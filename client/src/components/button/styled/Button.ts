@@ -27,14 +27,14 @@ const cssError = css`
 `;
 
 const cssDisabled = css`
-  background: #fff;
-  color: ${({ theme }) => theme.colors.grey};
+  background: ${({ theme }) => theme.colors.grey};
+  color: #fff;
   border: 2px solid ${({ theme }) => theme.colors.grey};
   cursor: not-allowed;
   &:hover,
   &:focus {
-    background: #fff;
-    color: ${({ theme }) => theme.colors.grey};
+    background: ${({ theme }) => theme.colors.grey};
+    color: #fff;
   }
 `;
 
