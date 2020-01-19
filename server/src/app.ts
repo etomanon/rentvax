@@ -8,7 +8,6 @@ import passport from "passport";
 import compression from "compression";
 import helmet from "helmet";
 
-import { subOrAdmin } from "./passport/subOrAdmin";
 import { routes } from "./routes/routes";
 import { Session } from "./entities/Session";
 import "./passport/passport";

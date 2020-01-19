@@ -4,7 +4,6 @@ import { RouteComponentProps } from "react-router-dom";
 import { Flex } from "../../components/grid/Flex";
 import { Text } from "../../components/text/styled/Text";
 import { TextHeader } from "../../components/text/styled/TextHeader";
-import { Button } from "../../components/button/styled/Button";
 import { Place } from "../../components/formik/Place";
 
 import { HomeImg } from "./styled/Home";
@@ -26,13 +25,15 @@ export const Home: React.FC<RouteComponentProps> = () => {
           flexDirection="column"
         >
           <TextHeader textAlign="center">Hodnocení podnájmů</TextHeader>
-          <Text fontSize={3} mt="auto" mb="2rem" textAlign="center">
-            Adresa
+          <Text
+            fontSize={3}
+            mt={["1rem", "1rem", "auto"]}
+            mb="2rem"
+            textAlign="center"
+          >
+            Najděte adresu
           </Text>
           <Place />
-          <Button mt="2rem" variant="filled" disabled={!location.address}>
-            Hledat
-          </Button>
         </Flex>
         <HomeImg />
       </Flex>

@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 enum Role {
   admin = "admin",
-  user = "user",
+  user = "user"
 }
 
 @Entity()

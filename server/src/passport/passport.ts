@@ -14,7 +14,7 @@ use(
       callbackURL:
         process.env.NODE_ENV === "production"
           ? "https://clainadownload.cz/api/auth/google/callback"
-          : "http://localhost:3001/api/auth/google/callback",
+          : "http://localhost:3001/api/auth/google/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

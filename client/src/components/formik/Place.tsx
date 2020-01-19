@@ -55,7 +55,7 @@ export const Place: React.FC = () => {
           <div>
             <Input
               {...getInputProps({
-                placeholder: "Praha Rooseveltova 42",
+                placeholder: "Rooseveltova 42",
                 className: "location-search-input"
               })}
             />

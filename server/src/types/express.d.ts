@@ -1,4 +1,4 @@
-import * as express from 'express';
+import * as express from "express";
 
 interface UserProps {
   role: "admin" | "user";
@@ -7,7 +7,6 @@ interface UserProps {
 
 declare module "express" {
   interface Request {
-    user: UserProps
+    user: UserProps;
   }
-
 }
