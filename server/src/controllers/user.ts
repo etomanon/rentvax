@@ -1,7 +1,14 @@
+import { getRepository } from "typeorm";
+import { User } from "./../entities/User";
 import { Request, Response } from "express";
 
 // import { send } from "../utils/send";
 // import { gotClientId, gotToken } from "../got/got";
+
+export const userGetCurrent = async (req: Request) => {
+  const user = await getRepository(User).findOne(req.user.id);
+  return user;
+};
 
 export const userGet = async (req: Request, res: Response) => {
   const { email, role } = req.user;

@@ -1,6 +1,7 @@
 import * as express from "express";
 
 interface UserProps {
+  id: number;
   role: "admin" | "user";
   email: string;
 }

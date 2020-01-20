@@ -2,7 +2,7 @@ import { Review } from "./Review";
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 @Entity()
-export class Apartment {
+export class Flat {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,8 +12,6 @@ export class Apartment {
   @Column({ type: "geography", srid: 4326 })
   location: number;
 
-  @OneToMany(type => Review, review => review.apartment)
+  @OneToMany(type => Review, review => review.flat)
   reviews: Review[];
 }
-
-// TODO: CRUD for apartment & reviews
