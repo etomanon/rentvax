@@ -1,5 +1,5 @@
-import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import React, { useEffect } from "react";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 
 import { Flex } from "../../components/grid/Flex";
 import { Text } from "../../components/text/styled/Text";
@@ -11,7 +11,14 @@ import { useSelector } from "react-redux";
 import { selectorLocation } from "../../redux/location/selectors";
 
 export const Home: React.FC<RouteComponentProps> = () => {
+  const { push } = useHistory();
   const location = useSelector(selectorLocation);
+
+  useEffect(() => {
+    if (location.address) {
+      push("/search");
+    }
+  }, [location.address, push]);
   return (
     <>
       <Flex flexWrap={["wrap", "nowrap"]}>

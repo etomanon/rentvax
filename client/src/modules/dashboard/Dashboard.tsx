@@ -10,7 +10,6 @@ import { Text } from "../../components/text/styled/Text";
 export const Dashboard: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectorUser);
-  console.log("user", user);
   useEffect(() => {
     dispatch(userGet());
   }, [dispatch]);
