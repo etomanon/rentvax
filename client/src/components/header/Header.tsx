@@ -45,7 +45,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
         <HeaderTitleWrapper onClick={() => history.push("/")}>
           <HeaderLogo size="3rem" />
           <Text ml={2} mr={3} fontSize={3} mb={0} style={{ cursor: "pointer" }}>
-            Title
+            Hodnocení podnájmů
           </Text>
         </HeaderTitleWrapper>
         <HeaderWrapperLinks active={active} {...handlers}>

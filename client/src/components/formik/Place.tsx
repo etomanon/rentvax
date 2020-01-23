@@ -16,7 +16,7 @@ export const Place: React.FC = () => {
   const dispatch = useDispatch();
   const [address, setAddress] = useState("");
   const onChange = (address: string) => {
-    dispatch(locationSet(undefined));
+    // dispatch(locationSet(undefined));
     setAddress(address);
   };
 
