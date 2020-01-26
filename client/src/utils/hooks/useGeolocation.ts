@@ -13,7 +13,9 @@ export interface GeoLocationSensorState {
   error?: Error | PositionError;
 }
 
-const useGeolocation = (options?: PositionOptions): GeoLocationSensorState => {
+export const useGeolocation = (
+  options?: PositionOptions
+): GeoLocationSensorState => {
   const [state, setState] = useState<GeoLocationSensorState>({
     loading: true,
     accuracy: null,
@@ -56,5 +58,3 @@ const useGeolocation = (options?: PositionOptions): GeoLocationSensorState => {
 
   return state;
 };
-
-export default useGeolocation;

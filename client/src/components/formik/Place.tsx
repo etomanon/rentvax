@@ -5,14 +5,22 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { useDispatch } from "react-redux";
 
-import { PlaceSuggestionWrapper, PlaceSuggestionItem } from "./styled/Place";
+import {
+  PlaceSuggestionWrapper,
+  PlaceSuggestionItem,
+  PlacesContainer
+} from "./styled/Place";
 import { Input } from "./styled/Input";
 import { locationSet } from "../../redux/location/actions";
 import { Loader } from "../loader/styled/Loader";
 import { callAsyncAction } from "../../utils/func/callAsyncAction";
 import { loadingAdd, loadingRemove } from "../../redux/loading/actions";
 
-export const Place: React.FC = () => {
+interface PlaceProps {
+  onSelect?: () => void;
+}
+
+export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
   const dispatch = useDispatch();
   const [address, setAddress] = useState("");
   const onChange = (address: string) => {
@@ -20,7 +28,7 @@ export const Place: React.FC = () => {
     setAddress(address);
   };
 
-  const onSelect = async (address: string) => {
+  const onSelectHandler = async (address: string) => {
     callAsyncAction(async () => {
       dispatch(loadingAdd());
       const results = await geocodeByAddress(address);
@@ -37,6 +45,7 @@ export const Place: React.FC = () => {
           latLng
         })
       );
+      onSelect && onSelect();
     });
   };
   return (
@@ -45,14 +54,14 @@ export const Place: React.FC = () => {
         debounce={350}
         value={address}
         onChange={onChange}
-        onSelect={onSelect}
+        onSelect={onSelectHandler}
         searchOptions={{
           types: ["address"],
           componentRestrictions: { country: "cz" }
         }}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
+          <PlacesContainer>
             <Input
               {...getInputProps({
                 placeholder: "Rooseveltova 42",
@@ -74,7 +83,7 @@ export const Place: React.FC = () => {
                 );
               })}
             </PlaceSuggestionWrapper>
-          </div>
+          </PlacesContainer>
         )}
       </PlacesAutocomplete>
     </>

@@ -6,6 +6,6 @@ export const TextSubtitle = styled.div<DisplayProps & SpaceProps>`
   ${display}
   font-size: 1.8rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
   ${space};
 `;

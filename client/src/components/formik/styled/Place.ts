@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components";
 
+export const PlacesContainer = styled.div`
+  position: relative;
+`;
+
 export const PlaceSuggestionWrapper = styled.div`
   position: absolute;
   width: 100%;

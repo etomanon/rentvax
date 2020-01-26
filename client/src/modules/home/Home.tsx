@@ -7,40 +7,42 @@ import { TextHeader } from "../../components/text/styled/TextHeader";
 import { Place } from "../../components/formik/Place";
 
 import { HomeImg } from "./styled/Home";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectorLocation } from "../../redux/location/selectors";
+import { locationSet } from "../../redux/location/actions";
 
 export const Home: React.FC<RouteComponentProps> = () => {
   const { push } = useHistory();
   const location = useSelector(selectorLocation);
+  const onSelect = () => {
+    push("/search");
+  };
 
-  useEffect(() => {
-    if (location.address) {
-      push("/search");
-    }
-  }, [location.address, push]);
   return (
     <>
-      <Flex flexWrap={["wrap", "nowrap"]}>
+      <Flex
+        flexWrap={["wrap", "nowrap"]}
+        width="100%"
+        alignContent="flex-start"
+      >
         <Flex
           style={{ position: "relative" }}
           width={[1, "auto"]}
           mt={["2rem", "10rem"]}
-          mb={["-5rem", "0"]}
           mr={[0, "6rem", "auto"]}
-          pb="10rem"
+          pb="2rem"
           flexDirection="column"
         >
           <TextHeader textAlign="center">Hodnocení podnájmů</TextHeader>
           <Text
             fontSize={3}
-            mt={["1rem", "1rem", "auto"]}
+            mt={["1rem", "1rem", "15rem"]}
             mb="2rem"
             textAlign="center"
           >
             Najděte adresu
           </Text>
-          <Place />
+          <Place onSelect={onSelect} />
         </Flex>
         <HomeImg />
       </Flex>

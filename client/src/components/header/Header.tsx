@@ -38,6 +38,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
         <HeaderBurgerLine active={active} />
       </HeaderBurger>
       <HeaderWrapper
+        id="navbar"
         p={["1rem 0.5rem", "1rem 0.5rem", "1rem 0"]}
         mx="auto"
         flexDirection={["column", "row"]}
