@@ -13,7 +13,7 @@ const slice = createSlice({
       // TODO get if is logged
     },
     userLogout: () => {
-      // TODO loggout
+      // TODO loggout logic
     }
   }
 });
