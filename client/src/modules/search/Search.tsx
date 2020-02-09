@@ -5,8 +5,6 @@ import {
   InfoWindow,
   OverlayView
 } from "@react-google-maps/api";
-import { useSelector } from "react-redux";
-import { selectorLocation } from "../../redux/location";
 import { SearchLoader } from "./SearchLoader";
 import { useGeolocation } from "../../utils/hooks/useGeolocation";
 import { Place } from "../../components/formik/Place";
@@ -16,12 +14,14 @@ import { Pin } from "styled-icons/boxicons-solid/Pin";
 import styled from "styled-components";
 import { TextSubtitle } from "../../components/text/styled/TextSubtitle";
 import { useResize } from "../../utils/hooks/useResize";
+import { useSelectorApp } from "src/redux";
+
 const Icon = styled(Pin);
 
 const prague = { lat: 50.0755381, lng: 14.4378005 };
 
 export const Search: React.FC = () => {
-  const location = useSelector(selectorLocation);
+  const location = useSelectorApp(state => state.location);
   const locationCenter = location.address?.latLng;
   const geo = useGeolocation();
   const { ref, height } = useResize();

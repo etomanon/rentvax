@@ -13,7 +13,10 @@ module.exports = isDev => {
     entry: path.resolve(__dirname, '..', 'src', 'index.tsx'),
     stats: isDev ? 'errors-warnings' : 'normal',
     resolve: {
-      extensions: ['.tsx', '.ts', '.js']
+      extensions: ['.tsx', '.ts', '.js'],
+      alias: {
+        "src": path.resolve('./src')
+      }
     },
     output: {
       path: PATH_BUILD,

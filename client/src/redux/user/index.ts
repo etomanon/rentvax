@@ -1,5 +1,4 @@
 import { User } from "./../../utils/types/user";
-import { RootState } from "./../rootReducer";
 import { createSlice } from "@reduxjs/toolkit";
 
 type State = User | null;
@@ -18,8 +17,6 @@ const slice = createSlice({
     }
   }
 });
-
-export const selectorUser = (state: RootState) => state.user;
 
 export const { userGet, userLogout } = slice.actions;
 

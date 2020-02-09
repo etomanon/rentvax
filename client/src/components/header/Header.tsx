@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSwipeable } from "react-swipeable";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import { userLogout, userGet } from "../../redux/user";
-import { selectorUser } from "../../redux/user";
 
 import { Text } from "../text/styled/Text";
 
@@ -18,10 +17,11 @@ import {
   HeaderLink,
   HeaderNavLink
 } from "./styled/Header";
+import { useSelectorApp } from "src/redux";
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch();
-  const user = useSelector(selectorUser);
+  const user = useSelectorApp(state => state.user);
   const [active, setActive] = useState(false);
   useEffect(() => {
     dispatch(userGet());

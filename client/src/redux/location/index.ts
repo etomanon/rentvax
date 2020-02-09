@@ -1,4 +1,3 @@
-import { RootState } from "./../rootReducer";
 import { Location } from "./../../utils/types/location";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -19,8 +18,6 @@ const slice = createSlice({
     }
   }
 });
-
-export const selectorLocation = (state: RootState) => state.location;
 
 export const { locationSet } = slice.actions;
 

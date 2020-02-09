@@ -7,8 +7,8 @@
       "esnext"
     ],
     "baseUrl": "./",
-    "paths": {
-      "@*":[ "src/*"]
+    "paths" : {
+      "src/*": ["./src/*"]
     },
     "removeComments": true,
     "allowJs": true,
