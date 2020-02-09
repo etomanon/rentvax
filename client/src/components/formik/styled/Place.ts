@@ -13,7 +13,11 @@ export const PlaceSuggestionWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const PlaceSuggestionItem = styled.div<any>`
+interface PlaceSuggestionItemProps {
+  active?: boolean;
+}
+
+export const PlaceSuggestionItem = styled.div<PlaceSuggestionItemProps>`
   font-size: 1.6rem;
   cursor: pointer;
   transition: 0.3s ease-in all;

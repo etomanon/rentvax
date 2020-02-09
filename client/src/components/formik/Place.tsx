@@ -11,10 +11,10 @@ import {
   PlacesContainer
 } from "./styled/Place";
 import { Input } from "./styled/Input";
-import { locationSet } from "../../redux/location/actions";
+import { locationSet } from "../../redux/location";
 import { Loader } from "../loader/styled/Loader";
 import { callAsyncAction } from "../../utils/func/callAsyncAction";
-import { loadingAdd, loadingRemove } from "../../redux/loading/actions";
+import { loadingAdd, loadingRemove } from "../../redux/loading";
 
 interface PlaceProps {
   onSelect?: () => void;

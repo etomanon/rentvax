@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
-import { store } from "./../../App";
-import { loadingAdd, loadingRemove } from "../../redux/loading/actions";
+import store from "../../redux/store";
+import { loadingAdd, loadingRemove } from "../../redux/loading";
 
 export const callAsyncAction = async <T>(action: () => Promise<T>) => {
   const { dispatch } = store;

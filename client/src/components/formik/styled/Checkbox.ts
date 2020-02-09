@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Checkbox = styled.input.attrs(() => ({
-  type: "checkbox",
-  onChange: () => {}
+  type: "checkbox"
 }))`
   display: none;
 `;

@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useSwipeable } from "react-swipeable";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import { userLogout, userGet } from "../../redux/user/actions";
-import { selectorUser } from "../../redux/user/selectors";
+import { userLogout, userGet } from "../../redux/user";
+import { selectorUser } from "../../redux/user";
 
 import { Text } from "../text/styled/Text";
 
@@ -59,7 +59,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
           >
             Domů
           </HeaderNavLink>
-          {user.user ? (
+          {user ? (
             <>
               <HeaderNavLink
                 exact
@@ -70,7 +70,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               >
                 Dashboard
               </HeaderNavLink>
-              {user.user.role !== "user" && (
+              {user.role !== "user" && (
                 <HeaderNavLink
                   to="/download"
                   mr={[0, "4.5rem", "7rem"]}

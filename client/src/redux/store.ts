@@ -1,16 +1,14 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./rootReducer";
 
-import { reducerRoot } from "./reducerRoot";
-import { initialState } from "./initialState";
-
-export function configureStore() {
-  const middlewares = [thunk];
-  const store = createStore(
-    reducerRoot,
-    initialState,
-    composeWithDevTools(applyMiddleware(...middlewares))
-  );
-  return store;
+const store = configureStore({
+  reducer: rootReducer
+});
+if (process.env.NODE_ENV === "development" && module.hot) {
+  module.hot.accept("./rootReducer", async () => {
+    const newRootReducer = require("./rootReducer").default;
+    store.replaceReducer(newRootReducer);
+  });
 }
+export type AppDispatch = typeof store.dispatch;
+export default store;

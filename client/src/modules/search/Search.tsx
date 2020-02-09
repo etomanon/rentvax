@@ -6,7 +6,7 @@ import {
   OverlayView
 } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
-import { selectorLocation } from "../../redux/location/selectors";
+import { selectorLocation } from "../../redux/location";
 import { SearchLoader } from "./SearchLoader";
 import { useGeolocation } from "../../utils/hooks/useGeolocation";
 import { Place } from "../../components/formik/Place";
@@ -60,7 +60,7 @@ export const Search: React.FC = () => {
             <SearchLoader />
             {center !== prague && (
               <>
-                <Marker position={center} icon={Icon as any} />
+                <Marker position={center} />
               </>
             )}
           </GoogleMap>

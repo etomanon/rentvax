@@ -10,7 +10,7 @@ import { Header } from "../components/header/Header";
 import { Footer } from "../components/footer/Footer";
 import { WrapperMain } from "../components/wrapper/styled/Wrapper";
 
-import ScrollToTop from "./ScrollToTop";
+import { ScrollToTop } from "./ScrollToTop";
 
 export const Router: React.FC = () => {
   return (

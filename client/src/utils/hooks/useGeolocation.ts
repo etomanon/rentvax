@@ -27,9 +27,9 @@ export const useGeolocation = (
     speed: null,
     timestamp: Date.now()
   });
-  let mounted = useRef(true);
+  const mounted = useRef(true);
 
-  const onEvent = useCallback((event: any) => {
+  const onEvent = useCallback((event: Position) => {
     if (mounted.current) {
       setState({
         loading: false,

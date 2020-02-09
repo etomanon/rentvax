@@ -7,13 +7,9 @@ import { TextHeader } from "../../components/text/styled/TextHeader";
 import { Place } from "../../components/formik/Place";
 
 import { HomeImg } from "./styled/Home";
-import { useSelector, useDispatch } from "react-redux";
-import { selectorLocation } from "../../redux/location/selectors";
-import { locationSet } from "../../redux/location/actions";
 
 export const Home: React.FC<RouteComponentProps> = () => {
   const { push } = useHistory();
-  const location = useSelector(selectorLocation);
   const onSelect = () => {
     push("/search");
   };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-import { loadingAdd, loadingRemove } from "../../redux/loading/actions";
+import { loadingAdd, loadingRemove } from "../../redux/loading";
 
 export const useAsyncAction = <T>(action: () => Promise<T>) => {
   const [result, setResult] = useState<null | T>(null);

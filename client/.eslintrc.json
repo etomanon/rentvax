@@ -13,8 +13,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
     "plugin:react/recommended",
+    "plugin:prettier/recommended",
     "prettier",
     "prettier/@typescript-eslint",
     "prettier/react"
@@ -27,10 +27,10 @@
   ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/ban-ts-ignore": "warn",
     "@typescript-eslint/camelcase": "off",
     "no-console": "off",
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
