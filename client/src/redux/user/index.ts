@@ -1,12 +1,12 @@
-import { User } from "./../../utils/types/user";
-import { createSlice } from "@reduxjs/toolkit";
+import { User } from './../../utils/types/user'
+import { createSlice } from '@reduxjs/toolkit'
 
-type State = User | null;
+type State = User | null
 
-const initialState = null;
+const initialState = null
 
 const slice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: initialState as State,
   reducers: {
     userGet: () => {
@@ -14,10 +14,10 @@ const slice = createSlice({
     },
     userLogout: () => {
       // TODO loggout logic
-    }
-  }
-});
+    },
+  },
+})
 
-export const { userGet, userLogout } = slice.actions;
+export const { userGet, userLogout } = slice.actions
 
-export default slice.reducer;
+export default slice.reducer

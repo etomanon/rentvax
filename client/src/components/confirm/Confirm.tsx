@@ -1,16 +1,16 @@
-import React from "react";
-import Modal from "styled-react-modal";
-import { Flex } from "@rebass/grid";
+import React from 'react'
+import Modal from 'styled-react-modal'
+import { Flex } from '@rebass/grid'
 
-import { Text } from "../text/styled/Text";
-import { Button } from "../button/styled/Button";
+import { Text } from '../text/styled/Text'
+import { Button } from '../button/styled/Button'
 
 interface ConfirmProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  confirmText: string;
-  onConfirm: () => void;
-  error?: boolean;
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  confirmText: string
+  onConfirm: () => void
+  error?: boolean
 }
 
 export const Confirm: React.FC<ConfirmProps> = ({
@@ -18,7 +18,7 @@ export const Confirm: React.FC<ConfirmProps> = ({
   setOpen,
   confirmText,
   onConfirm,
-  error
+  error,
 }) => {
   return (
     <Modal
@@ -28,12 +28,12 @@ export const Confirm: React.FC<ConfirmProps> = ({
     >
       <Flex
         px={3}
-        width={["95%", "35rem"]}
+        width={['95%', '35rem']}
         backgroundColor="#fff"
         alignItems="center"
         justifyContent="space-between"
         flexWrap="wrap"
-        style={{ borderRadius: "4px" }}
+        style={{ borderRadius: '4px' }}
       >
         <Text width={1} mb={3} mt={3} textAlign="center">
           {confirmText}
@@ -41,10 +41,10 @@ export const Confirm: React.FC<ConfirmProps> = ({
         <Button
           width={0.45}
           mb={3}
-          variant={error ? "error" : "filled"}
+          variant={error ? 'error' : 'filled'}
           onClick={() => {
-            onConfirm();
-            setOpen(false);
+            onConfirm()
+            setOpen(false)
           }}
         >
           Ano
@@ -53,12 +53,12 @@ export const Confirm: React.FC<ConfirmProps> = ({
           width={0.45}
           mb={3}
           onClick={() => {
-            setOpen(false);
+            setOpen(false)
           }}
         >
           Ne
         </Button>
       </Flex>
     </Modal>
-  );
-};
+  )
+}

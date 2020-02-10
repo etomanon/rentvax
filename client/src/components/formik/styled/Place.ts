@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 export const PlacesContainer = styled.div`
   position: relative;
-`;
+`
 
 export const PlaceSuggestionWrapper = styled.div`
   position: absolute;
@@ -11,10 +11,10 @@ export const PlaceSuggestionWrapper = styled.div`
   box-shadow: 0px 5px 1rem 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   overflow: hidden;
-`;
+`
 
 interface PlaceSuggestionItemProps {
-  active?: boolean;
+  active?: boolean
 }
 
 export const PlaceSuggestionItem = styled.div<PlaceSuggestionItemProps>`
@@ -34,4 +34,4 @@ export const PlaceSuggestionItem = styled.div<PlaceSuggestionItemProps>`
       background: ${({ theme }) => theme.colors.primary};
       color: #fff;
     `}
-`;
+`

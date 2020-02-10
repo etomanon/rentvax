@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { NavLink as ReactNavLink } from "react-router-dom";
+import styled, { css } from 'styled-components'
+import { NavLink as ReactNavLink } from 'react-router-dom'
 import {
   space,
   SpaceProps,
@@ -8,12 +8,12 @@ import {
   FontWeightProps,
   fontWeight,
   ColorProps,
-  color
-} from "styled-system";
-import { Building2 } from "styled-icons/remix-fill/Building2";
+  color,
+} from 'styled-system'
+import { Building2 } from 'styled-icons/remix-fill/Building2'
 
 interface MobileMenuProps {
-  active: boolean;
+  active: boolean
 }
 
 export const HeaderTitleWrapper = styled.div`
@@ -23,7 +23,7 @@ export const HeaderTitleWrapper = styled.div`
   align-items: center;
   margin-right: auto;
   cursor: pointer;
-`;
+`
 
 export const HeaderLogo = styled(Building2)`
   color: ${({ theme }) => theme.colors.primary};
@@ -32,7 +32,7 @@ export const HeaderLogo = styled(Building2)`
   ${/* sc-selector */ HeaderTitleWrapper}:hover & {
     color: ${({ theme }) => theme.colors.secondary};
   }
-`;
+`
 
 export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   position: fixed;
@@ -51,11 +51,11 @@ export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
     position: static;
   }
-`;
+`
 
 export const Logo = styled.img`
   display: flex;
-`;
+`
 
 export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
   position: fixed;
@@ -87,7 +87,7 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
     transform: translate3d(0, 0, 0);
     padding-right: 1rem;
   }
-`;
+`
 
 export const HeaderBurger = styled.div<MobileMenuProps>`
   position: fixed;
@@ -103,7 +103,7 @@ export const HeaderBurger = styled.div<MobileMenuProps>`
   @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
     display: none;
   }
-`;
+`
 
 export const HeaderBurgerLine = styled.span<MobileMenuProps>`
   position: absolute;
@@ -140,10 +140,10 @@ export const HeaderBurgerLine = styled.span<MobileMenuProps>`
         transform: rotate(-45deg);
       }
     `}
-`;
+`
 
 export const HeaderNavLink = styled(ReactNavLink).attrs({
-  activeClassName: "active-navlink"
+  activeClassName: 'active-navlink',
 })<SpaceProps>`
   color: #fff;
   text-decoration: none;
@@ -166,7 +166,7 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
       color: ${({ theme }) => theme.colors.primary};
     }
   }
-`;
+`
 
 // eslint-disable-next-line
 export const HeaderLink = styled.a<
@@ -191,4 +191,4 @@ export const HeaderLink = styled.a<
       color: ${({ theme }) => theme.colors.primary};
     }
   }
-`;
+`

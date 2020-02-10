@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   html {
@@ -52,4 +52,4 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: 1.6rem;
 		line-height: 1.2;
 	}
-`;
+`

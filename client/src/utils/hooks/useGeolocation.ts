@@ -1,16 +1,16 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from 'react'
 
 export interface GeoLocationSensorState {
-  loading: boolean;
-  accuracy: number | null;
-  altitude: number | null;
-  altitudeAccuracy: number | null;
-  heading: number | null;
-  latitude: number | null;
-  longitude: number | null;
-  speed: number | null;
-  timestamp: number | null;
-  error?: Error | PositionError;
+  loading: boolean
+  accuracy: number | null
+  altitude: number | null
+  altitudeAccuracy: number | null
+  heading: number | null
+  latitude: number | null
+  longitude: number | null
+  speed: number | null
+  timestamp: number | null
+  error?: Error | PositionError
 }
 
 export const useGeolocation = (
@@ -25,9 +25,9 @@ export const useGeolocation = (
     latitude: null,
     longitude: null,
     speed: null,
-    timestamp: Date.now()
-  });
-  const mounted = useRef(true);
+    timestamp: Date.now(),
+  })
+  const mounted = useRef(true)
 
   const onEvent = useCallback((event: Position) => {
     if (mounted.current) {
@@ -40,21 +40,21 @@ export const useGeolocation = (
         latitude: event.coords.latitude,
         longitude: event.coords.longitude,
         speed: event.coords.speed,
-        timestamp: event.timestamp
-      });
+        timestamp: event.timestamp,
+      })
     }
-  }, []);
+  }, [])
   const onEventError = (error: PositionError) =>
     mounted.current &&
-    setState(oldState => ({ ...oldState, loading: false, error }));
+    setState(oldState => ({ ...oldState, loading: false, error }))
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(onEvent, onEventError, options);
+    navigator.geolocation.getCurrentPosition(onEvent, onEventError, options)
 
     return () => {
-      mounted.current = false;
-    };
-  }, [onEvent, options]);
+      mounted.current = false
+    }
+  }, [onEvent, options])
 
-  return state;
-};
+  return state
+}

@@ -1,14 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import {
   display,
   DisplayProps,
   space,
   SpaceProps,
   textAlign,
-  TextAlignProps
-} from "styled-system";
+  TextAlignProps,
+} from 'styled-system'
 
-type Props = DisplayProps & SpaceProps & TextAlignProps;
+type Props = DisplayProps & SpaceProps & TextAlignProps
 
 export const TextHeader = styled.div<Props>`
   display: inline-block;
@@ -18,4 +18,4 @@ export const TextHeader = styled.div<Props>`
   color: ${({ theme }) => theme.colors.text};
   ${space};
   ${textAlign}
-`;
+`

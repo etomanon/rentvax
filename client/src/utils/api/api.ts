@@ -1,5 +1,5 @@
-type Method = "GET" | "POST" | "PUT" | "DELETE";
-type ContentType = "application/json";
+type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
+type ContentType = 'application/json'
 type Body =
   | string
   | Blob
@@ -9,35 +9,35 @@ type Body =
   | URLSearchParams
   | ReadableStream<Uint8Array>
   | null
-  | undefined;
+  | undefined
 
 export const api = async <T extends {}, K extends {}>(
   url: string,
   body: Body,
-  method: Method = "GET",
-  contentType: ContentType = "application/json",
+  method: Method = 'GET',
+  contentType: ContentType = 'application/json',
   queryString: K
 ) => {
   const queryStringParsed = queryString
-    ? "?" + new URLSearchParams(queryString).toString()
-    : "";
+    ? '?' + new URLSearchParams(queryString).toString()
+    : ''
   const response = await fetch(`/api/${url}${queryStringParsed}`, {
     method,
     headers: {
-      "Content-Type": contentType
+      'Content-Type': contentType,
     },
-    body
-  });
+    body,
+  })
 
-  let result = null;
+  let result = null
   if (response.ok) {
     switch (contentType) {
-      case "application/json": {
-        result = (await response.json()) as T;
-        break;
+      case 'application/json': {
+        result = (await response.json()) as T
+        break
       }
     }
   }
 
-  return result;
-};
+  return result
+}

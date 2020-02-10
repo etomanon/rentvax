@@ -1,53 +1,53 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import PlacesAutocomplete, {
   geocodeByAddress,
-  getLatLng
-} from "react-places-autocomplete";
-import { useDispatch } from "react-redux";
+  getLatLng,
+} from 'react-places-autocomplete'
+import { useDispatch } from 'react-redux'
 
 import {
   PlaceSuggestionWrapper,
   PlaceSuggestionItem,
-  PlacesContainer
-} from "./styled/Place";
-import { Input } from "./styled/Input";
-import { locationSet } from "../../redux/location";
-import { Loader } from "../loader/styled/Loader";
-import { callAsyncAction } from "../../utils/func/callAsyncAction";
-import { loadingAdd, loadingRemove } from "../../redux/loading";
+  PlacesContainer,
+} from './styled/Place'
+import { Input } from './styled/Input'
+import { locationSet } from '../../redux/location'
+import { Loader } from '../loader/styled/Loader'
+import { callAsyncAction } from '../../utils/func/callAsyncAction'
+import { loadingAdd, loadingRemove } from '../../redux/loading'
 
 interface PlaceProps {
-  onSelect?: () => void;
+  onSelect?: () => void
 }
 
 export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
-  const dispatch = useDispatch();
-  const [address, setAddress] = useState("");
+  const dispatch = useDispatch()
+  const [address, setAddress] = useState('')
   const onChange = (address: string) => {
     // dispatch(locationSet(undefined));
-    setAddress(address);
-  };
+    setAddress(address)
+  }
 
   const onSelectHandler = async (address: string) => {
     callAsyncAction(async () => {
-      dispatch(loadingAdd());
-      const results = await geocodeByAddress(address);
-      const result = results[0];
-      const { place_id, formatted_address, types } = result;
-      const latLng = await getLatLng(result);
-      dispatch(loadingRemove());
-      setAddress(formatted_address);
+      dispatch(loadingAdd())
+      const results = await geocodeByAddress(address)
+      const result = results[0]
+      const { place_id, formatted_address, types } = result
+      const latLng = await getLatLng(result)
+      dispatch(loadingRemove())
+      setAddress(formatted_address)
       dispatch(
         locationSet({
           place_id,
           formatted_address,
           types,
-          latLng
+          latLng,
         })
-      );
-      onSelect && onSelect();
-    });
-  };
+      )
+      onSelect && onSelect()
+    })
+  }
   return (
     <>
       <PlacesAutocomplete
@@ -56,16 +56,16 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
         onChange={onChange}
         onSelect={onSelectHandler}
         searchOptions={{
-          types: ["address"],
-          componentRestrictions: { country: "cz" }
+          types: ['address'],
+          componentRestrictions: { country: 'cz' },
         }}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <PlacesContainer>
             <Input
               {...getInputProps({
-                placeholder: "Rooseveltova 42",
-                className: "location-search-input"
+                placeholder: 'Rooseveltova 42',
+                className: 'location-search-input',
               })}
             />
             <PlaceSuggestionWrapper>
@@ -75,17 +75,17 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
                   <PlaceSuggestionItem
                     key={suggestion.id}
                     {...getSuggestionItemProps(suggestion, {
-                      active: suggestion.active
+                      active: suggestion.active,
                     })}
                   >
                     {suggestion.description}
                   </PlaceSuggestionItem>
-                );
+                )
               })}
             </PlaceSuggestionWrapper>
           </PlacesContainer>
         )}
       </PlacesAutocomplete>
     </>
-  );
-};
+  )
+}

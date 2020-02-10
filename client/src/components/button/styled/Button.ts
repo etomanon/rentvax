@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
-import { width, WidthProps, space, SpaceProps } from "styled-system";
+import styled, { css } from 'styled-components'
+import { width, WidthProps, space, SpaceProps } from 'styled-system'
 
 interface ButtonProps {
-  variant?: "filled" | "error";
+  variant?: 'filled' | 'error'
 }
 
 const cssFilled = css`
@@ -13,7 +13,7 @@ const cssFilled = css`
     background: #fff;
     color: ${({ theme }) => theme.colors.text};
   }
-`;
+`
 
 const cssError = css`
   background: ${({ theme }) => theme.colors.error};
@@ -24,7 +24,7 @@ const cssError = css`
     background: #fff;
     color: ${({ theme }) => theme.colors.error};
   }
-`;
+`
 
 const cssDisabled = css`
   background: ${({ theme }) => theme.colors.grey};
@@ -36,7 +36,7 @@ const cssDisabled = css`
     background: ${({ theme }) => theme.colors.grey};
     color: #fff;
   }
-`;
+`
 
 export const Button = styled.button<ButtonProps & WidthProps & SpaceProps>`
   padding: 1rem 1.2rem;
@@ -61,9 +61,9 @@ export const Button = styled.button<ButtonProps & WidthProps & SpaceProps>`
     box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.25);
     transform: translate3d(0, 2px, 0)
   }
-  ${props => props.variant === "filled" && cssFilled}
-  ${props => props.variant === "error" && cssError}
+  ${props => props.variant === 'filled' && cssFilled}
+  ${props => props.variant === 'error' && cssError}
   ${props => props.disabled && cssDisabled}
   ${width};
   ${space};
-`;
+`

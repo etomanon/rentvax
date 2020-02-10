@@ -1,5 +1,5 @@
-import styled, { keyframes, css } from "styled-components";
-import { width, WidthProps, space, SpaceProps } from "styled-system";
+import styled, { keyframes, css } from 'styled-components'
+import { width, WidthProps, space, SpaceProps } from 'styled-system'
 
 const move = keyframes`
   from {
@@ -9,16 +9,16 @@ const move = keyframes`
   to {
     transform: translate3D(100%, 0, 0);
   }
-`;
+`
 
 const cssLocal = css`
   position: static;
   top: auto;
   left: auto;
-`;
+`
 
 interface LoaderProps {
-  static?: boolean;
+  static?: boolean
 }
 
 export const Loader = styled.div<LoaderProps & SpaceProps>`
@@ -32,7 +32,7 @@ export const Loader = styled.div<LoaderProps & SpaceProps>`
   z-index: 999;
   ${props => props.static && cssLocal}
   ${space};
-`;
+`
 
 export const LoaderUpload = styled.div<WidthProps & SpaceProps>`
   height: 0.6rem;
@@ -40,4 +40,4 @@ export const LoaderUpload = styled.div<WidthProps & SpaceProps>`
   transition: all 0.2s ease-in;
   ${width};
   ${space};
-`;
+`

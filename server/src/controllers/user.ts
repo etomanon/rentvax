@@ -1,23 +1,23 @@
-import { getRepository } from "typeorm";
-import { User } from "./../entities/User";
-import { Request, Response } from "express";
+import { getRepository } from 'typeorm'
+import { User } from './../entities/User'
+import { Request, Response } from 'express'
 
 // import { send } from "../utils/send";
 // import { gotClientId, gotToken } from "../got/got";
 
 export const userGetCurrent = async (req: Request) => {
-  const user = await getRepository(User).findOne(req.user.id);
-  return user;
-};
+  const user = await getRepository(User).findOne(req.user.id)
+  return user
+}
 
 export const userGet = async (req: Request, res: Response) => {
-  const { email, role } = req.user;
+  const { email, role } = req.user
   const userSubset = {
     email,
-    role
-  };
-  res.json(userSubset);
-};
+    role,
+  }
+  res.json(userSubset)
+}
 
 // export const userGetSubs = async (req: Request, res: Response) => {
 //   try {

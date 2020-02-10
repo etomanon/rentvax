@@ -1,11 +1,11 @@
-import React from "react";
-import { Flex } from "@rebass/grid";
+import React from 'react'
+import { Flex } from '@rebass/grid'
 
-import { TextBoxWrapper } from "./styled/TextBox";
+import { TextBoxWrapper } from './styled/TextBox'
 
 interface TextBoxProps {
-  title: React.ReactElement;
-  text: React.ReactElement;
+  title: React.ReactElement
+  text: React.ReactElement
 }
 
 export const TextBox: React.FC<TextBoxProps> = ({ title, text }) => {
@@ -16,5 +16,5 @@ export const TextBox: React.FC<TextBoxProps> = ({ title, text }) => {
       </Flex>
       <Flex width={1}>{text}</Flex>
     </TextBoxWrapper>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { width, WidthProps, space, SpaceProps } from "styled-system";
+import styled from 'styled-components'
+import { width, WidthProps, space, SpaceProps } from 'styled-system'
 
 export const Input = styled.input<WidthProps & SpaceProps>`
   padding: 1rem 1.2rem;
@@ -14,4 +14,4 @@ export const Input = styled.input<WidthProps & SpaceProps>`
   }
   ${width};
   ${space};
-`;
+`

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { display, DisplayProps, space, SpaceProps } from "styled-system";
+import styled from 'styled-components'
+import { display, DisplayProps, space, SpaceProps } from 'styled-system'
 
 export const TextSubtitle = styled.div<DisplayProps & SpaceProps>`
   display: inline-block;
@@ -8,4 +8,4 @@ export const TextSubtitle = styled.div<DisplayProps & SpaceProps>`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.secondary};
   ${space};
-`;
+`

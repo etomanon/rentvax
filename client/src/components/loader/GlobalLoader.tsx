@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
-import { Loader } from "./styled/Loader";
-import { useSelectorApp } from "src/redux";
+import { Loader } from './styled/Loader'
+import { useSelectorApp } from 'src/redux'
 
 export const GlobalLoader: React.FC = () => {
-  const loading = useSelectorApp(state => state.loading);
-  return <>{loading > 0 ? <Loader /> : null}</>;
-};
+  const loading = useSelectorApp(state => state.loading)
+  return <>{loading > 0 ? <Loader /> : null}</>
+}

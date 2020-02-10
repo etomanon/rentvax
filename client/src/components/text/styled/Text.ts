@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 import {
   display,
   DisplayProps,
@@ -15,11 +15,11 @@ import {
   color,
   ColorProps,
   width,
-  WidthProps
-} from "styled-system";
+  WidthProps,
+} from 'styled-system'
 
 interface TextProps {
-  pointer?: boolean;
+  pointer?: boolean
 }
 
 const cssPointer = css`
@@ -28,7 +28,7 @@ const cssPointer = css`
     color: #fff;
     background: ${({ theme }) => theme.colors.primary};
   }
-`;
+`
 
 // eslint-disable-next-line
 export const Text = styled.div<
@@ -52,4 +52,4 @@ export const Text = styled.div<
   ${color};
   ${props => props.pointer && cssPointer};
   ${width};
-`;
+`

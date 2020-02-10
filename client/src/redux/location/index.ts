@@ -1,24 +1,24 @@
-import { Location } from "./../../utils/types/location";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Location } from './../../utils/types/location'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface State {
-  address?: Location;
+  address?: Location
 }
 
 const initialState = {
-  address: undefined
-};
+  address: undefined,
+}
 
 const slice = createSlice({
-  name: "location",
+  name: 'location',
   initialState: initialState as State,
   reducers: {
     locationSet: (state, action: PayloadAction<Location>) => {
-      state.address = action.payload;
-    }
-  }
-});
+      state.address = action.payload
+    },
+  },
+})
 
-export const { locationSet } = slice.actions;
+export const { locationSet } = slice.actions
 
-export default slice.reducer;
+export default slice.reducer

@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Checkbox = styled.input.attrs(() => ({
-  type: "checkbox"
+  type: 'checkbox',
 }))`
   display: none;
-`;
+`
 
 export const CheckboxLabel = styled.label`
   position: relative;
@@ -14,7 +14,7 @@ export const CheckboxLabel = styled.label`
     outline: none;
   }
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -27,7 +27,7 @@ export const CheckboxLabel = styled.label`
     transition: all 0.2s ease-in;
   }
   &:after {
-    content: "✕";
+    content: '✕';
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -54,4 +54,4 @@ export const CheckboxLabel = styled.label`
       border: 1px dotted ${({ theme }) => theme.colors.primary};
     }
   }
-`;
+`

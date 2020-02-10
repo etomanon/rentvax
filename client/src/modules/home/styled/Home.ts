@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Apartments from "../pics/apartments.jpg";
+import styled from 'styled-components'
+import Apartments from '../pics/apartments.jpg'
 
 export const HomeImg = styled.div`
   width: 100%;
@@ -24,4 +24,4 @@ export const HomeImg = styled.div`
     width: 52%;
     height: 40rem;
   }
-`;
+`

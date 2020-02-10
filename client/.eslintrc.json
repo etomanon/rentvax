@@ -12,6 +12,7 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
@@ -22,7 +23,6 @@
   "plugins": [
     "@typescript-eslint",
     "react",
-    "prettier",
     "react-hooks"
   ],
   "rules": {
