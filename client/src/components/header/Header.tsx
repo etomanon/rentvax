@@ -17,7 +17,7 @@ import {
   HeaderLink,
   HeaderNavLink,
 } from './styled/Header'
-import { useSelectorApp } from 'src/redux'
+import { useSelectorApp } from '@/redux'
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch()

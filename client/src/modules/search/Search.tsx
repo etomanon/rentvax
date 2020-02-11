@@ -14,7 +14,8 @@ import { Pin } from 'styled-icons/boxicons-solid/Pin'
 import styled from 'styled-components'
 import { TextSubtitle } from '../../components/text/styled/TextSubtitle'
 import { useResize } from '../../utils/hooks/useResize'
-import { useSelectorApp } from 'src/redux'
+import { useSelectorApp } from '@/redux'
+import { Button } from '@/components/button/styled/Button'
 
 const Icon = styled(Pin)
 
@@ -66,11 +67,14 @@ export const Search: React.FC = () => {
           </GoogleMap>
           <Flex width={0.3333} flexDirection="column" mx={2}>
             {location.address?.formatted_address && (
-              <Flex mb={2} alignItems="center">
-                <TextSubtitle>Vybraná adresa:</TextSubtitle>&nbsp;
-                <Text fontWeight={500}>
+              <Flex mb={2} alignItems="center" flexDirection="column">
+                <TextSubtitle>Vybraná adresa</TextSubtitle>
+                <Text mt={1} fontWeight={500} textAlign="center">
                   {location.address?.formatted_address}
                 </Text>
+                <Button variant="filled" width={1} my={2}>
+                  Přidat recenzi
+                </Button>
               </Flex>
             )}
             <Place />

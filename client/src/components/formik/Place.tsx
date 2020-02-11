@@ -28,7 +28,10 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
     setAddress(address)
   }
 
-  const onSelectHandler = async (address: string) => {
+  const onSelectHandler = async (address: string, placeId: null | string) => {
+    if (placeId === null) {
+      return
+    }
     callAsyncAction(async () => {
       dispatch(loadingAdd())
       const results = await geocodeByAddress(address)
@@ -58,6 +61,12 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
         searchOptions={{
           types: ['address'],
           componentRestrictions: { country: 'cz' },
+        }}
+        // @ts-ignore
+        filterPredictions={prediction => {
+          return prediction.types.some(
+            (p: string) => p === 'street_address' || p === 'premise'
+          )
         }}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (

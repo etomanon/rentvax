@@ -15,7 +15,7 @@ module.exports = isDev => {
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       alias: {
-        "src": path.resolve('./src')
+        "@": path.resolve('./src')
       }
     },
     output: {
