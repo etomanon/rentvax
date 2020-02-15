@@ -11,8 +11,9 @@ export const userGetCurrent = async (req: Request) => {
 }
 
 export const userGet = async (req: Request, res: Response) => {
-  const { email, role } = req.user
+  const { id, email, role } = req.user
   const userSubset = {
+    id,
     email,
     role,
   }

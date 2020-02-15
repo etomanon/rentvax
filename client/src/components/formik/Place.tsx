@@ -14,7 +14,6 @@ import { Input } from './styled/Input'
 import { locationSet } from '../../redux/location'
 import { Loader } from '../loader/styled/Loader'
 import { callAsyncAction } from '../../utils/func/callAsyncAction'
-import { loadingAdd, loadingRemove } from '../../redux/loading'
 
 interface PlaceProps {
   onSelect?: () => void
@@ -33,12 +32,10 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
       return
     }
     callAsyncAction(async () => {
-      dispatch(loadingAdd())
       const results = await geocodeByAddress(address)
       const result = results[0]
       const { place_id, formatted_address, types } = result
       const latLng = await getLatLng(result)
-      dispatch(loadingRemove())
       setAddress(formatted_address)
       dispatch(
         locationSet({

@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 type ContentType = 'application/json'
 type Body =
@@ -11,12 +13,12 @@ type Body =
   | null
   | undefined
 
-export const api = async <T extends {}, K extends {}>(
+export const api = async <T extends {} | null, K extends {} = {}>(
   url: string,
-  body: Body,
+  body?: Body,
   method: Method = 'GET',
   contentType: ContentType = 'application/json',
-  queryString: K
+  queryString?: K
 ) => {
   const queryStringParsed = queryString
     ? '?' + new URLSearchParams(queryString).toString()
@@ -37,6 +39,8 @@ export const api = async <T extends {}, K extends {}>(
         break
       }
     }
+  } else {
+    toast.error(`CHYBA: ${response.statusText}`)
   }
 
   return result

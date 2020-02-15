@@ -1,5 +1,8 @@
+import { AppThunk } from './../rootReducer'
+import { callAsyncAction } from './../../utils/func/callAsyncAction'
+import { api } from './../../utils/api/api'
 import { User } from './../../utils/types/user'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type State = User | null
 
@@ -9,15 +12,20 @@ const slice = createSlice({
   name: 'user',
   initialState: initialState as State,
   reducers: {
-    userGet: () => {
-      // TODO get if is logged
-    },
-    userLogout: () => {
-      // TODO loggout logic
-    },
+    userSet: (state, action: PayloadAction<User | null>) => action.payload,
   },
 })
 
-export const { userGet, userLogout } = slice.actions
+const { userSet } = slice.actions
+
+export const userGet = (): AppThunk => async dispatch => {
+  const user = await callAsyncAction(api<User>('user'))
+  dispatch(userSet(user))
+}
+
+export const userLogout = (): AppThunk => async dispatch => {
+  dispatch(userSet(null))
+  await callAsyncAction(api<null>('auth/logout'))
+}
 
 export default slice.reducer

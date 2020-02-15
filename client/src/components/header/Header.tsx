@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useSwipeable } from 'react-swipeable'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 
-import { userLogout, userGet } from '../../redux/user'
+import { userGet } from '../../redux/user'
 
 import { Text } from '../text/styled/Text'
 
@@ -81,11 +81,8 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
                 </HeaderNavLink>
               )}
               <HeaderLink
+                onClick={() => setActive(false)}
                 mt={[4, 0]}
-                onClick={() => {
-                  dispatch(userLogout())
-                  setActive(false)
-                }}
                 href="/api/auth/logout"
               >
                 Odhlásit se

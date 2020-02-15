@@ -15,7 +15,8 @@ module.exports = isDev => {
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       alias: {
-        "@": path.resolve('./src')
+        "@": path.resolve('./src'),
+        'react-dom': '@hot-loader/react-dom',
       }
     },
     output: {
@@ -78,35 +79,11 @@ module.exports = isDev => {
       // extracts CSS into separate files.
       // It creates a CSS file per JS file which contains CSS.
       new MiniCssExtractPlugin(),
-      ...(isDev ? [new webpack.HotModuleReplacementPlugin()] : []),
       new ForkTsCheckerWebpackPlugin({
         async: true
-      })
+      }),
+      ...(isDev ? [new webpack.HotModuleReplacementPlugin()] : []),
     ],
-    // splits node_modules by package
-    optimization: {
-      runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'all',
-        maxInitialRequests: Infinity,
-        minSize: 0,
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              // get the name. E.g. node_modules/packageName/not/this/part.js
-              // or node_modules/packageName
-              const packageName = module.context.match(
-                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-              )[1];
-
-              // npm package names are URL-safe, but some servers don't like @ symbols
-              return `npm.${packageName.replace('@', '')}`;
-            }
-          }
-        }
-      }
-    },
     devServer: {
       open: true,
       hot: true,

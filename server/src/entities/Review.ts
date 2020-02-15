@@ -18,6 +18,9 @@ export class Review {
   @Column({ type: 'enum', enum: Rating })
   rating: number
 
+  @Column({ length: '1500' })
+  description: string
+
   @ManyToOne(
     type => Flat,
     flat => flat.reviews
