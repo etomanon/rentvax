@@ -23,7 +23,7 @@ module.exports = isDev => {
       path: PATH_BUILD,
       filename: '[name].[hash].bundle.js'
     },
-    devtool: isDev ? 'eval' : 'source-map',
+    devtool: isDev ? 'eval' : 'cheap-module-source-map',
     module: {
       rules: [
         {

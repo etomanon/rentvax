@@ -15,9 +15,9 @@ type Body =
 
 export const api = async <T extends {} | null, K extends {} = {}>(
   url: string,
-  body?: Body,
   method: Method = 'GET',
   contentType: ContentType = 'application/json',
+  body?: Body,
   queryString?: K
 ) => {
   const queryStringParsed = queryString

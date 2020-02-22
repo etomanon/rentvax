@@ -43,7 +43,7 @@ export const GlobalStyles = createGlobalStyle`
 		margin-bottom: 0;
 	}
 
-	button, input, ::placeholder {
+	button, input, textarea, ::placeholder {
 		font-family: 'Montserrat', sans-serif;
 	}
 

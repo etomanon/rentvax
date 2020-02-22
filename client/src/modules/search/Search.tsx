@@ -16,12 +16,14 @@ import { TextSubtitle } from '../../components/text/styled/TextSubtitle'
 import { useResize } from '../../utils/hooks/useResize'
 import { useSelectorApp } from '@/redux'
 import { Button } from '@/components/button/styled/Button'
+import { useHistory } from 'react-router-dom'
 
 const Icon = styled(Pin)
 
 const prague = { lat: 50.0755381, lng: 14.4378005 }
 
 export const Search: React.FC = () => {
+  const history = useHistory()
   const location = useSelectorApp(state => state.location)
   const locationCenter = location.address?.latLng
   const geo = useGeolocation()
@@ -72,7 +74,12 @@ export const Search: React.FC = () => {
                 <Text mt={1} fontWeight={500} textAlign="center">
                   {location.address?.formatted_address}
                 </Text>
-                <Button variant="filled" width={1} my={2}>
+                <Button
+                  variant="filled"
+                  width={1}
+                  my={2}
+                  onClick={() => history.push('/review')}
+                >
                   Přidat recenzi
                 </Button>
               </Flex>
