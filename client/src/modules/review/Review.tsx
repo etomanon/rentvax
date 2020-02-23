@@ -9,10 +9,12 @@ import { TextSubtitle } from '@/components/text/styled/TextSubtitle'
 import { Flex } from '@/components/grid/Flex'
 import { Box } from '@rebass/grid'
 import { TextArea } from '@/components/formik/TextArea'
+import { Rating } from '@/components/formik/Rating'
+import { Button } from '@/components/button/styled/Button'
 
 interface FormValues {
   address?: string
-  rating: number | null
+  rating?: number
   description: string
   location: object
 }
@@ -28,12 +30,14 @@ export const Review: React.FC<RouteComponentProps> = () => {
           <Text color="primary" fontSize={4}>
             Vaše recenze
           </Text>
-          <TextSubtitle>{address?.formatted_address}</TextSubtitle>
+          <TextSubtitle textAlign="center">
+            {address?.formatted_address}
+          </TextSubtitle>
         </Flex>
         <Formik<FormValues>
           initialValues={{
             address: address?.formatted_address,
-            rating: null,
+            rating: undefined,
             description: '',
             location: {
               type: 'Point',
@@ -44,7 +48,7 @@ export const Review: React.FC<RouteComponentProps> = () => {
             address: Yup.string().required('Povinné'),
             rating: Yup.number()
               .required('Povinné')
-              .oneOf([0, 1, 2, 3, 4], 'Neplatná hodnota hodnocení'),
+              .oneOf([1, 2, 3, 4, 5], 'Neplatná hodnota hodnocení'),
             description: Yup.string()
               .max(5000, 'Max 5 000 znaků')
               .required('Povinné'),
@@ -61,10 +65,16 @@ export const Review: React.FC<RouteComponentProps> = () => {
           }}
         >
           <Form>
-            <Flex justifyContent="center">
-              <Flex width={0.5}>
+            <Flex alignItems="center" flexDirection="column">
+              <Flex width={[1, 0.5]}>
+                <Rating label="Hodnocení" name="rating" />
+              </Flex>
+              <Flex width={[1, 0.5]}>
                 <TextArea label="Recenze" name="description" rows={10} />
               </Flex>
+              <Button variant="filled" type="submit">
+                Vytvořit recenzi
+              </Button>
             </Flex>
           </Form>
         </Formik>

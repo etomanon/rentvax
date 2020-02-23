@@ -52,4 +52,8 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: 1.6rem;
 		line-height: 1.2;
 	}
+
+	.dv-star-rating-star i {
+		font-size: 4rem;
+	}
 `

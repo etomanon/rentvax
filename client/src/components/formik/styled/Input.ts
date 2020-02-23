@@ -5,10 +5,6 @@ interface Props {
   error?: boolean
 }
 
-export const Label = styled.label`
-  font-size: 1.8rem;
-`
-
 export const Input = styled.input<WidthProps & SpaceProps & Props>`
   padding: 1rem 1.2rem;
   border-radius: 4px;

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useField, FieldInputProps, FieldMetaProps } from 'formik'
 
-import { TextArea as TextAreaS, Label } from './styled/TextArea'
+import { TextArea as TextAreaS } from './styled/TextArea'
 import { ErrorMessage } from './styled/ErrorMessage'
 import { Flex } from '../grid/Flex'
+import { Label } from './styled/Label'
 
 interface Props {
   label: string
