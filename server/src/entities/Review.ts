@@ -3,11 +3,11 @@ import { Flat } from './Flat'
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
 
 enum Rating {
-  WORST,
-  BAD,
-  NORMAL,
-  GOOD,
-  BEST,
+  WORST = 1,
+  BAD = 2,
+  NORMAL = 3,
+  GOOD = 4,
+  BEST = 5,
 }
 
 @Entity()

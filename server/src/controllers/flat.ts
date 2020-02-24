@@ -2,9 +2,17 @@ import { Flat } from './../entities/Flat'
 import { getRepository } from 'typeorm'
 import { Request, Response } from 'express'
 
-export const flatGetId = async (id: string) => {
-  const results = await getRepository(Flat).findOne(id)
-  return results
+export const flatGetOrCreate = async (name: string, location: object) => {
+  let result = await getRepository(Flat).findOne({ name })
+  if (result) {
+    return result
+  }
+  const flat = await getRepository(Flat).create({
+    name,
+    location,
+  })
+  result = await getRepository(Flat).save(flat)
+  return result
 }
 
 export const flatGetName = async (req: Request, res: Response) => {

@@ -13,13 +13,21 @@ type Body =
   | null
   | undefined
 
-export const api = async <T extends {} | null, K extends {} = {}>(
-  url: string,
-  method: Method = 'GET',
-  contentType: ContentType = 'application/json',
-  body?: Body,
+interface ApiProps<T, K> {
+  url: string
+  method?: Method
+  contentType?: ContentType
+  body?: Body
   queryString?: K
-) => {
+}
+
+export const api = async <T extends {} | null, K extends {} = {}>({
+  url,
+  method = 'GET',
+  contentType = 'application/json',
+  body,
+  queryString,
+}: ApiProps<T, K>) => {
   const queryStringParsed = queryString
     ? '?' + new URLSearchParams(queryString).toString()
     : ''

@@ -19,13 +19,17 @@ const slice = createSlice({
 const { userSet } = slice.actions
 
 export const userGet = (): AppThunk => async dispatch => {
-  const user = await callAsyncAction(api<User>('user'))
+  const user = await callAsyncAction(
+    api<User>({ url: 'user' })
+  )
   dispatch(userSet(user))
 }
 
 export const userLogout = (): AppThunk => async dispatch => {
   dispatch(userSet(null))
-  await callAsyncAction(api<null>('auth/logout'))
+  await callAsyncAction(
+    api<null>({ url: 'auth/logout' })
+  )
 }
 
 export default slice.reducer

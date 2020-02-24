@@ -11,6 +11,8 @@ import { Box } from '@rebass/grid'
 import { TextArea } from '@/components/formik/TextArea'
 import { Rating } from '@/components/formik/Rating'
 import { Button } from '@/components/button/styled/Button'
+import { callAsyncAction } from '@/utils/func/callAsyncAction'
+import { api } from '@/utils/api/api'
 
 interface FormValues {
   address?: string
@@ -57,11 +59,15 @@ export const Review: React.FC<RouteComponentProps> = () => {
               coordinates: Yup.array(),
             }).required('Povinné'),
           })}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2))
-              setSubmitting(false)
-            }, 400)
+          onSubmit={async (values, { setSubmitting }) => {
+            callAsyncAction(
+              api({
+                url: 'review',
+                method: 'POST',
+                body: JSON.stringify(values),
+              })
+            )
+            setSubmitting(false)
           }}
         >
           <Form>
