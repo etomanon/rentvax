@@ -5,7 +5,7 @@ import * as review from '../controllers/review'
 
 export const router = Router()
 
-router.get('/review/:flatId', review.reviewGetFlat)
+router.post('/review/flat-name', review.reviewGetByFlatName)
 
 router.post('/review', logged, review.reviewPost)
 

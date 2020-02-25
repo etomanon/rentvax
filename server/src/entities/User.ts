@@ -1,5 +1,12 @@
 import { Review } from './Review'
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 enum Role {
   admin = 'admin',
@@ -25,4 +32,10 @@ export class User {
     review => review.user
   )
   reviews: Review[]
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date
 }

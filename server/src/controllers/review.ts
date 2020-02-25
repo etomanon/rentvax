@@ -5,14 +5,19 @@ import { Review } from '../entities/Review'
 import { getRepository, getConnection } from 'typeorm'
 import { Request, Response } from 'express'
 
-export const reviewGetFlat = async (req: Request, res: Response) => {
-  const results = await getRepository(Review).findOne({
-    relations: ['user', 'flat'],
-    where: {
-      // TODO: Maybe wrong?
-      'flat.id': req.params.flatId,
-    },
-  })
+export const reviewGetByFlatName = async (req: Request, res: Response) => {
+  const take = req.body.take || 10
+  const skip = req.body.skip || 0
+
+  const results = await getRepository(Review)
+    .createQueryBuilder('review')
+    .innerJoinAndSelect('review.user', 'user')
+    .innerJoinAndSelect('review.flat', 'flat')
+    .where('flat.name = :name', { name: req.body.flatName })
+    .skip(skip)
+    .take(take)
+    .getMany()
+
   return res.send(results)
 }
 
@@ -21,10 +26,11 @@ export const reviewPost = async (req: Request, res: Response) => {
   const { address, location, rating, description } = req.body
   const flat = await flatGetOrCreate(address, location)
   const RepositoryReview = await getRepository(Review)
-  if (RepositoryReview.find({ user, flat })) {
+  const reviews = await RepositoryReview.find({ user, flat })
+  if (reviews.length > 0) {
     res.statusMessage =
       'Cannot create multiple reviews for same flat from same user'
-    res.status(500).end()
+    return res.status(500).end()
   }
   const review = RepositoryReview.create({
     rating,
@@ -32,7 +38,7 @@ export const reviewPost = async (req: Request, res: Response) => {
     flat,
     user,
   })
-  const result = RepositoryReview.save(review)
+  const result = await RepositoryReview.save(review)
   await getConnection()
     .createQueryBuilder()
     .relation(Flat, 'reviews')

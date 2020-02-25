@@ -1,6 +1,13 @@
 import { User } from './User'
 import { Flat } from './Flat'
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 enum Rating {
   WORST = 1,
@@ -32,4 +39,10 @@ export class Review {
     user => user.reviews
   )
   user: User
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date
 }
