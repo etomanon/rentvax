@@ -78,7 +78,7 @@ export const Review: React.FC<RouteComponentProps> = () => {
               <Flex width={[1, 0.5]}>
                 <TextArea label="Recenze" name="description" rows={10} />
               </Flex>
-              <Button variant="filled" type="submit">
+              <Button variant="filled" type="submit" mt={3}>
                 Vytvořit recenzi
               </Button>
             </Flex>

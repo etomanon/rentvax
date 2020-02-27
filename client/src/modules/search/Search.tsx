@@ -12,6 +12,9 @@ import { Button } from '@/components/button/styled/Button'
 import { useHistory } from 'react-router-dom'
 import { api } from '@/utils/api/api'
 import { callAsyncAction } from '@/utils/func/callAsyncAction'
+import { Review } from '@/utils/types/review'
+import { ReviewItem } from '@/components/reviewItem/ReviewItem'
+import { groupBy } from 'lodash'
 
 const prague = { lat: 50.0755381, lng: 14.4378005 }
 
@@ -21,6 +24,7 @@ export const Search: React.FC = () => {
   const locationCenter = location.address?.latLng
   const geo = useGeolocation()
   const { ref, height } = useResize()
+  const [reviews, setReviews] = useState<Record<string, Review[]>>({})
   const center = useMemo(() => {
     return locationCenter
       ? locationCenter
@@ -33,8 +37,8 @@ export const Search: React.FC = () => {
 
   const loadReviews = useCallback(async () => {
     if (location.address) {
-      const reviews = await callAsyncAction(
-        api({
+      const reviews = await callAsyncAction<Review[]>(
+        api<Review[]>({
           url: 'review/flat-name',
           method: 'POST',
           body: JSON.stringify({
@@ -42,8 +46,7 @@ export const Search: React.FC = () => {
           }),
         })
       )
-      // TODO: display reviews, pagination
-      console.log('reviews', reviews)
+      setReviews(reviews ? (groupBy(reviews, 'flat.name') as any) : {})
     }
   }, [location.address])
 
@@ -98,6 +101,22 @@ export const Search: React.FC = () => {
               </Flex>
             )}
             <Place />
+
+            {Object.keys(reviews).map(key => (
+              <React.Fragment key={key}>
+                <Text mt={4} textAlign="center">
+                  Recenze pro
+                </Text>
+                <Text mt={1} textAlign="center">
+                  {key}
+                </Text>
+                {reviews[key].map(r => (
+                  <Flex key={r.id} mt={2} width={1}>
+                    <ReviewItem review={r} />
+                  </Flex>
+                ))}
+              </React.Fragment>
+            ))}
           </Flex>
         </Flex>
       )}
