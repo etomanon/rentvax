@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-enum Rating {
+export enum Rating {
   WORST = 1,
   BAD = 2,
   NORMAL = 3,

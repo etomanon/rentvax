@@ -17,25 +17,20 @@ export const Home: React.FC<RouteComponentProps> = () => {
   return (
     <>
       <Flex
-        flexWrap={['wrap', 'nowrap']}
+        flexWrap={['wrap', 'wrap', 'nowrap']}
         width="100%"
         alignContent="flex-start"
       >
         <Flex
           style={{ position: 'relative' }}
-          width={[1, 'auto']}
-          mt={['2rem', '10rem']}
-          mr={[0, '6rem', 'auto']}
+          width={[1, 1, 'auto']}
+          mt={['2rem', '2rem', '10rem']}
+          mr={[0, 0, '4rem', 'auto']}
           pb="2rem"
           flexDirection="column"
         >
           <TextHeader textAlign="center">Hodnocení podnájmů</TextHeader>
-          <Text
-            fontSize={3}
-            mt={['1rem', '1rem', '15rem']}
-            mb="2rem"
-            textAlign="center"
-          >
+          <Text fontSize={3} mt="1rem" mb="2rem" textAlign="center">
             Najděte adresu
           </Text>
           <Place onSelect={onSelect} />

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node-dev --respawn --no-notify --transpileOnly ./src/app.ts",
-    "lint:es": "eslint ./src/**/*.ts --fix"
+    "lint:es": "eslint ./src/**/*.ts --fix",
+    "db:seed": "ts-node-dev --no-notify ./src/db/seed.ts"
   },
   "engines": {
     "node": ">=12.14.1"

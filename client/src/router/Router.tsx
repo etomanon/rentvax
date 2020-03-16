@@ -18,7 +18,10 @@ export const Router: React.FC = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Header />
-      <WrapperMain p={['0 0.5rem', '0 0.5rem', '0']} m={['0', '0', '0 auto']}>
+      <WrapperMain
+        p={['0 0.5rem', '0 0.5rem', '0 0.5rem', '0']}
+        m={['0', '0', '0', '0 auto']}
+      >
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/review" component={Review} />

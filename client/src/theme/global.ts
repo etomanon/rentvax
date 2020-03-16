@@ -12,8 +12,9 @@ export const GlobalStyles = createGlobalStyle`
 		text-rendering: optimizeLegibility;
 		font-family: 'Montserrat', sans-serif;
 		-webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-		color: ${({ theme }) => theme.colors.text}
+    	overflow-x: hidden;
+		color: ${({ theme }) => theme.colors.text};
+		scroll-behavior: smooth;
 	}
   body {
 		padding-top: 5rem;

@@ -55,6 +55,7 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
         value={address}
         onChange={onChange}
         onSelect={onSelectHandler}
+        highlightFirstSuggestion
         searchOptions={{
           types: ['address'],
           componentRestrictions: { country: 'cz' },

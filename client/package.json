@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.2",
-    "@react-google-maps/api": "^1.8.3",
     "@rebass/grid": "^6.1.0",
     "@reduxjs/toolkit": "^1.2.5",
     "formik": "^2.1.4",
@@ -20,6 +19,7 @@
     "react-swipeable": "^5.5.1",
     "react-toastify": "^5.5.0",
     "react-transition-group": "^4.3.0",
+    "react-truncate": "^2.4.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "sanitize.css": "^11.0.0",
@@ -30,8 +30,8 @@
     "yup": "^0.28.1"
   },
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.js",
-    "build": "NODE_ENV=production webpack --config ./webpack/webpack.prod.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.prod.js",
     "lint:es": "eslint ./src/**/*.{ts,tsx} --fix",
     "lint:css": "stylelint ./src/**/*.{ts,tsx}"
   },
@@ -50,6 +50,7 @@
     "@types/react-star-rating-component": "^1.4.0",
     "@types/react-toastify": "^4.1.0",
     "@types/react-transition-group": "^4.2.3",
+    "@types/react-truncate": "^2.3.3",
     "@types/rebass__grid": "^6.0.5",
     "@types/styled-components": "^4.4.3",
     "@types/styled-react-modal": "^1.2.0",
@@ -59,6 +60,7 @@
     "@typescript-eslint/parser": "^2.19.2",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
