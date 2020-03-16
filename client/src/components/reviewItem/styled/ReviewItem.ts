@@ -15,44 +15,86 @@ export const Container = styled.div`
   width: 100%;
   border: 1px solid ${props => props.theme.colors.primary};
   border-radius: 4px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0;
   flex-direction: column;
 `
 
 export const Description = styled(Text)<
-  HeightProps & OverflowProps & MaxHeightProps
+  HeightProps & MaxHeightProps & { truncated: boolean }
 >`
   position: relative;
   transition: 0.3s height easy-in;
-  min-height: 5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   ${height}
   ${maxHeight}
-  ${overflow}
+  ${props =>
+    !props.truncated &&
+    css`
+      white-space: normal;
+      text-overflow: clip;
+    `}
 `
 
-export const Toggle = styled(Link).attrs({ noUnderline: true })<{
+export const Toggle = styled.a<{
   truncated: boolean
+  overflow: boolean
 }>`
+  display: ${props => (props.overflow ? 'static' : 'none')};
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 6rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  ${props =>
-    props.truncated
+  top: ${props => (props.truncated ? 0 : '4px')};
+  right: 8px;
+  width: 4px;
+  height: calc(100% - 4px);
+  transition: 0.25s ease-in all;
+
+  ${props => {
+    const { primary, secondary } = props.theme.colors
+    return props.truncated
       ? css`
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.95) 45%,
-            rgba(255, 255, 255, 1) 100%
-          );
+          background: ${primary};
+          &::before {
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 0.8rem solid transparent;
+            border-right: 0.8rem solid transparent;
+            border-top: 0.8rem solid ${primary};
+            transition: 0.25s ease-in all;
+          }
+          &:hover {
+            background: ${secondary};
+            &::before {
+              border-top: 0.8rem solid ${secondary};
+            }
+          }
         `
       : css`
-          position: static;
-          height: auto;
-        `}
+          background: ${secondary};
+          &::before {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 0.8rem solid transparent;
+            border-right: 0.8rem solid transparent;
+            border-bottom: 0.8rem solid ${secondary};
+            transition: 0.25s ease-in all;
+          }
+          &:hover {
+            background: ${primary};
+            &::before {
+              border-bottom: 0.8rem solid ${primary};
+            }
+          }
+        `
+  }}
 `

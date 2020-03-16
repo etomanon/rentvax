@@ -26,22 +26,22 @@ createConnection().then(async connection => {
 
   const repositoryFlat = getRepository(Flat)
   const flat1 = await repositoryFlat.save({
-    name: 'Komunardů 42, 170 00 Praha 7-Holešovice, Česko',
-    location: {
+    name: 'Na Poříčí 42, 110 00 Praha 1-Florenc, Česko',
+    geom: {
       type: 'Point',
-      coordinates: [14.4502365, 50.1057984],
+      coordinates: [14.4360319, 50.0901679],
     },
   })
   const flat2 = await repositoryFlat.save({
     name: 'Na Poříčí 42, 110 00 Praha 1-Florenc, Česko',
-    location: {
+    geom: {
       type: 'Point',
       coordinates: [14.4360319, 50.0901679],
     },
   })
   const flat3 = await repositoryFlat.save({
     name: 'Komunardů 20, 170 00 Praha 7-Holešovice, Česko',
-    location: {
+    geom: {
       type: 'Point',
       coordinates: [14.4501752, 50.1027142],
     },

@@ -26,12 +26,16 @@ export const Search: React.FC = () => {
 
   const loadReviews = useCallback(async () => {
     if (location.address) {
+      const { lng, lat } = location.address.latLng
       const reviews = await callAsyncAction<Review[]>(
         api<Review[]>({
-          url: 'review/flat-name',
+          url: 'review/distance',
           method: 'POST',
           body: JSON.stringify({
-            flatName: location.address.formatted_address,
+            geom: {
+              type: 'Point',
+              coordinates: [lng, lat],
+            },
           }),
         })
       )
@@ -75,7 +79,7 @@ export const Search: React.FC = () => {
             </Text>
             <Flex mx={-2} flexWrap="wrap" alignItems="flex-start">
               {reviews[key].map(r => (
-                <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.3333, 0.25]}>
+                <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.3333]}>
                   <ReviewItem review={r} />
                 </Flex>
               ))}

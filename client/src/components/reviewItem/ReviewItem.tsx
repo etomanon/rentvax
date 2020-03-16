@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Truncate from 'react-truncate'
 import { Review } from '@/utils/types/review'
 import { Container, Description, Toggle } from './styled/ReviewItem'
@@ -11,16 +11,35 @@ interface ReviewItemProps {
   review: Review
 }
 
+const isOverflown = ({
+  clientWidth,
+  clientHeight,
+  scrollWidth,
+  scrollHeight,
+}: HTMLElement) => {
+  return scrollHeight > clientHeight || scrollWidth > clientWidth
+}
+
 export const ReviewItem: React.FC<ReviewItemProps> = ({
   review: { id, rating, description, user, flat, createdAt, updatedAt },
 }) => {
+  const refDescription = useRef<HTMLDivElement>(null)
   const [truncated, setTruncated] = useState(true)
+  const [overflow, setOverflow] = useState(false)
   const onTruncate = () => {
     setTruncated(prev => !prev)
   }
+  const reviewId = `review${id.toString()}`
+
+  useEffect(() => {
+    if (refDescription.current) {
+      setOverflow(isOverflown(refDescription.current))
+    }
+  }, [refDescription])
+
   return (
-    <Container id={id.toString()}>
-      <Flex justifyContent="space-between">
+    <Container id={reviewId}>
+      <Flex justifyContent="space-between" mx={1}>
         <Stars name={id} rating={rating} />
         <Flex flexDirection="column">
           <Text mt={1} fontSize={1} textAlign="right">
@@ -34,18 +53,19 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
 
       <Description
         mt={1}
-        maxHeight={truncated ? '10rem' : 'auto'}
-        overflow="hidden"
+        ml={2}
+        pr="1.7rem"
+        maxHeight={truncated ? '5rem' : 'auto'}
+        truncated={truncated}
+        ref={refDescription}
       >
-        {!truncated && (
-          <Toggle href={`#${id}`} onClick={onTruncate} truncated={truncated}>
-            Čti méně
-          </Toggle>
-        )}
         {description}
-        <Toggle href={`#${id}`} onClick={onTruncate} truncated={truncated}>
-          {truncated ? 'Čti více' : 'Čti méně'}
-        </Toggle>
+        <Toggle
+          href={`#${reviewId}`}
+          onClick={onTruncate}
+          truncated={truncated}
+          overflow={overflow}
+        />
       </Description>
     </Container>
   )

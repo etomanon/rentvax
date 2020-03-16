@@ -2,14 +2,14 @@ import { Flat } from './../entities/Flat'
 import { getRepository } from 'typeorm'
 import { Request, Response } from 'express'
 
-export const flatGetOrCreate = async (name: string, location: object) => {
+export const flatGetOrCreate = async (name: string, geom: object) => {
   let result = await getRepository(Flat).findOne({ name })
   if (result) {
     return result
   }
   const flat = await getRepository(Flat).create({
     name,
-    location,
+    geom,
   })
   result = await getRepository(Flat).save(flat)
   return result

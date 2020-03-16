@@ -5,26 +5,45 @@ import { Review } from '../entities/Review'
 import { getRepository, getConnection } from 'typeorm'
 import { Request, Response } from 'express'
 
-export const reviewGetByFlatName = async (req: Request, res: Response) => {
+export const reviewGetByDistance = async (req: Request, res: Response) => {
   const take = req.body.take || 10
   const skip = req.body.skip || 0
 
-  const results = await getRepository(Review)
-    .createQueryBuilder('review')
-    .innerJoinAndSelect('review.user', 'user')
-    .innerJoinAndSelect('review.flat', 'flat')
-    .where('flat.name = :name', { name: req.body.flatName })
+  const flats = await getRepository(Flat)
+    .createQueryBuilder('flat')
+    .orderBy({
+      'ST_Distance(flat.geom, ST_GeomFromGeoJSON(:origin))': {
+        order: 'ASC',
+        nulls: 'NULLS FIRST',
+      },
+    })
+    .setParameters({ origin: JSON.stringify(req.body.geom) })
     .skip(skip)
     .take(take)
     .getMany()
 
-  return res.send(results)
+  let reviews: Review[] = []
+  for (const flat of flats) {
+    const reviewsFlat = await getRepository(Review)
+      .createQueryBuilder('review')
+      .innerJoinAndSelect('review.user', 'user')
+      .innerJoinAndSelect('review.flat', 'flat')
+      .where(`flat.id = (:flat)`, {
+        flat: flat.id,
+      })
+      .take(4)
+      .getMany()
+
+    reviews = [...reviews, ...reviewsFlat]
+  }
+
+  return res.send(reviews)
 }
 
 export const reviewPost = async (req: Request, res: Response) => {
   const user = await userGetCurrent(req)
-  const { address, location, rating, description } = req.body
-  const flat = await flatGetOrCreate(address, location)
+  const { address, geom, rating, description } = req.body
+  const flat = await flatGetOrCreate(address, geom)
   const RepositoryReview = await getRepository(Review)
   const reviews = await RepositoryReview.find({ user, flat })
   if (reviews.length > 0) {

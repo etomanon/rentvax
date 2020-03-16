@@ -18,7 +18,7 @@ interface FormValues {
   address?: string
   rating?: number
   description: string
-  location: object
+  geom: object
 }
 
 export const Review: React.FC<RouteComponentProps> = () => {
@@ -41,7 +41,7 @@ export const Review: React.FC<RouteComponentProps> = () => {
             address: address?.formatted_address,
             rating: undefined,
             description: '',
-            location: {
+            geom: {
               type: 'Point',
               coordinates: [address?.latLng.lng, address?.latLng.lat],
             },
@@ -54,7 +54,7 @@ export const Review: React.FC<RouteComponentProps> = () => {
             description: Yup.string()
               .max(5000, 'Max 5 000 znaků')
               .required('Povinné'),
-            location: Yup.object({
+            geom: Yup.object({
               type: Yup.string(),
               coordinates: Yup.array(),
             }).required('Povinné'),
@@ -72,10 +72,10 @@ export const Review: React.FC<RouteComponentProps> = () => {
         >
           <Form>
             <Flex alignItems="center" flexDirection="column">
-              <Flex width={[1, 0.5]}>
+              <Flex width={[1, 0.75, 0.5]}>
                 <Rating label="Hodnocení" name="rating" />
               </Flex>
-              <Flex width={[1, 0.5]}>
+              <Flex width={[1, 0.75, 0.5]}>
                 <TextArea label="Recenze" name="description" rows={10} />
               </Flex>
               <Button variant="filled" type="submit" mt={3}>

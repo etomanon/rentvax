@@ -18,7 +18,7 @@ export class Flat {
 
   // https://github.com/typeorm/typeorm/issues/2610#issuecomment-473903882
   @Column({ type: 'geography', srid: 4326, spatialFeatureType: 'Point' })
-  location: object
+  geom: object
 
   @OneToMany(
     () => Review,

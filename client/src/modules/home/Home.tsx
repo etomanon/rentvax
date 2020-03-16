@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 
 import { Flex } from '../../components/grid/Flex'
