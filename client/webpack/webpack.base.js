@@ -23,7 +23,7 @@ module.exports = isDev => {
       path: PATH_BUILD,
       filename: '[name].[hash].bundle.js'
     },
-    devtool: isDev ? 'eval' : 'cheap-module-source-map',
+    devtool: isDev ? 'cheap-module-source-map' : undefined,
     module: {
       rules: [
         {
@@ -46,6 +46,7 @@ module.exports = isDev => {
             options: {
               plugins: isDev
                 ? [
+                  'babel-plugin-styled-components',
                   '@babel/plugin-syntax-dynamic-import',
                   'react-hot-loader/babel'
                 ]
@@ -63,7 +64,7 @@ module.exports = isDev => {
           loader: 'ts-loader',
           options: {
             // disable type checker - we will use it in Fork TS Checker Webpack Plugin
-            transpileOnly: true
+            transpileOnly: true,
           }
         }
       ]
@@ -80,10 +81,14 @@ module.exports = isDev => {
       // It creates a CSS file per JS file which contains CSS.
       new MiniCssExtractPlugin(),
       new ForkTsCheckerWebpackPlugin({
-        async: true
+        async: true,
       }),
       ...(isDev ? [new webpack.HotModuleReplacementPlugin()] : []),
     ],
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+    }},
     devServer: {
       open: true,
       hot: true,
@@ -94,5 +99,5 @@ module.exports = isDev => {
         '/api': 'http://localhost:3001'
       }
     }
-  };
-};
+  }
+}

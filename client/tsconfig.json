@@ -11,6 +11,7 @@
       "@/*": ["./src/*"]
     },
     "removeComments": true,
+    "sourceMap": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
