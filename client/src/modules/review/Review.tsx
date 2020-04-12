@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react'
-import { RouteComponentProps, Redirect } from 'react-router-dom'
+import React, { useEffect, useState, useMemo } from 'react'
+import { RouteComponentProps } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { useSelectorApp } from '@/redux'
 import { Formik, Form } from 'formik'
 import { Text } from '@/components/text/styled/Text'
-import { TextSubtitle } from '@/components/text/styled/TextSubtitle'
 import { Flex } from '@/components/grid/Flex'
 import { Box } from '@rebass/grid'
 import { TextArea } from '@/components/formik/TextArea'
 import { Rating } from '@/components/formik/Rating'
 import { Button } from '@/components/button/styled/Button'
-import { callAsyncAction } from '@/utils/func/callAsyncAction'
-import { api } from '@/utils/api/api'
+import { callApi } from '@/utils/func/callApi'
+import { ADRESS_TYPES_FILTER, Place } from '@/components/formik/Place'
 
 interface FormValues {
   address?: string
@@ -21,20 +20,41 @@ interface FormValues {
   geom: object
 }
 
-export const Review: React.FC<RouteComponentProps> = () => {
+export const Review = () => {
   const address = useSelectorApp(state => state.location.address)
+  const [error, setError] = useState<string | undefined>(undefined)
+  const addressValid = useMemo(
+    () =>
+      address &&
+      address.types.some(
+        t => ADRESS_TYPES_FILTER.findIndex(f => f === t) !== -1
+      ),
+    [address]
+  )
 
+  useEffect(() => {
+    if (addressValid) {
+      setError(undefined)
+    } else {
+      setError(
+        'Vyberte prosím přesnou adresu s číslem popisným - např. napište Roosveltova 42 a poté vyberte adresu ze seznamu'
+      )
+    }
+  }, [addressValid])
   return (
     <>
-      {!address && <Redirect to="/" />}
       <Box width={1}>
         <Flex flexDirection="column" width={1} alignItems="center" my={3}>
-          <Text color="primary" fontSize={4}>
+          <Text color="secondary" fontSize={4}>
             Vaše recenze
           </Text>
-          <TextSubtitle textAlign="center">
-            {address?.formatted_address}
-          </TextSubtitle>
+          <Flex width={[1, 0.75, 0.5]} flexDirection="column" mt={3}>
+            <Place
+              filterPredictions={false}
+              initAddress={address?.formatted_address}
+              error={error}
+            />
+          </Flex>
         </Flex>
         <Formik<FormValues>
           initialValues={{
@@ -60,13 +80,15 @@ export const Review: React.FC<RouteComponentProps> = () => {
             }).required('Povinné'),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            callAsyncAction(
-              api({
-                url: 'review',
-                method: 'POST',
-                body: JSON.stringify(values),
-              })
-            )
+            if (!addressValid) {
+              setSubmitting(false)
+              return
+            }
+            callApi({
+              url: 'review',
+              method: 'POST',
+              body: JSON.stringify(values),
+            })
             setSubmitting(false)
           }}
         >

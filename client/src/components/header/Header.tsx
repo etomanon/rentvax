@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 
-import { userGet } from '../../redux/user'
-
 import { Text } from '../text/styled/Text'
+import { RoutePathEnum } from '@/router/routes'
 
 import {
   HeaderTitleWrapper,
@@ -20,12 +18,8 @@ import {
 import { useSelectorApp } from '@/redux'
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
-  const dispatch = useDispatch()
   const user = useSelectorApp(state => state.user)
   const [active, setActive] = useState(false)
-  useEffect(() => {
-    dispatch(userGet())
-  }, [dispatch])
   const handlers = useSwipeable({
     onSwipedRight: () => setActive(prev => !prev),
     trackMouse: true,
@@ -63,23 +57,13 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
             <>
               <HeaderNavLink
                 exact
-                to="/dashboard"
+                to={RoutePathEnum.REVIEW}
                 mr={[0, '4.5rem', '7rem']}
                 mb={[2, 0]}
                 onClick={() => setActive(false)}
               >
-                Dashboard
+                Přidat recenzi
               </HeaderNavLink>
-              {user.role !== 'user' && (
-                <HeaderNavLink
-                  to="/download"
-                  mr={[0, '4.5rem', '7rem']}
-                  mb={[2, 0]}
-                  onClick={() => setActive(false)}
-                >
-                  Soubory
-                </HeaderNavLink>
-              )}
               <HeaderLink
                 onClick={() => setActive(false)}
                 mt={[4, 0]}

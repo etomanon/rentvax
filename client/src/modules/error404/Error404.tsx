@@ -5,7 +5,7 @@ import { Text } from '../../components/text/styled/Text'
 
 export const Error404: React.FC<RouteComponentProps> = () => {
   return (
-    <Text display="block" textAlign="center">
+    <Text color="primary" fontSize={5} textAlign="center" width={1}>
       Nenalezeno
     </Text>
   )

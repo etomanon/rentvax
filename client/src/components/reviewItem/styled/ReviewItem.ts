@@ -41,47 +41,60 @@ export const Toggle = styled.a<{
   truncated: boolean
   overflow: boolean
 }>`
-  display: ${props => (props.overflow ? 'static' : 'none')};
+  display: ${props => (props.overflow ? 'block' : 'none')};
   position: absolute;
-  top: ${props => (props.truncated ? 0 : '4px')};
-  right: 8px;
-  width: 4px;
+  top: 0;
+  right: 2px;
   height: calc(100% - 4px);
-  transition: 0.25s ease-in all;
+  width: 2rem;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: ${props => (props.truncated ? 0 : '4px')};
+    height: 100%;
+    width: 2px;
+    transition: 0.25s ease-in all;
+  }
 
   ${props => {
     const { primary, secondary } = props.theme.colors
     return props.truncated
       ? css`
-          background: ${primary};
+          &::after {
+            background: ${primary};
+          }
           &::before {
+            content: '';
             position: absolute;
-            bottom: -2px;
+            top: calc(50% - 1px);
             left: 50%;
             transform: translate(-50%, 0);
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 0.8rem solid transparent;
-            border-right: 0.8rem solid transparent;
-            border-top: 0.8rem solid ${primary};
+            width: 100%;
+            height: 2px;
+            background: ${primary};
             transition: 0.25s ease-in all;
           }
           &:hover {
-            background: ${secondary};
+            &::after {
+              background: ${secondary};
+            }
             &::before {
-              border-top: 0.8rem solid ${secondary};
+              background: ${secondary};
             }
           }
         `
       : css`
-          background: ${secondary};
+          &::after {
+            background: ${secondary};
+          }
           &::before {
+            content: '';
             position: absolute;
-            top: -2px;
+            top: 0;
             left: 50%;
             transform: translate(-50%, 0);
-            content: '';
             width: 0;
             height: 0;
             border-left: 0.8rem solid transparent;
@@ -90,7 +103,9 @@ export const Toggle = styled.a<{
             transition: 0.25s ease-in all;
           }
           &:hover {
-            background: ${primary};
+            &::after {
+              background: ${primary};
+            }
             &::before {
               border-bottom: 0.8rem solid ${primary};
             }

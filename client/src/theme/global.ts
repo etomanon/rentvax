@@ -48,6 +48,13 @@ export const GlobalStyles = createGlobalStyle`
 		font-family: 'Montserrat', sans-serif;
 	}
 
+	a {
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline
+		}
+	}
+
 	.MuiSnackbarContent-message {
 		font-family: 'Montserrat', sans-serif;
 		font-size: 1.6rem;

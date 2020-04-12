@@ -14,16 +14,30 @@ import { Input } from './styled/Input'
 import { locationSet } from '../../redux/location'
 import { Loader } from '../loader/styled/Loader'
 import { callAsyncAction } from '../../utils/func/callAsyncAction'
+import { ErrorMessage } from './styled/ErrorMessage'
+
+export const ADRESS_TYPES_FILTER = ['street_address', 'premise']
 
 interface PlaceProps {
   onSelect?: () => void
+  filterPredictions?: boolean
+  initAddress?: string
+  error?: string
 }
 
-export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
+export const Place: React.FC<PlaceProps> = ({
+  onSelect,
+  filterPredictions = true,
+  initAddress = '',
+  error,
+}) => {
   const dispatch = useDispatch()
-  const [address, setAddress] = useState('')
+  const [address, setAddress] = useState(initAddress)
   const onChange = (address: string) => {
-    // dispatch(locationSet(undefined));
+    if (address === '') {
+      dispatch(locationSet(undefined))
+    }
+
     setAddress(address)
   }
 
@@ -62,8 +76,11 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
         }}
         // @ts-ignore
         filterPredictions={prediction => {
+          if (filterPredictions) {
+            return true
+          }
           return prediction.types.some(
-            (p: string) => p === 'street_address' || p === 'premise'
+            (p: string) => ADRESS_TYPES_FILTER.findIndex(f => f === p) !== -1
           )
         }}
       >
@@ -74,6 +91,7 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
                 placeholder: 'Rooseveltova 42',
                 className: 'location-search-input',
               })}
+              error={error ? true : false}
             />
             <PlaceSuggestionWrapper>
               {loading && <Loader mt=".5rem" static />}
@@ -93,6 +111,7 @@ export const Place: React.FC<PlaceProps> = ({ onSelect }) => {
           </PlacesContainer>
         )}
       </PlacesAutocomplete>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </>
   )
 }

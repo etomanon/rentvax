@@ -1,5 +1,5 @@
 import React from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { Flex } from '../../components/grid/Flex'
 import { Text } from '../../components/text/styled/Text'
@@ -7,11 +7,12 @@ import { TextHeader } from '../../components/text/styled/TextHeader'
 import { Place } from '../../components/formik/Place'
 
 import { HomeImg } from './styled/Home'
+import { RoutePathEnum } from '@/router/routes'
 
-export const Home: React.FC<RouteComponentProps> = () => {
+export const Home = () => {
   const { push } = useHistory()
   const onSelect = () => {
-    push('/search')
+    push(RoutePathEnum.SEARCH)
   }
 
   return (

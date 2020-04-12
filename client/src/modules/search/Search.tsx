@@ -13,13 +13,17 @@ import { Review } from '@/utils/types/review'
 import { ReviewItem } from '@/components/reviewItem/ReviewItem'
 import { groupBy } from 'lodash'
 import { NativeMap } from '@/utils/types/helpers'
+import { callApi } from '@/utils/func/callApi'
+import { RoutePathEnum } from '@/router/routes'
+import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
 
 const prague = { lat: 50.0755381, lng: 14.4378005 }
 
 type ReviewState = NativeMap<Review[]>
 
-export const Search: React.FC = () => {
+export const Search = () => {
   const history = useHistory()
+  const user = useSelectorApp(state => state.user)
   const location = useSelectorApp(state => state.location)
   const geo = useGeolocation()
   const [reviews, setReviews] = useState<ReviewState>({})
@@ -27,18 +31,16 @@ export const Search: React.FC = () => {
   const loadReviews = useCallback(async () => {
     if (location.address) {
       const { lng, lat } = location.address.latLng
-      const reviews = await callAsyncAction<Review[]>(
-        api<Review[]>({
-          url: 'review/distance',
-          method: 'POST',
-          body: JSON.stringify({
-            geom: {
-              type: 'Point',
-              coordinates: [lng, lat],
-            },
-          }),
-        })
-      )
+      const reviews = await callApi<Review[]>({
+        url: 'review/distance',
+        method: 'POST',
+        body: JSON.stringify({
+          geom: {
+            type: 'Point',
+            coordinates: [lng, lat],
+          },
+        }),
+      })
       setReviews(reviews ? (groupBy(reviews, 'flat.name') as ReviewState) : {})
     }
   }, [location.address])
@@ -61,22 +63,38 @@ export const Search: React.FC = () => {
                 variant="filled"
                 width={1}
                 my={2}
-                onClick={() => history.push('/review')}
+                onClick={() => history.push(RoutePathEnum.REVIEW)}
+                disabled={!user}
               >
                 Přidat recenzi
               </Button>
+              {!user && (
+                <Text mt={1} mb={3}>
+                  Pro přidání recenze se musíte přihlásit
+                </Text>
+              )}
             </Flex>
           )}
           <Place />
         </Flex>
         {Object.keys(reviews).map(key => (
           <React.Fragment key={key}>
-            <Text mt={4} textAlign="center">
-              Recenze pro
-            </Text>
-            <Text mt={1} textAlign="center">
+            <TextSubtitle
+              as="a"
+              mt={4}
+              textAlign="center"
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                key
+              )}`}
+              target="_blank"
+            >
               {key}
-            </Text>
+              <MapMarkerAlt
+                style={{ marginLeft: '1rem' }}
+                width="1.5rem"
+                height="2rem"
+              />
+            </TextSubtitle>
             <Flex mx={-2} flexWrap="wrap" alignItems="flex-start">
               {reviews[key].map(r => (
                 <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.3333]}>

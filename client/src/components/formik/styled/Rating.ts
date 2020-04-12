@@ -6,6 +6,7 @@ interface Props {
 }
 
 export const RaitingContainer = styled(Flex)<Props>`
+  border-radius: 4px;
   ${props =>
     props.error &&
     css`

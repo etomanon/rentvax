@@ -11,6 +11,7 @@ export const PlaceSuggestionWrapper = styled.div`
   box-shadow: 0px 5px 1rem 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   overflow: hidden;
+  z-index: 1;
 `
 
 interface PlaceSuggestionItemProps {

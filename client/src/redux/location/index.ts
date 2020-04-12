@@ -13,7 +13,7 @@ const slice = createSlice({
   name: 'location',
   initialState: initialState as State,
   reducers: {
-    locationSet: (state, action: PayloadAction<Location>) => {
+    locationSet: (state, action: PayloadAction<Location | undefined>) => {
       state.address = action.payload
     },
   },

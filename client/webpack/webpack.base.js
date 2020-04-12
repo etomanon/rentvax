@@ -97,7 +97,8 @@ module.exports = isDev => {
       contentBase: PATH_BUILD,
       proxy: {
         '/api': 'http://localhost:3001'
-      }
+      },
+      clientLogLevel: 'silent'
     }
   }
 }
