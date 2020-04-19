@@ -6,10 +6,10 @@ import { getRepository, getConnection } from 'typeorm'
 import { Request, Response } from 'express'
 
 export const reviewGetByDistance = async (req: Request, res: Response) => {
-  const take = req.body.take || 10
-  const skip = req.body.skip || 0
+  const take = req.body.take
+  const skip = req.body.skip
 
-  const flats = await getRepository(Flat)
+  const flatsNearest = await getRepository(Flat)
     .createQueryBuilder('flat')
     .orderBy({
       'ST_Distance(flat.geom, ST_GeomFromGeoJSON(:origin))': {
@@ -18,6 +18,10 @@ export const reviewGetByDistance = async (req: Request, res: Response) => {
       },
     })
     .setParameters({ origin: JSON.stringify(req.body.geom) })
+
+  const flatsCount = await flatsNearest.getCount()
+
+  const flats = await flatsNearest
     .skip(skip)
     .take(take)
     .getMany()
@@ -31,13 +35,14 @@ export const reviewGetByDistance = async (req: Request, res: Response) => {
       .where(`flat.id = (:flat)`, {
         flat: flat.id,
       })
-      .take(4)
+      .orderBy('review.updatedAt', 'ASC')
+      .take(3)
       .getMany()
 
     reviews = [...reviews, ...reviewsFlat]
   }
 
-  return res.send(reviews)
+  return res.send({ result: reviews, count: flatsCount })
 }
 
 export const reviewPost = async (req: Request, res: Response) => {

@@ -15,14 +15,16 @@ import { routes, RoutePermissionEnum } from './routes'
 
 export const Router: React.FC = () => {
   const dispatch = useDispatch()
-  const user = useSelectorApp(state => state.user)
+  const user = useSelectorApp((state) => state.user)
   useEffect(() => {
     dispatch(userGet())
   }, [dispatch])
 
   const routesFiltered = useMemo(
     () =>
-      routes.filter(r => !(r.permission === RoutePermissionEnum.USER && !user)),
+      routes.filter(
+        (r) => !(r.permission === RoutePermissionEnum.USER && !user)
+      ),
     [user]
   )
   return (
@@ -34,14 +36,14 @@ export const Router: React.FC = () => {
         m={['0', '0', '0', '0 auto']}
       >
         <Switch>
-          {routesFiltered.map(r => (
+          {routesFiltered.map((r) => (
             <Route key={r.path} exact path={r.path} component={r.component} />
           ))}
 
           <Route component={Error404} />
         </Switch>
       </WrapperMain>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   )
 }

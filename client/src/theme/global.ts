@@ -4,9 +4,11 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
 		width: 100%;
+		height: 100%;
 		overflow-x: hidden
   }
   body {
+		height: 100%;
 		margin: 0;
 		padding: 0;
 		text-rendering: optimizeLegibility;
@@ -16,13 +18,11 @@ export const GlobalStyles = createGlobalStyle`
 		scroll-behavior: smooth;
 		padding-top: 5rem;
     font-size: 1.6rem;
-		overflow-x:hidden 
   }
 
 	#root {
-		height: 100%;
-		display:flex; 
-  	flex-direction:column; 
+		display: flex; 
+  	flex-direction: column; 
 	}
 
 	h1,

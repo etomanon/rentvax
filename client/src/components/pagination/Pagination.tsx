@@ -22,6 +22,9 @@ type Props<T> = {
   take: number
 }
 
+let controller = new AbortController()
+let signal = controller.signal
+
 export const Pagination = <T extends {}>({
   apiProps,
   onLoad,
@@ -30,12 +33,15 @@ export const Pagination = <T extends {}>({
   const [count, setCount] = useState<number | null>(null)
   const [skip, setSkip] = useState(0)
   useEffect(() => {
-    // TODO: Cancel previous call
     const call = async () => {
       if (apiProps) {
+        controller.abort()
+        controller = new AbortController()
+        signal = controller.signal
         const response = await callApi<Pagination<T>>({
           ...apiProps,
           body: { ...(apiProps.body as object), skip, take },
+          signal,
         })
         if (response) {
           onLoad(response.result)
@@ -57,7 +63,7 @@ export const Pagination = <T extends {}>({
   const pageActive = useMemo(() => Math.floor(skip / take), [take, skip])
   const pages = useMemo(() => {
     const siblings = [-2, -1, 0, 1, 2]
-    return siblings.map(s => pageActive + s)
+    return siblings.map((s) => pageActive + s)
   }, [pageActive])
   const pageMax = useMemo(() => (count ? Math.ceil(count / take) : 0), [
     take,
@@ -79,7 +85,7 @@ export const Pagination = <T extends {}>({
               />
             )}
             {pages.map(
-              page =>
+              (page) =>
                 page > -1 &&
                 page < pageMax && (
                   <PaginationNumber

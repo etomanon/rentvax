@@ -16,6 +16,7 @@ import { RoutePathEnum } from '@/router/routes'
 import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
 import { Pagination } from '@/components/pagination/Pagination'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
+import { Popup } from '@/components/popup/Popup'
 
 const prague = { lat: 50.0755381, lng: 14.4378005 }
 
@@ -23,9 +24,10 @@ type ReviewState = NativeMap<Review[]>
 
 export const Search = () => {
   const history = useHistory()
+  const [refBut, setBut] = useState<HTMLDivElement | null>(null)
   const refList = useRef<HTMLDivElement>(null)
-  const user = useSelectorApp(state => state.user)
-  const location = useSelectorApp(state => state.location)
+  const user = useSelectorApp((state) => state.user)
+  const location = useSelectorApp((state) => state.location)
   const geo = useGeolocation()
   const [reviews, setReviews] = useState<ReviewState>({})
 
@@ -66,15 +68,21 @@ export const Search = () => {
               <Text mt={1} fontWeight={500} textAlign="center">
                 {location.address?.formatted_address}
               </Text>
-              <Button
-                variant="filled"
-                width={1}
-                my={2}
-                onClick={() => history.push(RoutePathEnum.REVIEW)}
-                disabled={!user}
-              >
-                Přidat recenzi
-              </Button>
+              <div ref={setBut}>
+                <Button
+                  variant="filled"
+                  width={1}
+                  my={2}
+                  onClick={() => history.push(RoutePathEnum.REVIEW)}
+                  disabled={!user}
+                >
+                  Přidat recenzi
+                </Button>
+              </div>
+              <Popup refEl={refBut}>
+                <div style={{ background: 'red' }}>Pop up lorem ipsum </div>
+              </Popup>
+
               {!user && (
                 <Text mt={1} mb={3}>
                   Pro přidání recenze se musíte přihlásit
@@ -85,7 +93,7 @@ export const Search = () => {
           <Place />
         </Flex>
         <div ref={refList} />
-        {Object.keys(reviews).map(key => (
+        {Object.keys(reviews).map((key) => (
           <React.Fragment key={key}>
             <TextSubtitle
               as="a"
@@ -104,7 +112,7 @@ export const Search = () => {
               />
             </TextSubtitle>
             <Flex mx={-2} flexWrap="wrap" alignItems="flex-start">
-              {reviews[key].map(r => (
+              {reviews[key].map((r) => (
                 <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.3333]}>
                   <ReviewItem review={r} />
                 </Flex>
@@ -113,7 +121,7 @@ export const Search = () => {
           </React.Fragment>
         ))}
         <Flex mt={3} mb={3} justifyContent="center">
-          <Pagination<Review> onLoad={onLoad} take={1} apiProps={apiProps} />
+          <Pagination<Review> onLoad={onLoad} take={5} apiProps={apiProps} />
         </Flex>
       </Flex>
     </>

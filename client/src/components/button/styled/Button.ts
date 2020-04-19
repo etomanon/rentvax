@@ -61,9 +61,9 @@ export const Button = styled.button<ButtonProps & WidthProps & SpaceProps>`
     box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.25);
     transform: translate3d(0, 2px, 0)
   }
-  ${props => props.variant === 'filled' && cssFilled}
-  ${props => props.variant === 'error' && cssError}
-  ${props => props.disabled && cssDisabled}
+  ${(props) => props.variant === 'filled' && cssFilled}
+  ${(props) => props.variant === 'error' && cssError}
+  ${(props) => props.disabled && cssDisabled}
   ${width};
   ${space};
 `

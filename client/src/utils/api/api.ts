@@ -23,6 +23,7 @@ export interface ApiProps {
   body?: Body
   queryString?: any
   noError?: boolean
+  signal?: AbortSignal
 }
 
 export const api = async <T extends {} | null>({
@@ -32,6 +33,7 @@ export const api = async <T extends {} | null>({
   body,
   queryString,
   noError,
+  signal,
 }: ApiProps) => {
   let queryStringParsed: string
   let response: Response
@@ -53,12 +55,17 @@ export const api = async <T extends {} | null>({
         'Content-Type': contentType,
       },
       body,
+      signal,
     })
   } catch (e) {
     if (noError) {
       return null
     }
+    if (e.name === 'AbortError') {
+      return null
+    }
     toast.error(`Chyba sítě: ${e.message}`)
+    console.log('e', e)
     return null
   }
 
