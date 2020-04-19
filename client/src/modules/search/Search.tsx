@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useGeolocation } from '../../utils/hooks/useGeolocation'
 import { Place } from '../../components/formik/Place'
 import { Flex } from '../../components/grid/Flex'
@@ -7,15 +7,15 @@ import { TextSubtitle } from '../../components/text/styled/TextSubtitle'
 import { useSelectorApp } from '@/redux'
 import { Button } from '@/components/button/styled/Button'
 import { useHistory } from 'react-router-dom'
-import { api } from '@/utils/api/api'
-import { callAsyncAction } from '@/utils/func/callAsyncAction'
+import { ApiProps } from '@/utils/api/api'
 import { Review } from '@/utils/types/review'
 import { ReviewItem } from '@/components/reviewItem/ReviewItem'
 import { groupBy } from 'lodash'
 import { NativeMap } from '@/utils/types/helpers'
-import { callApi } from '@/utils/func/callApi'
 import { RoutePathEnum } from '@/router/routes'
 import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
+import { Pagination } from '@/components/pagination/Pagination'
+import { scrollSmooth } from '@/utils/func/scrollSmooth'
 
 const prague = { lat: 50.0755381, lng: 14.4378005 }
 
@@ -23,31 +23,38 @@ type ReviewState = NativeMap<Review[]>
 
 export const Search = () => {
   const history = useHistory()
+  const refList = useRef<HTMLDivElement>(null)
   const user = useSelectorApp(state => state.user)
   const location = useSelectorApp(state => state.location)
   const geo = useGeolocation()
   const [reviews, setReviews] = useState<ReviewState>({})
 
-  const loadReviews = useCallback(async () => {
+  const apiProps: ApiProps | null = useMemo(() => {
     if (location.address) {
       const { lng, lat } = location.address.latLng
-      const reviews = await callApi<Review[]>({
+      return {
         url: 'review/distance',
         method: 'POST',
-        body: JSON.stringify({
+        body: {
           geom: {
             type: 'Point',
             coordinates: [lng, lat],
           },
-        }),
-      })
-      setReviews(reviews ? (groupBy(reviews, 'flat.name') as ReviewState) : {})
+        },
+      }
     }
+    return null
   }, [location.address])
 
-  useEffect(() => {
-    loadReviews()
-  }, [location, loadReviews])
+  const onLoad = useCallback(
+    async (result?: Review[]) => {
+      setReviews(result ? (groupBy(result, 'flat.name') as ReviewState) : {})
+      if (refList.current) {
+        scrollSmooth(refList.current)
+      }
+    },
+    [refList]
+  )
 
   return (
     <>
@@ -77,6 +84,7 @@ export const Search = () => {
           )}
           <Place />
         </Flex>
+        <div ref={refList} />
         {Object.keys(reviews).map(key => (
           <React.Fragment key={key}>
             <TextSubtitle
@@ -104,6 +112,9 @@ export const Search = () => {
             </Flex>
           </React.Fragment>
         ))}
+        <Flex mt={3} mb={3} justifyContent="center">
+          <Pagination<Review> onLoad={onLoad} take={1} apiProps={apiProps} />
+        </Flex>
       </Flex>
     </>
   )

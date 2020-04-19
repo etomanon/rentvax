@@ -10,7 +10,7 @@ import {
   ColorProps,
   color,
 } from 'styled-system'
-import { Building2 } from 'styled-icons/remix-fill/Building2'
+import { Building2 } from '@styled-icons/remix-fill/Building2'
 
 interface MobileMenuProps {
   active: boolean
@@ -38,6 +38,9 @@ export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -48,9 +51,6 @@ export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   background: #fff;
   ${space}
   ${flexDirection}
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    position: static;
-  }
 `
 
 export const Logo = styled.img`
@@ -191,4 +191,13 @@ export const HeaderLink = styled.a<
       color: ${({ theme }) => theme.colors.primary};
     }
   }
+`
+
+export const HeaderBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0%;
+  height: 5rem;
+  width: 100%;
+  background: '#fff';
 `

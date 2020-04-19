@@ -39,9 +39,9 @@ export const Description = styled(Text)<
 
 export const Toggle = styled.a<{
   truncated: boolean
-  overflow: boolean
+  isOverflow: boolean
 }>`
-  display: ${props => (props.overflow ? 'block' : 'none')};
+  display: ${props => (props.isOverflow ? 'block' : 'none')};
   position: absolute;
   top: 0;
   right: 2px;
@@ -59,7 +59,7 @@ export const Toggle = styled.a<{
   }
 
   ${props => {
-    const { primary, secondary } = props.theme.colors
+    const { primary, secondary, grey } = props.theme.colors
     return props.truncated
       ? css`
           &::after {
@@ -87,7 +87,7 @@ export const Toggle = styled.a<{
         `
       : css`
           &::after {
-            background: ${secondary};
+            background: ${grey};
           }
           &::before {
             content: '';
@@ -99,15 +99,15 @@ export const Toggle = styled.a<{
             height: 0;
             border-left: 0.8rem solid transparent;
             border-right: 0.8rem solid transparent;
-            border-bottom: 0.8rem solid ${secondary};
+            border-bottom: 0.8rem solid ${grey};
             transition: 0.25s ease-in all;
           }
           &:hover {
             &::after {
-              background: ${primary};
+              background: ${secondary};
             }
             &::before {
-              border-bottom: 0.8rem solid ${primary};
+              border-bottom: 0.8rem solid ${secondary};
             }
           }
         `

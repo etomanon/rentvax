@@ -12,10 +12,11 @@ type Body =
   | FormData
   | URLSearchParams
   | ReadableStream<Uint8Array>
+  | object
   | null
   | undefined
 
-export interface ApiProps<T> {
+export interface ApiProps {
   url: string
   method?: Method
   contentType?: ContentTypeEnum
@@ -31,13 +32,20 @@ export const api = async <T extends {} | null>({
   body,
   queryString,
   noError,
-}: ApiProps<T>) => {
+}: ApiProps) => {
   let queryStringParsed: string
   let response: Response
   try {
     queryStringParsed = queryString
       ? '?' + new URLSearchParams(queryString).toString()
       : ''
+
+    switch (contentType) {
+      case ContentTypeEnum.JSON: {
+        body = JSON.stringify(body)
+        break
+      }
+    }
 
     response = await fetch(`/api/${url}${queryStringParsed}`, {
       method,
@@ -50,7 +58,7 @@ export const api = async <T extends {} | null>({
     if (noError) {
       return null
     }
-    toast.error(`Chyba: ${e.message}`)
+    toast.error(`Chyba sítě: ${e.message}`)
     return null
   }
 

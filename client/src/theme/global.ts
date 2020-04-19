@@ -3,25 +3,20 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
+		width: 100%;
+		overflow-x: hidden
   }
-	html,
-	body {
-		height: 100%;
+  body {
 		margin: 0;
 		padding: 0;
 		text-rendering: optimizeLegibility;
 		font-family: 'Montserrat', sans-serif;
 		-webkit-font-smoothing: antialiased;
-    	overflow-x: hidden;
 		color: ${({ theme }) => theme.colors.text};
 		scroll-behavior: smooth;
-	}
-  body {
 		padding-top: 5rem;
     font-size: 1.6rem;
-		@media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-			padding-top: 0;
-		}
+		overflow-x:hidden 
   }
 
 	#root {
@@ -46,6 +41,16 @@ export const GlobalStyles = createGlobalStyle`
 
 	button, input, textarea, ::placeholder {
 		font-family: 'Montserrat', sans-serif;
+	}
+
+	button {
+		background: none;
+		color: inherit;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		outline: inherit;
+		font-size: 1.6rem;
 	}
 
 	a {

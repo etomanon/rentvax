@@ -87,7 +87,7 @@ export const Review = () => {
             callApi({
               url: 'review',
               method: 'POST',
-              body: JSON.stringify(values),
+              body: values,
             })
             setSubmitting(false)
           }}

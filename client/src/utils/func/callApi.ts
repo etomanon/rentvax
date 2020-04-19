@@ -2,7 +2,7 @@ import store from '../../redux/store'
 import { loadingAdd, loadingRemove } from '../../redux/loading'
 import { api, ApiProps } from '../api/api'
 
-export const callApi = async <T>(apiProps: ApiProps<T>) => {
+export const callApi = async <T>(apiProps: ApiProps) => {
   const { dispatch } = store
   try {
     dispatch(loadingAdd())

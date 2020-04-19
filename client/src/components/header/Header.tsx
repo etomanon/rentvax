@@ -14,6 +14,7 @@ import {
   HeaderBurgerLine,
   HeaderLink,
   HeaderNavLink,
+  HeaderBackground,
 } from './styled/Header'
 import { useSelectorApp } from '@/redux'
 
@@ -31,6 +32,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
         <HeaderBurgerLine active={active} />
         <HeaderBurgerLine active={active} />
       </HeaderBurger>
+      <HeaderBackground />
       <HeaderWrapper
         id="navbar"
         p={['1rem 0.5rem', '1rem 0.5rem', '1rem 0']}

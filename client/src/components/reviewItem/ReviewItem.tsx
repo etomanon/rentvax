@@ -6,6 +6,7 @@ import { Text } from '../text/styled/Text'
 import { Stars } from '../stars/Stars'
 import { Flex } from '@rebass/grid'
 import { timeParse } from '@/utils/func/time'
+import { scrollSmooth } from '@/utils/func/scrollSmooth'
 
 interface ReviewItemProps {
   review: Review
@@ -23,13 +24,19 @@ const isOverflown = ({
 export const ReviewItem: React.FC<ReviewItemProps> = ({
   review: { id, rating, description, user, flat, createdAt, updatedAt },
 }) => {
+  const refContainer = useRef<HTMLDivElement>(null)
   const refDescription = useRef<HTMLDivElement>(null)
   const [truncated, setTruncated] = useState(true)
   const [overflow, setOverflow] = useState(false)
   const onTruncate = () => {
     setTruncated(prev => !prev)
   }
-  const reviewId = `review${id.toString()}`
+
+  useEffect(() => {
+    if (refContainer.current && truncated) {
+      scrollSmooth(refContainer.current)
+    }
+  }, [truncated])
 
   useEffect(() => {
     if (refDescription.current) {
@@ -38,7 +45,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
   }, [refDescription])
 
   return (
-    <Container id={reviewId}>
+    <Container ref={refContainer}>
       <Flex justifyContent="space-between" mx={1}>
         <Stars name={id} rating={rating} />
         <Flex flexDirection="column">
@@ -61,10 +68,9 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
       >
         {description}
         <Toggle
-          href={`#${reviewId}`}
           onClick={onTruncate}
           truncated={truncated}
-          overflow={overflow}
+          isOverflow={overflow}
         />
       </Description>
     </Container>
