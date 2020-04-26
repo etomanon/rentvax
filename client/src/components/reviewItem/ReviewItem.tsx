@@ -24,15 +24,20 @@ const isOverflown = ({
 export const ReviewItem: React.FC<ReviewItemProps> = ({
   review: { id, rating, description, user, flat, createdAt, updatedAt },
 }) => {
+  const firstUpdate = useRef(true)
   const refContainer = useRef<HTMLDivElement>(null)
   const refDescription = useRef<HTMLDivElement>(null)
   const [truncated, setTruncated] = useState(true)
   const [overflow, setOverflow] = useState(false)
   const onTruncate = () => {
-    setTruncated(prev => !prev)
+    setTruncated((prev) => !prev)
   }
 
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false
+      return
+    }
     if (refContainer.current && truncated) {
       scrollSmooth(refContainer.current)
     }

@@ -21,13 +21,13 @@ interface FormValues {
 }
 
 export const Review = () => {
-  const address = useSelectorApp(state => state.location.address)
+  const address = useSelectorApp((state) => state.location.address)
   const [error, setError] = useState<string | undefined>(undefined)
   const addressValid = useMemo(
     () =>
       address &&
       address.types.some(
-        t => ADRESS_TYPES_FILTER.findIndex(f => f === t) !== -1
+        (t) => ADRESS_TYPES_FILTER.findIndex((f) => f === t) !== -1
       ),
     [address]
   )
@@ -51,7 +51,14 @@ export const Review = () => {
           <Flex width={[1, 0.75, 0.5]} flexDirection="column" mt={3}>
             <Place
               filterPredictions={false}
-              initAddress={address?.formatted_address}
+              initAddress={
+                address
+                  ? {
+                      formatted_address: address.formatted_address,
+                      place_id: address.place_id,
+                    }
+                  : undefined
+              }
               error={error}
             />
           </Flex>

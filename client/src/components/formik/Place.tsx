@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -19,20 +19,23 @@ import { ErrorMessage } from './styled/ErrorMessage'
 export const ADRESS_TYPES_FILTER = ['street_address', 'premise']
 
 interface PlaceProps {
-  onSelect?: () => void
+  onSelect?: (formatted_address: string, place_id: string) => void
   filterPredictions?: boolean
-  initAddress?: string
+  initAddress?: {
+    formatted_address: string
+    place_id: string
+  }
   error?: string
 }
 
 export const Place: React.FC<PlaceProps> = ({
   onSelect,
   filterPredictions = true,
-  initAddress = '',
+  initAddress,
   error,
 }) => {
   const dispatch = useDispatch()
-  const [address, setAddress] = useState(initAddress)
+  const [address, setAddress] = useState('')
   const onChange = (address: string) => {
     if (address === '') {
       dispatch(locationSet(undefined))
@@ -41,27 +44,36 @@ export const Place: React.FC<PlaceProps> = ({
     setAddress(address)
   }
 
-  const onSelectHandler = async (address: string, placeId: null | string) => {
-    if (placeId === null) {
-      return
+  const onSelectHandler = useCallback(
+    async (address: string, placeId: null | string) => {
+      if (placeId === null) {
+        return
+      }
+      callAsyncAction(async () => {
+        const results = await geocodeByAddress(address)
+        const result = results[0]
+        const { place_id, formatted_address, types } = result
+        const latLng = await getLatLng(result)
+        setAddress(formatted_address)
+        dispatch(
+          locationSet({
+            place_id,
+            formatted_address,
+            types,
+            latLng,
+          })
+        )
+        onSelect && onSelect(formatted_address, placeId)
+      })
+    },
+    [dispatch, onSelect]
+  )
+
+  useEffect(() => {
+    if (initAddress) {
+      onSelectHandler(initAddress.formatted_address, initAddress.place_id)
     }
-    callAsyncAction(async () => {
-      const results = await geocodeByAddress(address)
-      const result = results[0]
-      const { place_id, formatted_address, types } = result
-      const latLng = await getLatLng(result)
-      setAddress(formatted_address)
-      dispatch(
-        locationSet({
-          place_id,
-          formatted_address,
-          types,
-          latLng,
-        })
-      )
-      onSelect && onSelect()
-    })
-  }
+  }, [initAddress, onSelectHandler])
   return (
     <>
       <PlacesAutocomplete
@@ -75,12 +87,12 @@ export const Place: React.FC<PlaceProps> = ({
           componentRestrictions: { country: 'cz' },
         }}
         // @ts-ignore
-        filterPredictions={prediction => {
+        filterPredictions={(prediction) => {
           if (filterPredictions) {
             return true
           }
           return prediction.types.some(
-            (p: string) => ADRESS_TYPES_FILTER.findIndex(f => f === p) !== -1
+            (p: string) => ADRESS_TYPES_FILTER.findIndex((f) => f === p) !== -1
           )
         }}
       >
@@ -95,7 +107,7 @@ export const Place: React.FC<PlaceProps> = ({
             />
             <PlaceSuggestionWrapper>
               {loading && <Loader mt=".5rem" static />}
-              {suggestions.map(suggestion => {
+              {suggestions.map((suggestion) => {
                 return (
                   <PlaceSuggestionItem
                     key={suggestion.id}

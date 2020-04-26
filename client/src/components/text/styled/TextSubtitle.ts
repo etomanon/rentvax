@@ -6,10 +6,12 @@ import {
   SpaceProps,
   textAlign,
   TextAlignProps,
+  WidthProps,
+  width,
 } from 'styled-system'
 
 export const TextSubtitle = styled.div<
-  DisplayProps & SpaceProps & TextAlignProps
+  DisplayProps & SpaceProps & TextAlignProps & WidthProps
 >`
   display: inline-block;
   ${display}
@@ -18,4 +20,5 @@ export const TextSubtitle = styled.div<
   color: ${({ theme }) => theme.colors.secondary};
   ${space};
   ${textAlign}
+  ${width}
 `

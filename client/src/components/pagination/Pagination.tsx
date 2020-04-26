@@ -18,7 +18,7 @@ type Pagination<T> = {
 
 type Props<T> = {
   apiProps: ApiProps | null
-  onLoad: (response: T[]) => void
+  onLoad: (response: T[], skip: number) => void
   take: number
 }
 
@@ -44,7 +44,7 @@ export const Pagination = <T extends {}>({
           signal,
         })
         if (response) {
-          onLoad(response.result)
+          onLoad(response.result, skip)
           setCount(response.count)
         }
       }
@@ -56,7 +56,7 @@ export const Pagination = <T extends {}>({
     if (apiProps === null) {
       setCount(null)
       setSkip(0)
-      onLoad([])
+      onLoad([], 0)
     }
   }, [apiProps, onLoad])
 

@@ -23,7 +23,7 @@ export class Review {
   id: number
 
   @Column({ type: 'enum', enum: Rating })
-  rating: number
+  rating: Rating
 
   @Column({ length: '1500' })
   description: string

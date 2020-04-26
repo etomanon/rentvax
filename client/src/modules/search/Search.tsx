@@ -6,7 +6,7 @@ import { Text } from '../../components/text/styled/Text'
 import { TextSubtitle } from '../../components/text/styled/TextSubtitle'
 import { useSelectorApp } from '@/redux'
 import { Button } from '@/components/button/styled/Button'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { ApiProps } from '@/utils/api/api'
 import { Review } from '@/utils/types/review'
 import { ReviewItem } from '@/components/reviewItem/ReviewItem'
@@ -14,22 +14,44 @@ import { groupBy } from 'lodash'
 import { NativeMap } from '@/utils/types/helpers'
 import { RoutePathEnum } from '@/router/routes'
 import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
+import { ArrowRight } from '@styled-icons/fa-solid/ArrowRight'
 import { Pagination } from '@/components/pagination/Pagination'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
-import { Popup } from '@/components/popup/Popup'
+import { Tooltip } from '@/components/tooltip/Tooltip'
+import { Box } from '@rebass/grid'
 
-const prague = { lat: 50.0755381, lng: 14.4378005 }
+const QS_ADDRESS = 'address'
+const QS_PLACE_ID = 'place_id'
 
 type ReviewState = NativeMap<Review[]>
 
 export const Search = () => {
+  const [initAddress, setInitAddress] = useState<
+    | {
+        formatted_address: string
+        place_id: string
+      }
+    | undefined
+  >(undefined)
+  const { search } = useLocation()
   const history = useHistory()
-  const [refBut, setBut] = useState<HTMLDivElement | null>(null)
+  const firstUpdate = useRef(true)
   const refList = useRef<HTMLDivElement>(null)
   const user = useSelectorApp((state) => state.user)
   const location = useSelectorApp((state) => state.location)
   const geo = useGeolocation()
   const [reviews, setReviews] = useState<ReviewState>({})
+
+  useEffect(() => {
+    const qsAddress = new URLSearchParams(search).get(QS_ADDRESS)
+    const qsPlaceId = new URLSearchParams(search).get(QS_PLACE_ID)
+    if (qsAddress && qsPlaceId) {
+      setInitAddress({
+        formatted_address: qsAddress,
+        place_id: qsPlaceId,
+      })
+    }
+  }, [search])
 
   const apiProps: ApiProps | null = useMemo(() => {
     if (location.address) {
@@ -49,13 +71,32 @@ export const Search = () => {
   }, [location.address])
 
   const onLoad = useCallback(
-    async (result?: Review[]) => {
+    async (result: Review[], skip: number) => {
+      console.log('skip', skip)
       setReviews(result ? (groupBy(result, 'flat.name') as ReviewState) : {})
-      if (refList.current) {
+      if (firstUpdate.current) {
+        firstUpdate.current = false
+        return
+      }
+      if (refList.current && skip !== 0) {
         scrollSmooth(refList.current)
       }
     },
-    [refList]
+    [refList, firstUpdate]
+  )
+
+  const onSelect = useCallback(
+    (formatted_address: string, place_id: string) => {
+      history.push({
+        search:
+          '?' +
+          new URLSearchParams({
+            [QS_ADDRESS]: formatted_address,
+            [QS_PLACE_ID]: place_id,
+          }).toString(),
+      })
+    },
+    [history]
   )
 
   return (
@@ -68,7 +109,7 @@ export const Search = () => {
               <Text mt={1} fontWeight={500} textAlign="center">
                 {location.address?.formatted_address}
               </Text>
-              <div ref={setBut}>
+              <Tooltip tooltip={'Pro přidání recenze se musíte přihlásit'}>
                 <Button
                   variant="filled"
                   width={1}
@@ -78,10 +119,7 @@ export const Search = () => {
                 >
                   Přidat recenzi
                 </Button>
-              </div>
-              <Popup refEl={refBut}>
-                <div style={{ background: 'red' }}>Pop up lorem ipsum </div>
-              </Popup>
+              </Tooltip>
 
               {!user && (
                 <Text mt={1} mb={3}>
@@ -90,38 +128,61 @@ export const Search = () => {
               )}
             </Flex>
           )}
-          <Place />
+          <Place onSelect={onSelect} initAddress={initAddress} />
         </Flex>
         <div ref={refList} />
         {Object.keys(reviews).map((key) => (
           <React.Fragment key={key}>
-            <TextSubtitle
-              as="a"
-              mt={4}
-              textAlign="center"
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                key
-              )}`}
-              target="_blank"
-            >
-              {key}
-              <MapMarkerAlt
-                style={{ marginLeft: '1rem' }}
-                width="1.5rem"
-                height="2rem"
-              />
-            </TextSubtitle>
+            <Box mt={4} />
+            <Tooltip tooltip={'Zobraz na Google Maps'}>
+              <TextSubtitle
+                as="a"
+                width={1}
+                textAlign="center"
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  key
+                )}`}
+                target="_blank"
+              >
+                {key}
+                <MapMarkerAlt
+                  style={{ marginLeft: '1rem' }}
+                  width="1.5rem"
+                  height="2rem"
+                />
+              </TextSubtitle>
+            </Tooltip>
             <Flex mx={-2} flexWrap="wrap" alignItems="flex-start">
-              {reviews[key].map((r) => (
-                <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.3333]}>
-                  <ReviewItem review={r} />
+              {reviews[key].map((r, i) => (
+                <Flex
+                  key={r.id}
+                  mt={2}
+                  px={2}
+                  width={[1, i < 2 ? 0.5 : 1, 0.3333]}
+                >
+                  {i < 2 ? (
+                    <ReviewItem review={r} />
+                  ) : (
+                    <Button
+                      mt={['0', '0', '1.75rem']}
+                      width={1}
+                      onClick={() => history.push(`/flat/${key}`)}
+                    >
+                      VÍCE RECENZÍ
+                      <ArrowRight
+                        style={{ marginLeft: '1rem' }}
+                        width="1.5rem"
+                        height="2.5rem"
+                      />
+                    </Button>
+                  )}
                 </Flex>
               ))}
             </Flex>
           </React.Fragment>
         ))}
         <Flex mt={3} mb={3} justifyContent="center">
-          <Pagination<Review> onLoad={onLoad} take={5} apiProps={apiProps} />
+          <Pagination<Review> onLoad={onLoad} take={3} apiProps={apiProps} />
         </Flex>
       </Flex>
     </>
