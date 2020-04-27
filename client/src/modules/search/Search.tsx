@@ -19,9 +19,10 @@ import { Pagination } from '@/components/pagination/Pagination'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
 import { Tooltip } from '@/components/tooltip/Tooltip'
 import { Box } from '@rebass/grid'
+import { QS_FLAT_NAME } from '../flat/Flat'
 
-const QS_ADDRESS = 'address'
-const QS_PLACE_ID = 'place_id'
+export const QS_ADDRESS = 'address'
+export const QS_PLACE_ID = 'place_id'
 
 type ReviewState = NativeMap<Review[]>
 
@@ -71,14 +72,13 @@ export const Search = () => {
   }, [location.address])
 
   const onLoad = useCallback(
-    async (result: Review[], skip: number) => {
-      console.log('skip', skip)
+    async (result: Review[]) => {
       setReviews(result ? (groupBy(result, 'flat.name') as ReviewState) : {})
       if (firstUpdate.current) {
         firstUpdate.current = false
         return
       }
-      if (refList.current && skip !== 0) {
+      if (refList.current) {
         scrollSmooth(refList.current)
       }
     },
@@ -166,7 +166,16 @@ export const Search = () => {
                     <Button
                       mt={['0', '0', '1.75rem']}
                       width={1}
-                      onClick={() => history.push(`/flat/${key}`)}
+                      onClick={() =>
+                        history.push({
+                          pathname: RoutePathEnum.FLAT,
+                          search:
+                            '?' +
+                            new URLSearchParams({
+                              [QS_FLAT_NAME]: key,
+                            }).toString(),
+                        })
+                      }
                     >
                       VÍCE RECENZÍ
                       <ArrowRight

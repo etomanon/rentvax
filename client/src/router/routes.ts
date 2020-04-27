@@ -1,11 +1,13 @@
 import { Home } from '@/modules/home/Home'
 import { Review } from '@/modules/review/Review'
 import { Search } from '@/modules/search/Search'
+import { Flat } from '@/modules/flat/Flat'
 
 export enum RoutePathEnum {
   HOME = '/',
   REVIEW = '/review',
   SEARCH = '/search',
+  FLAT = '/flat',
 }
 
 export enum RoutePermissionEnum {
@@ -33,6 +35,11 @@ export const routes: Route[] = [
   {
     component: Search,
     path: RoutePathEnum.SEARCH,
+    permission: RoutePermissionEnum.PUBLIC,
+  },
+  {
+    component: Flat,
+    path: RoutePathEnum.FLAT,
     permission: RoutePermissionEnum.PUBLIC,
   },
 ]

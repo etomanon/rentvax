@@ -13,7 +13,7 @@ import { Link } from '@/components/control/Link'
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  border: 1px solid ${props => props.theme.colors.primary};
+  border: 1px solid ${(props) => props.theme.colors.primary};
   border-radius: 4px;
   padding: 0.5rem 0;
   flex-direction: column;
@@ -29,7 +29,7 @@ export const Description = styled(Text)<
   overflow: hidden;
   ${height}
   ${maxHeight}
-  ${props =>
+  ${(props) =>
     !props.truncated &&
     css`
       white-space: normal;
@@ -41,24 +41,25 @@ export const Toggle = styled.a<{
   truncated: boolean
   isOverflow: boolean
 }>`
-  display: ${props => (props.isOverflow ? 'block' : 'none')};
+  display: ${(props) => (props.isOverflow ? 'block' : 'none')};
   position: absolute;
   top: 0;
   right: 2px;
   height: calc(100% - 4px);
   width: 2rem;
+  cursor: pointer;
   &::after {
     content: '';
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    top: ${props => (props.truncated ? 0 : '4px')};
+    top: ${(props) => (props.truncated ? 0 : '4px')};
     height: 100%;
     width: 2px;
     transition: 0.25s ease-in all;
   }
 
-  ${props => {
+  ${(props) => {
     const { primary, secondary, grey } = props.theme.colors
     return props.truncated
       ? css`
