@@ -2,6 +2,8 @@ import React from 'react'
 import TooltipTrigger from 'react-popper-tooltip'
 import 'react-popper-tooltip/dist/styles.css'
 
+type Trigger = 'click' | 'right-click' | 'hover' | 'focus' | 'none'
+
 type Props = {
   tooltip: React.ReactNode
   children: React.ReactNode
@@ -22,6 +24,7 @@ type Props = {
     | 'left-end'
     | 'left'
     | 'left-start'
+  trigger?: Trigger | Trigger[]
 }
 
 export const Tooltip = ({

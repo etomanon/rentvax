@@ -72,12 +72,12 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
   transform: translate3d(100%, 0, 0);
   height: 100%;
   z-index: 2;
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
       transform: translate3d(0, 0, 0);
     `}
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     position: static;
     height: auto;
     width: auto;
@@ -100,7 +100,7 @@ export const HeaderBurger = styled.div<MobileMenuProps>`
   align-items: center;
   cursor: pointer;
   z-index: 29;
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     display: none;
   }
 `
@@ -121,7 +121,7 @@ export const HeaderBurgerLine = styled.span<MobileMenuProps>`
   &:nth-child(3) {
     top: 100%;
   }
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
       background: #fff;
@@ -148,7 +148,7 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
   color: #fff;
   text-decoration: none;
   transition: 0.3s ease-in color;
-  &.${p => p.activeClassName} {
+  &.${(p) => p.activeClassName} {
     font-weight: 500;
   }
   &:hover,
@@ -159,7 +159,7 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
   }
   ${space};
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     color: ${({ theme }) => theme.colors.text};
     &:hover,
     &:focus {
@@ -184,7 +184,7 @@ export const HeaderLink = styled.a<
   ${space};
   ${color};
   ${fontWeight};
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     color: ${({ theme }) => theme.colors.text};
     &:hover,
     &:focus {

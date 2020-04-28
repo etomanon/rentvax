@@ -5,6 +5,59 @@ import { Review } from '../entities/Review'
 import { getRepository, getConnection } from 'typeorm'
 import { Request, Response } from 'express'
 
+export const reviewGetByUser = async (req: Request, res: Response) => {
+  const take = req.body.take ?? 5
+  const skip = req.body.skip
+
+  if (req.body.name) {
+    const flat = await getRepository(Flat)
+      .createQueryBuilder('flat')
+      .where(`flat.name = (:flat)`, {
+        flat: req.body.name,
+      })
+      .getOne()
+
+    if (!flat) {
+      return res.send({ result: [], count: 0 })
+    }
+
+    const reviewsFlat = await getRepository(Review)
+      .createQueryBuilder('review')
+      .innerJoinAndSelect('review.user', 'user')
+      .innerJoinAndSelect('review.flat', 'flat')
+      .where(`flat.id = (:flat) AND user.id = (:user)`, {
+        flat: flat.id,
+        user: req.user.id,
+      })
+
+    const reviewsCount = await reviewsFlat.getCount()
+    const reviews = await reviewsFlat
+      .orderBy('review.updatedAt', 'ASC')
+      .skip(skip)
+      .take(take)
+      .getMany()
+
+    return res.send({ result: reviews, count: reviewsCount })
+  } else {
+    const reviewsUser = await getRepository(Review)
+      .createQueryBuilder('review')
+      .innerJoinAndSelect('review.user', 'user')
+      .innerJoinAndSelect('review.flat', 'flat')
+      .where(`user.id = (:user)`, {
+        user: req.user.id,
+      })
+
+    const reviewsCount = await reviewsUser.getCount()
+    const reviews = await reviewsUser
+      .orderBy('review.updatedAt', 'ASC')
+      .skip(skip)
+      .take(take)
+      .getMany()
+
+    return res.send({ result: reviews, count: reviewsCount })
+  }
+}
+
 export const reviewGetByFlatName = async (req: Request, res: Response) => {
   const take = req.body.take ?? 5
   const skip = req.body.skip

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, useRef } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import * as Yup from 'yup'
 
@@ -14,13 +14,15 @@ import { callApi } from '@/utils/func/callApi'
 import { ADRESS_TYPES_FILTER, Place } from '@/components/formik/Place'
 
 interface FormValues {
-  address?: string
-  rating?: number
+  rating: number | null
   description: string
-  geom: object
 }
 
 export const Review = () => {
+  const firstRender = useRef(true)
+  const [initPlace, setInitPlace] = useState<
+    { formatted_address: string; place_id: string } | undefined
+  >(undefined)
   const address = useSelectorApp((state) => state.location.address)
   const [error, setError] = useState<string | undefined>(undefined)
   const addressValid = useMemo(
@@ -41,6 +43,17 @@ export const Review = () => {
       )
     }
   }, [addressValid])
+
+  useEffect(() => {
+    if (firstRender.current && address) {
+      setInitPlace({
+        formatted_address: address.formatted_address,
+        place_id: address.formatted_address,
+      })
+    }
+    firstRender.current = false
+  }, [address, firstRender])
+
   return (
     <>
       <Box width={1}>
@@ -51,50 +64,42 @@ export const Review = () => {
           <Flex width={[1, 0.75, 0.5]} flexDirection="column" mt={3}>
             <Place
               filterPredictions={false}
-              initAddress={
-                address
-                  ? {
-                      formatted_address: address.formatted_address,
-                      place_id: address.place_id,
-                    }
-                  : undefined
-              }
+              initAddress={initPlace}
               error={error}
             />
           </Flex>
         </Flex>
         <Formik<FormValues>
           initialValues={{
-            address: address?.formatted_address,
-            rating: undefined,
+            rating: null,
             description: '',
-            geom: {
-              type: 'Point',
-              coordinates: [address?.latLng.lng, address?.latLng.lat],
-            },
           }}
           validationSchema={Yup.object({
-            address: Yup.string().required('Povinné'),
             rating: Yup.number()
               .required('Povinné')
               .oneOf([1, 2, 3, 4, 5], 'Neplatná hodnota hodnocení'),
             description: Yup.string()
               .max(5000, 'Max 5 000 znaků')
               .required('Povinné'),
-            geom: Yup.object({
-              type: Yup.string(),
-              coordinates: Yup.array(),
-            }).required('Povinné'),
           })}
           onSubmit={async (values, { setSubmitting }) => {
+            console.log('addressValid', addressValid)
             if (!addressValid) {
               setSubmitting(false)
               return
             }
-            callApi({
+            const apiValues = {
+              ...values,
+              address: address?.formatted_address,
+              geom: {
+                type: 'Point',
+                coordinates: [address?.latLng.lng, address?.latLng.lat],
+              },
+            }
+            await callApi({
               url: 'review',
               method: 'POST',
-              body: values,
+              body: apiValues,
             })
             setSubmitting(false)
           }}

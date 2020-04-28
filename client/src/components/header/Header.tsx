@@ -19,15 +19,15 @@ import {
 import { useSelectorApp } from '@/redux'
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
-  const user = useSelectorApp(state => state.user)
+  const user = useSelectorApp((state) => state.user)
   const [active, setActive] = useState(false)
   const handlers = useSwipeable({
-    onSwipedRight: () => setActive(prev => !prev),
+    onSwipedRight: () => setActive((prev) => !prev),
     trackMouse: true,
   })
   return (
     <>
-      <HeaderBurger active={active} onClick={() => setActive(prev => !prev)}>
+      <HeaderBurger active={active} onClick={() => setActive((prev) => !prev)}>
         <HeaderBurgerLine active={active} />
         <HeaderBurgerLine active={active} />
         <HeaderBurgerLine active={active} />
@@ -49,8 +49,8 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
           <HeaderNavLink
             exact
             to="/"
-            mr={[0, '4.5rem', '7rem']}
-            mb={[2, 0]}
+            mr={[0, 0, '4rem']}
+            mb={[2, 2, 0]}
             onClick={() => setActive(false)}
           >
             Domů
@@ -60,15 +60,24 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               <HeaderNavLink
                 exact
                 to={RoutePathEnum.REVIEW}
-                mr={[0, '4.5rem', '7rem']}
-                mb={[2, 0]}
+                mr={[0, 0, '4rem']}
+                mb={[2, 2, 0]}
                 onClick={() => setActive(false)}
               >
                 Přidat recenzi
               </HeaderNavLink>
+              <HeaderNavLink
+                exact
+                to={RoutePathEnum.MY_REVIEWS}
+                mr={[0, 0, '4rem']}
+                mb={[2, 2, 0]}
+                onClick={() => setActive(false)}
+              >
+                Moje recenze
+              </HeaderNavLink>
               <HeaderLink
                 onClick={() => setActive(false)}
-                mt={[4, 0]}
+                mt={[4, 4, 0]}
                 href="/api/auth/logout"
               >
                 Odhlásit se

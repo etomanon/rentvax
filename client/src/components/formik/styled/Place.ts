@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const PlacesContainer = styled.div`
+  width: 100%;
   position: relative;
 `
 
@@ -29,7 +30,7 @@ export const PlaceSuggestionItem = styled.div<PlaceSuggestionItemProps>`
     background: ${({ theme }) => theme.colors.primary};
     color: #fff;
   }
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
       background: ${({ theme }) => theme.colors.primary};

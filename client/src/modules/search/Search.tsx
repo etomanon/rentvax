@@ -109,17 +109,16 @@ export const Search = () => {
               <Text mt={1} fontWeight={500} textAlign="center">
                 {location.address?.formatted_address}
               </Text>
-              <Tooltip tooltip={'Pro přidání recenze se musíte přihlásit'}>
-                <Button
-                  variant="filled"
-                  width={1}
-                  my={2}
-                  onClick={() => history.push(RoutePathEnum.REVIEW)}
-                  disabled={!user}
-                >
-                  Přidat recenzi
-                </Button>
-              </Tooltip>
+
+              <Button
+                variant="filled"
+                width={1}
+                my={2}
+                onClick={() => history.push(RoutePathEnum.REVIEW)}
+                disabled={!user}
+              >
+                Přidat recenzi
+              </Button>
 
               {!user && (
                 <Text mt={1} mb={3}>

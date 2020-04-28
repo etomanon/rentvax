@@ -38,7 +38,7 @@ export const Rating = ({ label, ...props }: Props) => {
         <StarRatingComponent
           name={field.name}
           starCount={5}
-          value={field.value}
+          value={field.value ?? 0}
           onStarClick={onStarClick}
           starColor={theme.colors.secondary}
         />

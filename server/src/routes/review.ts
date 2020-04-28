@@ -5,6 +5,8 @@ import * as review from '../controllers/review'
 
 export const router = Router()
 
+router.post('/review/user', logged, review.reviewGetByUser)
+
 router.post('/review/flat-name', review.reviewGetByFlatName)
 
 router.post('/review/distance', review.reviewGetByDistance)
