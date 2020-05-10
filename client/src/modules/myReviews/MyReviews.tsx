@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
-import { callApi } from '@/utils/func/callApi'
+import { useApi } from '@/utils/api/useApi'
 import { Pagination } from '@/components/pagination/Pagination'
 import { ApiProps } from '@/utils/api/api'
 import { Review } from '@/utils/types/review'
@@ -22,47 +22,52 @@ export const MyReviews = () => {
   const { push } = useHistory()
   const dispatch = useDispatch()
   const firstUpdate = useRef(true)
+  const [refresh, setRefresh] = useState(false)
   const refList = useRef<HTMLDivElement>(null)
   const [reviews, setReviews] = useState<Review[]>([])
-  const [apiProps, setApiProps] = useState<ApiProps | null>(null)
-  const address = useSelectorApp((state) => state.location.address)
+  const [apiProps, setApiProps] = useState<ApiProps | null>({
+    method: 'POST',
+    url: '/review/user',
+  })
 
   useEffect(() => {
     dispatch(locationSet(undefined))
   }, [dispatch])
 
   useEffect(() => {
-    setApiProps({
-      method: 'POST',
-      url: '/review/user',
-      body: {
-        name: address?.formatted_address,
-      },
-    })
-  }, [address])
+    if (refresh) {
+      setRefresh(false)
+      setApiProps({
+        method: 'POST',
+        url: '/review/user',
+      })
+    }
+  }, [refresh])
 
-  const onLoad = useCallback((response: Review[]) => {
-    setReviews(response)
-    if (firstUpdate.current) {
-      firstUpdate.current = false
-      return
-    }
-    if (refList.current) {
-      scrollSmooth(refList.current)
-    }
+  const onDelete = useCallback(() => {
+    setRefresh(true)
   }, [])
+
+  const onLoad = useCallback(
+    (response: Review[]) => {
+      setReviews(response)
+      if (firstUpdate.current) {
+        firstUpdate.current = false
+        return
+      }
+      if (refList.current) {
+        scrollSmooth(refList.current)
+      }
+    },
+    [firstUpdate]
+  )
 
   return (
     <>
       <Flex flexDirection="column" width={1}>
-        <TextSubtitle textAlign="center" mb="2rem">
+        <TextSubtitle textAlign="center" mb="0">
           Moje recenze
         </TextSubtitle>
-        <Flex width={1} justifyContent="center">
-          <Flex width={[1, 0.5, 0.3333]}>
-            <Place />
-          </Flex>
-        </Flex>
         <Flex flexDirection="column" ref={refList} alignItems="center">
           {reviews.map((r) => (
             <React.Fragment key={r.id}>
@@ -88,7 +93,7 @@ export const MyReviews = () => {
                 </Tooltip>
               </Box>
               <Flex width={[1, 0.75, 0.5]}>
-                <ReviewItem review={r} />
+                <ReviewItem review={r} editable onDelete={onDelete} />
               </Flex>
             </React.Fragment>
           ))}

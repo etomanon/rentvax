@@ -16,13 +16,13 @@ const cssFilled = css`
 `
 
 const cssError = css`
-  background: ${({ theme }) => theme.colors.error};
-  color: #fff;
-  border: 2px solid ${({ theme }) => theme.colors.error};
+  background: #fff;
+  color: ${({ theme }) => theme.colors.error};
   &:hover,
   &:focus {
-    background: #fff;
-    color: ${({ theme }) => theme.colors.error};
+    background: ${({ theme }) => theme.colors.error};
+    color: #fff;
+    border: 2px solid ${({ theme }) => theme.colors.error};
   }
 `
 

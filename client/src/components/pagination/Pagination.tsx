@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
 
 import { ApiProps } from '@/utils/api/api'
-import { callApi } from '@/utils/func/callApi'
+import { useApi } from '@/utils/api/useApi'
 import {
   PaginationWrapper,
   PaginationNumber,
@@ -30,6 +30,7 @@ export const Pagination = <T extends {}>({
   onLoad,
   take,
 }: Props<T>) => {
+  const api = useApi()
   const [count, setCount] = useState<number | null>(null)
   const [skip, setSkip] = useState(0)
   useEffect(() => {
@@ -38,7 +39,7 @@ export const Pagination = <T extends {}>({
         controller.abort()
         controller = new AbortController()
         signal = controller.signal
-        const response = await callApi<Pagination<T>>({
+        const response = await api<Pagination<T>>({
           ...apiProps,
           body: { ...(apiProps.body as object), skip, take },
           signal,
@@ -50,7 +51,7 @@ export const Pagination = <T extends {}>({
       }
     }
     call()
-  }, [apiProps, onLoad, skip, take])
+  }, [apiProps, onLoad, skip, take, api])
 
   useEffect(() => {
     if (apiProps === null) {

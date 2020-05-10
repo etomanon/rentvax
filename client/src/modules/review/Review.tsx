@@ -10,7 +10,7 @@ import { Box } from '@rebass/grid'
 import { TextArea } from '@/components/formik/TextArea'
 import { Rating } from '@/components/formik/Rating'
 import { Button } from '@/components/button/styled/Button'
-import { callApi } from '@/utils/func/callApi'
+import { useApi } from '@/utils/api/useApi'
 import { ADRESS_TYPES_FILTER, Place } from '@/components/formik/Place'
 
 interface FormValues {
@@ -19,6 +19,7 @@ interface FormValues {
 }
 
 export const Review = () => {
+  const api = useApi()
   const firstRender = useRef(true)
   const [initPlace, setInitPlace] = useState<
     { formatted_address: string; place_id: string } | undefined
@@ -96,7 +97,7 @@ export const Review = () => {
                 coordinates: [address?.latLng.lng, address?.latLng.lat],
               },
             }
-            await callApi({
+            await api({
               url: 'review',
               method: 'POST',
               body: apiValues,

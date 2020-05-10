@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
-import { callApi } from '@/utils/func/callApi'
+import { useApi } from '@/utils/api/useApi'
 import { Pagination } from '@/components/pagination/Pagination'
 import { ApiProps } from '@/utils/api/api'
 import { Review } from '@/utils/types/review'

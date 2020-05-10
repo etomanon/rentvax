@@ -1,64 +1,119 @@
-import React from 'react'
-import Modal from 'styled-react-modal'
+import React, { useRef } from 'react'
+import TooltipTrigger, { GetTriggerPropsArg, Ref } from 'react-popper-tooltip'
+import 'react-popper-tooltip/dist/styles.css'
 import { Flex } from '@rebass/grid'
-
 import { Text } from '../text/styled/Text'
 import { Button } from '../button/styled/Button'
 
-interface ConfirmProps {
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  confirmText: string
+type Props = {
   onConfirm: () => void
-  error?: boolean
+  children: React.ReactNode
+  confirmText?: string
 }
 
-export const Confirm: React.FC<ConfirmProps> = ({
-  open,
-  setOpen,
-  confirmText,
+export const Confirm = ({
+  children,
   onConfirm,
-  error,
-}) => {
+  confirmText,
+  ...props
+}: Props) => {
+  const refTrig = useRef<HTMLSpanElement>(null)
   return (
-    <Modal
-      isOpen={open}
-      onBackgroundClick={() => setOpen(prev => !prev)}
-      onEscapeKeydown={() => setOpen(false)}
+    <TooltipTrigger
+      {...props}
+      placement="bottom"
+      trigger="click"
+      tooltip={({
+        arrowRef,
+        tooltipRef,
+        getArrowProps,
+        getTooltipProps,
+        placement,
+      }) => (
+        <div
+          {...getTooltipProps({
+            ref: tooltipRef,
+            className: 'tooltip-container',
+          })}
+        >
+          <div
+            {...getArrowProps({
+              ref: arrowRef,
+              className: 'tooltip-arrow',
+              'data-placement': placement,
+            })}
+          />
+          <Flex
+            px={1}
+            width={'16rem'}
+            backgroundColor="#fff"
+            alignItems="center"
+            justifyContent="space-between"
+            flexWrap="wrap"
+            style={{ borderRadius: '4px' }}
+          >
+            <Text width={1} mb={3} mt={3} textAlign="center">
+              {confirmText ?? 'Potvrďte'}
+            </Text>
+            <Button
+              width={0.45}
+              mb={3}
+              variant="filled"
+              onClick={() => {
+                onConfirm()
+                refTrig.current && refTrig.current.click()
+              }}
+            >
+              Ano
+            </Button>
+            <Button
+              width={0.45}
+              mb={3}
+              onClick={() => {
+                refTrig.current && refTrig.current.click()
+              }}
+              variant="error"
+            >
+              Ne
+            </Button>
+          </Flex>
+        </div>
+      )}
     >
-      <Flex
-        px={3}
-        width={['95%', '35rem']}
-        backgroundColor="#fff"
-        alignItems="center"
-        justifyContent="space-between"
-        flexWrap="wrap"
-        style={{ borderRadius: '4px' }}
-      >
-        <Text width={1} mb={3} mt={3} textAlign="center">
-          {confirmText}
-        </Text>
-        <Button
-          width={0.45}
-          mb={3}
-          variant={error ? 'error' : 'filled'}
-          onClick={() => {
-            onConfirm()
-            setOpen(false)
-          }}
+      {({ getTriggerProps, triggerRef }) => (
+        <Trigger
+          getTriggerProps={getTriggerProps}
+          triggerRef={triggerRef}
+          refTrig={refTrig}
         >
-          Ano
-        </Button>
-        <Button
-          width={0.45}
-          mb={3}
-          onClick={() => {
-            setOpen(false)
-          }}
-        >
-          Ne
-        </Button>
-      </Flex>
-    </Modal>
+          {children}
+        </Trigger>
+      )}
+    </TooltipTrigger>
+  )
+}
+
+type TriggerProps = {
+  children: React.ReactNode
+  triggerRef: Ref
+  refTrig: Ref
+  getTriggerProps(arg?: GetTriggerPropsArg): GetTriggerPropsArg
+}
+
+const Trigger = ({
+  getTriggerProps,
+  triggerRef,
+  children,
+  refTrig,
+}: TriggerProps) => {
+  return (
+    <span
+      {...getTriggerProps({
+        ref: triggerRef,
+        className: 'trigger',
+      })}
+    >
+      <span ref={refTrig}>{children}</span>
+    </span>
   )
 }

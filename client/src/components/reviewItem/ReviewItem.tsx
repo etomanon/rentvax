@@ -7,9 +7,17 @@ import { Stars } from '../stars/Stars'
 import { Flex } from '@rebass/grid'
 import { timeParse } from '@/utils/func/time'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
+import { Edit } from '@styled-icons/boxicons-solid/Edit'
+import { useTheme } from 'styled-components'
+import { Tooltip } from '../tooltip/Tooltip'
+import { Delete } from '@styled-icons/material/Delete'
+import { useApi } from '@/utils/api/useApi'
+import { Confirm } from '../confirm/Confirm'
 
 interface ReviewItemProps {
   review: Review
+  editable?: boolean
+  onDelete?: () => void
 }
 
 const isOverflown = ({
@@ -23,7 +31,11 @@ const isOverflown = ({
 
 export const ReviewItem: React.FC<ReviewItemProps> = ({
   review: { id, rating, description, user, flat, createdAt, updatedAt },
+  editable,
+  onDelete,
 }) => {
+  const api = useApi()
+  const theme = useTheme()
   const firstUpdate = useRef(true)
   const refContainer = useRef<HTMLDivElement>(null)
   const refDescription = useRef<HTMLDivElement>(null)
@@ -31,6 +43,14 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
   const [overflow, setOverflow] = useState(false)
   const onTruncate = () => {
     setTruncated((prev) => !prev)
+  }
+
+  const handleDelete = async () => {
+    await api({
+      method: 'DELETE',
+      url: `review/${id}`,
+    })
+    onDelete && onDelete()
   }
 
   useEffect(() => {
@@ -54,9 +74,39 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
       <Flex justifyContent="space-between" mx={1}>
         <Stars name={id} rating={rating} />
         <Flex flexDirection="column">
-          <Text mt={1} fontSize={1} textAlign="right">
-            Uživatel {user.id}
-          </Text>
+          <Flex mt={1} justifyContent="flex-end" alignItems="center">
+            <Text fontSize={1} textAlign="right">
+              Uživatel {user.id}
+            </Text>
+            {editable && (
+              <>
+                <Tooltip tooltip="Editovat">
+                  <Edit
+                    style={{
+                      marginLeft: '.5rem',
+                      color: theme.colors.secondary,
+                      cursor: 'pointer',
+                    }}
+                    width="2rem"
+                    height="2rem"
+                  />
+                </Tooltip>
+                <Tooltip tooltip="Smazat">
+                  <Confirm onConfirm={handleDelete} confirmText="Smazat?">
+                    <Delete
+                      style={{
+                        marginLeft: '.5rem',
+                        color: theme.colors.error,
+                        cursor: 'pointer',
+                      }}
+                      width="2rem"
+                      height="2rem"
+                    />
+                  </Confirm>
+                </Tooltip>
+              </>
+            )}
+          </Flex>
           <Text fontSize={1} textAlign="right">
             {timeParse(updatedAt)}
           </Text>

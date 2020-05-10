@@ -1,7 +1,8 @@
 import { AppThunk } from './../rootReducer'
 import { User } from './../../utils/types/user'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { callApi } from '@/utils/func/callApi'
+import { useApi } from '@/utils/api/useApi'
+import { apiCall } from '../apiCall'
 
 type State = User | null
 
@@ -17,14 +18,17 @@ const slice = createSlice({
 
 const { userSet } = slice.actions
 
-export const userGet = (): AppThunk => async dispatch => {
-  const user = await callApi<User>({ url: 'user', noError: true })
+export const userGet = (): AppThunk => async (...params) => {
+  const dispatch = params[0]
+  dispatch(userSet(null))
+  const user = await apiCall<User>(params, { url: 'user', noError: true })
   dispatch(userSet(user))
 }
 
-export const userLogout = (): AppThunk => async dispatch => {
+export const userLogout = (): AppThunk => async (...params) => {
+  const dispatch = params[0]
   dispatch(userSet(null))
-  await callApi<null>({ url: 'auth/logout' })
+  await apiCall<User>(params, { url: 'auth/logout' })
 }
 
 export default slice.reducer
