@@ -1,13 +1,15 @@
-import { Router } from 'express'
 import { logged } from '../passport/logged'
 
 import * as flat from '../controllers/flat'
+import { Router } from 'express'
 
-export const router = Router()
+export const router = Router({
+  mergeParams: true,
+})
 
-router.get('/flat/:name', flat.flatGetName)
+router.get('/:name', flat.flatGetName)
 
-router.post('/flat', logged, flat.flatPost)
+router.post('/', logged, flat.flatPost)
 
 // router.put("/user/:id", user.userPutId);
 

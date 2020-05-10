@@ -1,23 +1,26 @@
 import { authenticate } from 'passport'
-import { Router } from 'express'
 
 import * as auth from '../controllers/auth'
 
-export const router = Router()
+import { Router } from 'express'
+
+export const router = Router({
+  mergeParams: true,
+})
 
 router.get(
-  '/auth/google',
+  '/google',
   authenticate('google', {
     scope: ['email', 'profile'],
   })
 )
 
 router.get(
-  '/auth/google/callback',
+  '/google/callback',
   authenticate('google', {
     failureRedirect: '/',
     successRedirect: '/',
   })
 )
 
-router.get('/auth/logout', auth.authGetLogout)
+router.get('/logout', auth.authGetLogout)

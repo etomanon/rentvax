@@ -1,11 +1,13 @@
-import { Router } from 'express'
 import { logged } from '../passport/logged'
 
 import * as user from '../controllers/user'
+import { Router } from 'express'
 
-export const router = Router()
+export const router = Router({
+  mergeParams: true,
+})
 
-router.get('/user', logged, user.userGet)
+router.get('/', logged, user.userGet)
 
 // router.get("/user/sub", logged, user.userGetSubs);
 

@@ -8,7 +8,7 @@ import passport from 'passport'
 import compression from 'compression'
 import helmet from 'helmet'
 
-import { routes } from './routes/routes'
+import ROUTES from './routes'
 import { Session } from './entities/Session'
 import './passport/passport'
 
@@ -18,7 +18,7 @@ createConnection().then(async connection => {
   const app = express()
   // gzip
   app.use(compression())
-  // parse json
+  // body parser
   app.use(bodyParser.json())
   // proper headers
   app.use(helmet())
@@ -40,7 +40,7 @@ createConnection().then(async connection => {
   app.use(passport.initialize())
   app.use(passport.session())
   // register routes
-  app.use('/api', ...routes)
+  ROUTES.forEach(r => app.use(`/api${r.path}`, r.router))
   // serve react build
   app.use(express.static(join(__dirname, '/../../client/build')))
   app.get('*', (req, res) => {

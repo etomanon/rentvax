@@ -158,7 +158,9 @@ export const reviewPost = async (req: Request, res: Response) => {
 }
 
 export const reviewPutId = async (req: Request, res: Response) => {
-  const review = await getRepository(Review).findOne(req.params.id)
+  const review = await getRepository(Review).findOne(req.params.id, {
+    relations: ['user'],
+  })
   if (review.user.id === req.user.id) {
     await getRepository(Review).merge(review, req.body)
     const results = await getRepository(Review).save(review)
@@ -173,7 +175,10 @@ export const reviewPutId = async (req: Request, res: Response) => {
 }
 
 export const reviewDeleteId = async (req: Request, res: Response) => {
-  const review = await getRepository(Review).findOne(req.params.id)
+  const { id } = req.params
+  const review = await getRepository(Review).findOne(id, {
+    relations: ['user'],
+  })
   if (review.user.id === req.user.id) {
     const results = await getRepository(Review).remove(review)
     return res.send(results)
