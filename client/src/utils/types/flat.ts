@@ -7,5 +7,5 @@ export interface Flat {
 }
 interface Location {
   type: string
-  coordinates?: number[] | null
+  coordinates: number[]
 }

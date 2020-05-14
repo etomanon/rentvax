@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { useSelectorApp } from '@/redux'
@@ -12,6 +12,9 @@ import { Rating } from '@/components/formik/Rating'
 import { Button } from '@/components/button/styled/Button'
 import { useApi } from '@/utils/api/useApi'
 import { ADRESS_TYPES_FILTER, Place } from '@/components/formik/Place'
+import { Review as IReview } from '@/utils/types/review'
+import { toast } from 'react-toastify'
+import { RoutePathEnum } from '@/router/routes'
 
 interface FormValues {
   rating: number | null
@@ -19,11 +22,17 @@ interface FormValues {
 }
 
 export const Review = () => {
+  const { id } = useParams<{ id: string }>()
+  const { push } = useHistory()
   const api = useApi()
   const firstRender = useRef(true)
   const [initPlace, setInitPlace] = useState<
     { formatted_address: string; place_id: string } | undefined
   >(undefined)
+  const [initValues, setInitValues] = useState<FormValues>({
+    rating: -1,
+    description: '',
+  })
   const address = useSelectorApp((state) => state.location.address)
   const [error, setError] = useState<string | undefined>(undefined)
   const addressValid = useMemo(
@@ -46,14 +55,36 @@ export const Review = () => {
   }, [addressValid])
 
   useEffect(() => {
-    if (firstRender.current && address) {
-      setInitPlace({
-        formatted_address: address.formatted_address,
-        place_id: address.formatted_address,
-      })
+    const call = async () => {
+      if (firstRender.current) {
+        firstRender.current = false
+        if (id) {
+          const review = await api<IReview>({
+            url: `review/${id}`,
+          })
+          if (review) {
+            setInitPlace({
+              formatted_address: review.flat.name,
+              place_id: review.flat.name,
+            })
+            setInitValues({
+              rating: review.rating,
+              description: review.description,
+            })
+            return
+          }
+        }
+        if (address) {
+          setInitPlace({
+            formatted_address: address.formatted_address,
+            place_id: address.formatted_address,
+          })
+        }
+      }
     }
-    firstRender.current = false
-  }, [address, firstRender])
+
+    call()
+  }, [address, firstRender, id, api])
 
   return (
     <>
@@ -71,10 +102,8 @@ export const Review = () => {
           </Flex>
         </Flex>
         <Formik<FormValues>
-          initialValues={{
-            rating: null,
-            description: '',
-          }}
+          initialValues={initValues}
+          enableReinitialize
           validationSchema={Yup.object({
             rating: Yup.number()
               .required('Povinné')
@@ -84,7 +113,6 @@ export const Review = () => {
               .required('Povinné'),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log('addressValid', addressValid)
             if (!addressValid) {
               setSubmitting(false)
               return
@@ -97,12 +125,20 @@ export const Review = () => {
                 coordinates: [address?.latLng.lng, address?.latLng.lat],
               },
             }
-            await api({
-              url: 'review',
-              method: 'POST',
-              body: apiValues,
-            })
+            id
+              ? await api({
+                  url: `review/${id}`,
+                  method: 'PUT',
+                  body: apiValues,
+                })
+              : await api({
+                  url: 'review',
+                  method: 'POST',
+                  body: apiValues,
+                })
             setSubmitting(false)
+            toast.success(id ? 'Recenze změnena' : 'Recenze vytvořena')
+            push(RoutePathEnum.MY_REVIEWS)
           }}
         >
           <Form>
@@ -114,7 +150,7 @@ export const Review = () => {
                 <TextArea label="Recenze" name="description" rows={10} />
               </Flex>
               <Button variant="filled" type="submit" mt={3}>
-                Vytvořit recenzi
+                {id ? 'Změnit recenzi' : 'Vytvořit recenzi'}
               </Button>
             </Flex>
           </Form>

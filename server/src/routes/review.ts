@@ -7,6 +7,8 @@ export const router = Router({
   mergeParams: true,
 })
 
+router.get('/:id', logged, review.reviewGetId)
+
 router.post('/user', logged, review.reviewGetByUser)
 
 router.post('/flat-name', review.reviewGetByFlatName)

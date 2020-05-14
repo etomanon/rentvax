@@ -19,8 +19,9 @@ export enum RoutePermissionEnum {
 
 export interface Route {
   component: () => JSX.Element
-  path: RoutePathEnum
+  path: string
   permission: RoutePermissionEnum
+  disableExact?: boolean
 }
 
 export const routes: Route[] = [
@@ -31,8 +32,15 @@ export const routes: Route[] = [
   },
   {
     component: Review,
-    path: RoutePathEnum.REVIEW,
+    path: `${RoutePathEnum.REVIEW}`,
     permission: RoutePermissionEnum.USER,
+    disableExact: false,
+  },
+  {
+    component: Review,
+    path: `${RoutePathEnum.REVIEW}/:id`,
+    permission: RoutePermissionEnum.USER,
+    disableExact: false,
   },
   {
     component: Search,

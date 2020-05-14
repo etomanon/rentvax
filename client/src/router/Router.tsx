@@ -37,7 +37,12 @@ export const Router: React.FC = () => {
       >
         <Switch>
           {routesFiltered.map((r) => (
-            <Route key={r.path} exact path={r.path} component={r.component} />
+            <Route
+              key={r.path}
+              exact={r.disableExact ? false : true}
+              path={r.path}
+              component={r.component}
+            />
           ))}
 
           <Route component={Error404} />

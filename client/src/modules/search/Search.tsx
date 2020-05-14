@@ -105,7 +105,7 @@ export const Search = () => {
         <Flex width={[1, 0.75, 0.5, 0.333]} flexDirection="column" mx="auto">
           {location.address?.formatted_address && (
             <Flex mb={2} alignItems="center" flexDirection="column">
-              <TextSubtitle>Vybraná adresa</TextSubtitle>
+              <TextSubtitle>Recenze nejblíž adresy</TextSubtitle>
               <Text mt={1} fontWeight={500} textAlign="center">
                 {location.address?.formatted_address}
               </Text>

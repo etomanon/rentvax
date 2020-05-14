@@ -7,8 +7,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATH_BUILD = path.join(__dirname, '..', 'build');
 
-module.exports = isDev => {
-  return {
+const isDev = process.env.NODE_ENV === 'development'
+
+module.exports = {
     mode: isDev ? 'development' : 'production',
     entry: path.resolve(__dirname, '..', 'src', 'index.tsx'),
     stats: isDev ? 'errors-warnings' : 'normal',
@@ -101,4 +102,3 @@ module.exports = isDev => {
       clientLogLevel: 'silent'
     }
   }
-}

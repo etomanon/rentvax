@@ -9,53 +9,22 @@ export const reviewGetByUser = async (req: Request, res: Response) => {
   const take = req.body.take ?? 5
   const skip = req.body.skip
 
-  if (req.body.name) {
-    const flat = await getRepository(Flat)
-      .createQueryBuilder('flat')
-      .where(`flat.name = (:flat)`, {
-        flat: req.body.name,
-      })
-      .getOne()
+  const reviewsUser = await getRepository(Review)
+    .createQueryBuilder('review')
+    .innerJoinAndSelect('review.user', 'user')
+    .innerJoinAndSelect('review.flat', 'flat')
+    .where(`user.id = (:user)`, {
+      user: req.user.id,
+    })
 
-    if (!flat) {
-      return res.send({ result: [], count: 0 })
-    }
+  const reviewsCount = await reviewsUser.getCount()
+  const reviews = await reviewsUser
+    .orderBy('review.updatedAt', 'DESC')
+    .skip(skip)
+    .take(take)
+    .getMany()
 
-    const reviewsFlat = await getRepository(Review)
-      .createQueryBuilder('review')
-      .innerJoinAndSelect('review.user', 'user')
-      .innerJoinAndSelect('review.flat', 'flat')
-      .where(`flat.id = (:flat) AND user.id = (:user)`, {
-        flat: flat.id,
-        user: req.user.id,
-      })
-
-    const reviewsCount = await reviewsFlat.getCount()
-    const reviews = await reviewsFlat
-      .orderBy('review.updatedAt', 'ASC')
-      .skip(skip)
-      .take(take)
-      .getMany()
-
-    return res.send({ result: reviews, count: reviewsCount })
-  } else {
-    const reviewsUser = await getRepository(Review)
-      .createQueryBuilder('review')
-      .innerJoinAndSelect('review.user', 'user')
-      .innerJoinAndSelect('review.flat', 'flat')
-      .where(`user.id = (:user)`, {
-        user: req.user.id,
-      })
-
-    const reviewsCount = await reviewsUser.getCount()
-    const reviews = await reviewsUser
-      .orderBy('review.updatedAt', 'ASC')
-      .skip(skip)
-      .take(take)
-      .getMany()
-
-    return res.send({ result: reviews, count: reviewsCount })
-  }
+  return res.send({ result: reviews, count: reviewsCount })
 }
 
 export const reviewGetByFlatName = async (req: Request, res: Response) => {
@@ -83,7 +52,7 @@ export const reviewGetByFlatName = async (req: Request, res: Response) => {
 
   const reviewsCount = await reviewsFlat.getCount()
   const reviews = await reviewsFlat
-    .orderBy('review.updatedAt', 'ASC')
+    .orderBy('review.updatedAt', 'DESC')
     .skip(skip)
     .take(take)
     .getMany()
@@ -157,12 +126,39 @@ export const reviewPost = async (req: Request, res: Response) => {
   return res.send(result)
 }
 
+export const reviewGetId = async (req: Request, res: Response) => {
+  const review = await getRepository(Review).findOne(req.params.id, {
+    relations: ['user', 'flat'],
+  })
+  if (!review) {
+    return res.status(404).send({
+      code: 404,
+      message: 'Review not found',
+    })
+  }
+  if (review.user.id === req.user.id) {
+    return res.send(review)
+  } else {
+    return res.status(500).send({
+      code: 500,
+      message: 'You can modify only your reviews',
+    })
+  }
+}
+
 export const reviewPutId = async (req: Request, res: Response) => {
   const review = await getRepository(Review).findOne(req.params.id, {
     relations: ['user'],
   })
   if (review.user.id === req.user.id) {
-    await getRepository(Review).merge(review, req.body)
+    const { rating, description, address, geom } = req.body
+    const flat = await flatGetOrCreate(address, geom)
+    const update: Partial<Review> = {
+      rating: rating,
+      description: description,
+      flat,
+    }
+    await getRepository(Review).merge(review, update)
     const results = await getRepository(Review).save(review)
     await getRepository(Review).merge(review, req.body)
     return res.send(results)

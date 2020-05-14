@@ -13,6 +13,8 @@ import { Tooltip } from '../tooltip/Tooltip'
 import { Delete } from '@styled-icons/material/Delete'
 import { useApi } from '@/utils/api/useApi'
 import { Confirm } from '../confirm/Confirm'
+import { useHistory } from 'react-router-dom'
+import { RoutePathEnum } from '@/router/routes'
 
 interface ReviewItemProps {
   review: Review
@@ -34,6 +36,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
   editable,
   onDelete,
 }) => {
+  const { push } = useHistory()
   const api = useApi()
   const theme = useTheme()
   const firstUpdate = useRef(true)
@@ -89,6 +92,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                     }}
                     width="2rem"
                     height="2rem"
+                    onClick={() => push(`${RoutePathEnum.REVIEW}/${id}`)}
                   />
                 </Tooltip>
                 <Tooltip tooltip="Smazat">

@@ -27,7 +27,7 @@ export const MyReviews = () => {
   const [reviews, setReviews] = useState<Review[]>([])
   const [apiProps, setApiProps] = useState<ApiProps | null>({
     method: 'POST',
-    url: '/review/user',
+    url: 'review/user',
   })
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export const MyReviews = () => {
       setRefresh(false)
       setApiProps({
         method: 'POST',
-        url: '/review/user',
+        url: 'review/user',
       })
     }
   }, [refresh])

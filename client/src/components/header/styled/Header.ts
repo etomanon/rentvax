@@ -148,14 +148,21 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
   color: #fff;
   text-decoration: none;
   transition: 0.3s ease-in color;
-  &.${(p) => p.activeClassName} {
-    font-weight: 500;
-  }
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid transparent;
   &:hover,
   &:focus {
     color: white;
     text-decoration: none;
     outline: none;
+  }
+  &.${(p) => p.activeClassName} {
+    border-bottom: 1px solid #fff;
+    &:hover,
+    &:focus {
+      cursor: default;
+      color: #fff;
+    }
   }
   ${space};
 
@@ -164,6 +171,13 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
     &:hover,
     &:focus {
       color: ${({ theme }) => theme.colors.primary};
+    }
+    &.${(p) => p.activeClassName} {
+      border-bottom: 1px solid ${(props) => props.theme.colors.primary};
+      &:hover,
+      &:focus {
+        color: ${({ theme }) => theme.colors.text};
+      }
     }
   }
 `
