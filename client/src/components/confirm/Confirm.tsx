@@ -4,6 +4,7 @@ import 'react-popper-tooltip/dist/styles.css'
 import { Flex } from '@rebass/grid'
 import { Text } from '../text/styled/Text'
 import { Button } from '../button/styled/Button'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   onConfirm: () => void
@@ -17,6 +18,7 @@ export const Confirm = ({
   confirmText,
   ...props
 }: Props) => {
+  const { t } = useTranslation('common')
   const refTrig = useRef<HTMLSpanElement>(null)
   return (
     <TooltipTrigger
@@ -64,7 +66,7 @@ export const Confirm = ({
                 refTrig.current && refTrig.current.click()
               }}
             >
-              Ano
+              {t('yes')}
             </Button>
             <Button
               width={0.45}
@@ -74,7 +76,7 @@ export const Confirm = ({
               }}
               variant="error"
             >
-              Ne
+              {t('no')}
             </Button>
           </Flex>
         </div>

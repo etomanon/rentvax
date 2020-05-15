@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 
@@ -15,16 +15,26 @@ import {
   HeaderLink,
   HeaderNavLink,
   HeaderBackground,
+  HeaderLang,
 } from './styled/Header'
 import { useSelectorApp } from '@/redux'
+import { useTranslation } from 'react-i18next'
+import { Tooltip } from '../tooltip/Tooltip'
+import { Flex } from '@rebass/grid'
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
+  const { t, i18n } = useTranslation('common')
   const user = useSelectorApp((state) => state.user)
   const [active, setActive] = useState(false)
   const handlers = useSwipeable({
     onSwipedRight: () => setActive((prev) => !prev),
     trackMouse: true,
   })
+  useEffect(() => {
+    document.title = t('title')
+  }, [i18n.language, t])
+
+  const isEn = i18n.language.slice(0, 2) === 'en'
   return (
     <>
       <HeaderBurger active={active} onClick={() => setActive((prev) => !prev)}>
@@ -42,10 +52,18 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
         <HeaderTitleWrapper onClick={() => history.push('/')}>
           <HeaderLogo size="3rem" />
           <Text ml={2} mr={3} fontSize={3} mb={0} style={{ cursor: 'pointer' }}>
-            Hodnocení podnájmů
+            {t('title')}
           </Text>
         </HeaderTitleWrapper>
         <HeaderWrapperLinks active={active} {...handlers}>
+          <Flex mr={[0, 0, '5rem']} mb={['5rem', '5rem', 0]}>
+            <HeaderLang
+              pointer
+              onClick={() => i18n.changeLanguage(isEn ? 'cs' : 'en')}
+            >
+              {isEn ? t('cs') : t('en')}
+            </HeaderLang>
+          </Flex>
           <HeaderNavLink
             exact
             to="/"
@@ -53,7 +71,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
             mb={[2, 2, 0]}
             onClick={() => setActive(false)}
           >
-            Domů
+            {t('home')}
           </HeaderNavLink>
           {user ? (
             <>
@@ -64,7 +82,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
                 mb={[2, 2, 0]}
                 onClick={() => setActive(false)}
               >
-                Přidat recenzi
+                {t('addReview')}
               </HeaderNavLink>
               <HeaderNavLink
                 exact
@@ -73,14 +91,14 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
                 mb={[2, 2, 0]}
                 onClick={() => setActive(false)}
               >
-                Moje recenze
+                {t('myReviews')}
               </HeaderNavLink>
               <HeaderLink
                 onClick={() => setActive(false)}
                 mt={[4, 4, 0]}
                 href="/api/auth/logout"
               >
-                Odhlásit se
+                {t('logout')}
               </HeaderLink>
             </>
           ) : (
@@ -88,7 +106,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               onClick={() => setActive(false)}
               href="/api/auth/google"
             >
-              Přihlásit se
+              {t('login')}
             </HeaderLink>
           )}
         </HeaderWrapperLinks>

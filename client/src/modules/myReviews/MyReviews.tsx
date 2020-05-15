@@ -15,10 +15,12 @@ import { useSelectorApp } from '@/redux'
 import { Place } from '@/components/formik/Place'
 import { useDispatch } from 'react-redux'
 import { locationSet } from '@/redux/location'
+import { useTranslation } from 'react-i18next'
 
 export const QS_FLAT_NAME = 'flatName'
 
 export const MyReviews = () => {
+  const { t } = useTranslation('common')
   const { push } = useHistory()
   const dispatch = useDispatch()
   const firstUpdate = useRef(true)
@@ -66,13 +68,13 @@ export const MyReviews = () => {
     <>
       <Flex flexDirection="column" width={1}>
         <TextSubtitle textAlign="center" mb="0">
-          Moje recenze
+          {t('myReviews')}
         </TextSubtitle>
         <Flex flexDirection="column" ref={refList} alignItems="center">
           {reviews.map((r) => (
             <React.Fragment key={r.id}>
               <Box mt={3} mb={1}>
-                <Tooltip tooltip={'Zobraz na Google Maps'}>
+                <Tooltip tooltip={t('showOnMap')}>
                   <TextSubtitle
                     as="a"
                     width={1}

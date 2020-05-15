@@ -9,8 +9,10 @@ import { Place } from '../../components/formik/Place'
 import { HomeImg } from './styled/Home'
 import { RoutePathEnum } from '@/router/routes'
 import { QS_ADDRESS, QS_PLACE_ID } from '../search/Search'
+import { useTranslation } from 'react-i18next'
 
 export const Home = () => {
+  const { t } = useTranslation('common')
   const { push } = useHistory()
   const onSelect = (formatted_address: string, place_id: string) => {
     push({
@@ -39,9 +41,9 @@ export const Home = () => {
           pb="2rem"
           flexDirection="column"
         >
-          <TextHeader textAlign="center">Hodnocení podnájmů</TextHeader>
+          <TextHeader textAlign="center">{t('title')}</TextHeader>
           <Text fontSize={3} mt="1rem" mb="2rem" textAlign="center">
-            Najděte adresu
+            {t('search')}
           </Text>
           <Place onSelect={onSelect} />
         </Flex>

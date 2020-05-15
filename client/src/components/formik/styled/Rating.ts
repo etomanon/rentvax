@@ -32,10 +32,10 @@ const iconCss = (props: ThemedStyledProps<PropsStar, DefaultTheme>) => {
     transition: 0.2s ease-in all;
     color: ${active ? secondary : '#000'};
     border-radius: 0.5rem;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     &:focus {
       outline: none;
-      border: 2px solid ${secondary}
+      border: 1px solid ${secondary}
     }
   `
 }

@@ -20,6 +20,7 @@ import { scrollSmooth } from '@/utils/func/scrollSmooth'
 import { Tooltip } from '@/components/tooltip/Tooltip'
 import { Box } from '@rebass/grid'
 import { QS_FLAT_NAME } from '../flat/Flat'
+import { useTranslation } from 'react-i18next'
 
 export const QS_ADDRESS = 'address'
 export const QS_PLACE_ID = 'place_id'
@@ -27,6 +28,7 @@ export const QS_PLACE_ID = 'place_id'
 type ReviewState = NativeMap<Review[]>
 
 export const Search = () => {
+  const { t } = useTranslation('common')
   const [initAddress, setInitAddress] = useState<
     | {
         formatted_address: string
@@ -105,7 +107,7 @@ export const Search = () => {
         <Flex width={[1, 0.75, 0.5, 0.333]} flexDirection="column" mx="auto">
           {location.address?.formatted_address && (
             <Flex mb={2} alignItems="center" flexDirection="column">
-              <TextSubtitle>Recenze nejblíž adresy</TextSubtitle>
+              <TextSubtitle>{t('nearestReviews')}</TextSubtitle>
               <Text mt={1} fontWeight={500} textAlign="center">
                 {location.address?.formatted_address}
               </Text>
@@ -117,12 +119,12 @@ export const Search = () => {
                 onClick={() => history.push(RoutePathEnum.REVIEW)}
                 disabled={!user}
               >
-                Přidat recenzi
+                {t('addReview')}
               </Button>
 
               {!user && (
                 <Text mt={1} mb={3}>
-                  Pro přidání recenze se musíte přihlásit
+                  {t('loginToRate')}
                 </Text>
               )}
             </Flex>
@@ -133,7 +135,7 @@ export const Search = () => {
         {Object.keys(reviews).map((key) => (
           <React.Fragment key={key}>
             <Box mt={4} />
-            <Tooltip tooltip={'Zobraz na Google Maps'}>
+            <Tooltip tooltip={t('showOnMap')}>
               <TextSubtitle
                 as="a"
                 width={1}
@@ -176,7 +178,7 @@ export const Search = () => {
                         })
                       }
                     >
-                      VÍCE RECENZÍ
+                      {t('moreReviews')}
                       <ArrowRight
                         style={{ marginLeft: '1rem' }}
                         width="1.5rem"

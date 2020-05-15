@@ -17,7 +17,7 @@ export const Link = styled.a<
   LinkProps & FontWeightProps & SpaceProps & ColorProps
 >`
   color: ${({ theme }) => theme.colors.text};
-  text-decoration: ${props => (props.noUnderline ? 'none' : 'underline')};
+  text-decoration: ${(props) => (props.noUnderline ? 'none' : 'underline')};
   transition: 0.3s ease-in color;
   &:hover,
   &:focus {

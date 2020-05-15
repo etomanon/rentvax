@@ -11,6 +11,7 @@ import {
   color,
 } from 'styled-system'
 import { Building2 } from '@styled-icons/remix-fill/Building2'
+import { Text } from '@/components/text/styled/Text'
 
 interface MobileMenuProps {
   active: boolean
@@ -83,7 +84,7 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
     width: auto;
     flex-direction: row;
     background: #fff;
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.text};
     transform: translate3d(0, 0, 0);
     padding-right: 1rem;
   }
@@ -214,4 +215,14 @@ export const HeaderBackground = styled.div`
   height: 5rem;
   width: 100%;
   background: '#fff';
+`
+export const HeaderLang = styled(Text)`
+  &:hover {
+    color: inherit;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+    }
+  }
 `

@@ -15,6 +15,7 @@ import { ADRESS_TYPES_FILTER, Place } from '@/components/formik/Place'
 import { Review as IReview } from '@/utils/types/review'
 import { toast } from 'react-toastify'
 import { RoutePathEnum } from '@/router/routes'
+import { useTranslation } from 'react-i18next'
 
 interface FormValues {
   rating: number | null
@@ -22,6 +23,7 @@ interface FormValues {
 }
 
 export const Review = () => {
+  const { t } = useTranslation('common')
   const { id } = useParams<{ id: string }>()
   const { push } = useHistory()
   const api = useApi()
@@ -48,11 +50,9 @@ export const Review = () => {
     if (addressValid) {
       setError(undefined)
     } else {
-      setError(
-        'Vyberte prosím přesnou adresu s číslem popisným - např. napište Roosveltova 42 a poté vyberte adresu ze seznamu'
-      )
+      setError(t('addressError'))
     }
-  }, [addressValid])
+  }, [addressValid, t])
 
   useEffect(() => {
     const call = async () => {
@@ -91,7 +91,7 @@ export const Review = () => {
       <Box width={1}>
         <Flex flexDirection="column" width={1} alignItems="center" my={3}>
           <Text color="secondary" fontSize={4}>
-            Vaše recenze
+            {t('yourReview')}
           </Text>
           <Flex width={[1, 0.75, 0.5]} flexDirection="column" mt={3}>
             <Place
@@ -106,11 +106,11 @@ export const Review = () => {
           enableReinitialize
           validationSchema={Yup.object({
             rating: Yup.number()
-              .required('Povinné')
-              .oneOf([1, 2, 3, 4, 5], 'Neplatná hodnota hodnocení'),
+              .required(t('required'))
+              .oneOf([1, 2, 3, 4, 5], t('rateError')),
             description: Yup.string()
-              .max(5000, 'Max 5 000 znaků')
-              .required('Povinné'),
+              .max(5000, t('maxLengthError'))
+              .required(t('required')),
           })}
           onSubmit={async (values, { setSubmitting }) => {
             if (!addressValid) {
@@ -137,20 +137,20 @@ export const Review = () => {
                   body: apiValues,
                 })
             setSubmitting(false)
-            toast.success(id ? 'Recenze změnena' : 'Recenze vytvořena')
+            toast.success(id ? t('reviewChanged') : t('reviewCreated'))
             push(RoutePathEnum.MY_REVIEWS)
           }}
         >
           <Form>
             <Flex alignItems="center" flexDirection="column">
               <Flex width={[1, 0.75, 0.5]}>
-                <Rating label="Hodnocení" name="rating" />
+                <Rating label={t('rating')} name="rating" />
               </Flex>
               <Flex width={[1, 0.75, 0.5]}>
-                <TextArea label="Recenze" name="description" rows={10} />
+                <TextArea label={t('review')} name="description" rows={10} />
               </Flex>
               <Button variant="filled" type="submit" mt={3}>
-                {id ? 'Změnit recenzi' : 'Vytvořit recenzi'}
+                {id ? t('changeReview') : t('createReview')}
               </Button>
             </Flex>
           </Form>

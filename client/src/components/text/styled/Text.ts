@@ -24,9 +24,9 @@ interface TextProps {
 
 const cssPointer = css`
   cursor: pointer;
+  transition: 0.25s ease-in color;
   &:hover {
-    color: #fff;
-    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `
 
@@ -50,6 +50,6 @@ export const Text = styled.div<
   ${textAlign};
   ${fontWeight};
   ${color};
-  ${props => props.pointer && cssPointer};
+  ${(props) => props.pointer && cssPointer};
   ${width};
 `

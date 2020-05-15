@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import Truncate from 'react-truncate'
 import { Review } from '@/utils/types/review'
 import { Container, Description, Toggle } from './styled/ReviewItem'
 import { Text } from '../text/styled/Text'
@@ -15,6 +14,7 @@ import { useApi } from '@/utils/api/useApi'
 import { Confirm } from '../confirm/Confirm'
 import { useHistory } from 'react-router-dom'
 import { RoutePathEnum } from '@/router/routes'
+import { useTranslation } from 'react-i18next'
 
 interface ReviewItemProps {
   review: Review
@@ -36,6 +36,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
   editable,
   onDelete,
 }) => {
+  const { t } = useTranslation('common')
   const { push } = useHistory()
   const api = useApi()
   const theme = useTheme()
@@ -79,11 +80,11 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
         <Flex flexDirection="column">
           <Flex mt={1} justifyContent="flex-end" alignItems="center">
             <Text fontSize={1} textAlign="right">
-              Uživatel {user.id}
+              {t('user')} {user.id}
             </Text>
             {editable && (
               <>
-                <Tooltip tooltip="Editovat">
+                <Tooltip tooltip={t('edit')}>
                   <Edit
                     style={{
                       marginLeft: '.5rem',
@@ -95,8 +96,11 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                     onClick={() => push(`${RoutePathEnum.REVIEW}/${id}`)}
                   />
                 </Tooltip>
-                <Tooltip tooltip="Smazat">
-                  <Confirm onConfirm={handleDelete} confirmText="Smazat?">
+                <Tooltip tooltip={t('delete')}>
+                  <Confirm
+                    onConfirm={handleDelete}
+                    confirmText={`${t('delete')}?`}
+                  >
                     <Delete
                       style={{
                         marginLeft: '.5rem',

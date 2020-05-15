@@ -45,8 +45,6 @@ export const Rating = ({ label, ...props }: Props) => {
     setFieldValue(field.name, nextValue)
   }
 
-  console.log('field.value', field.value)
-
   return (
     <Flex flexDirection="column" width={1} alignItems="center">
       <Label>{label}</Label>

@@ -11,10 +11,12 @@ import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
 import { TextSubtitle } from '@/components/text/styled/TextSubtitle'
 import { RoutePathEnum } from '@/router/routes'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
+import { useTranslation } from 'react-i18next'
 
 export const QS_FLAT_NAME = 'flatName'
 
 export const Flat = () => {
+  const { t } = useTranslation('common')
   const { push } = useHistory()
   const firstUpdate = useRef(true)
   const refList = useRef<HTMLDivElement>(null)
@@ -53,7 +55,7 @@ export const Flat = () => {
     <>
       <Flex flexDirection="column" width={1}>
         {name && (
-          <Tooltip tooltip={'Zobraz na Google Maps'}>
+          <Tooltip tooltip={t('showOnMap')}>
             <TextSubtitle
               as="a"
               width={1}
