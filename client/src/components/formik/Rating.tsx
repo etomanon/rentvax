@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   useField,
   FieldInputProps,
@@ -8,18 +8,29 @@ import {
 
 import { ErrorMessage } from './styled/ErrorMessage'
 import { Flex } from '../grid/Flex'
-import StarRatingComponent from 'react-star-rating-component'
 import { Label } from './styled/Label'
 import { theme } from '@/theme/theme'
-import { RaitingContainer } from './styled/Rating'
+import { RaitingContainer, StarItem } from './styled/Rating'
 
 interface Props {
   label: string
   name: string
 }
 
+interface IStar {
+  id: number
+}
+
+export const STARS: IStar[] = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+]
+
 export const Rating = ({ label, ...props }: Props) => {
-  const { setFieldValue } = useFormikContext()
+  const { setFieldValue, setFieldTouched } = useFormikContext()
   const [field, meta] = useField(
     props as FieldInputProps<number> & FieldMetaProps<number>
   )
@@ -27,21 +38,34 @@ export const Rating = ({ label, ...props }: Props) => {
     meta.touched && meta.error && typeof meta.error !== 'object'
   )
 
+  const [hovered, setHovered] = useState(-1)
+
   const onStarClick = (nextValue: number) => {
+    setFieldTouched(field.name, true)
     setFieldValue(field.name, nextValue)
   }
 
+  console.log('field.value', field.value)
+
   return (
     <Flex flexDirection="column" width={1} alignItems="center">
-      <Label htmlFor={field.name}>{label}</Label>
+      <Label>{label}</Label>
       <RaitingContainer justifyContent="center" error={isError}>
-        <StarRatingComponent
-          name={field.name}
-          starCount={5}
-          value={field.value ?? 0}
-          onStarClick={onStarClick}
-          starColor={theme.colors.secondary}
-        />
+        {STARS.map(({ id }) => (
+          <StarItem
+            key={id}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                onStarClick(id)
+              }
+            }}
+            active={field.value >= id || hovered >= id}
+            onClick={() => onStarClick(id)}
+            onMouseEnter={() => setHovered(id)}
+            onMouseLeave={() => setHovered(-1)}
+          />
+        ))}
       </RaitingContainer>
       {isError && <ErrorMessage>{meta.error}</ErrorMessage>}
     </Flex>

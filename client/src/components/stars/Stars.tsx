@@ -1,22 +1,17 @@
 import React from 'react'
-import { theme } from '@/theme/theme'
-import StarRatingComponent from 'react-star-rating-component'
-import { Container } from './styled/Stars'
+import { STARS } from '../formik/Rating'
+import { StarItem } from '../formik/styled/Rating'
 
 interface StarsProps {
-  name: string | number
   rating: number
 }
 
-export const Stars: React.FC<StarsProps> = ({ name, rating }) => {
+export const Stars: React.FC<StarsProps> = ({ rating }) => {
   return (
-    <Container>
-      <StarRatingComponent
-        name={name + 'rating'}
-        starCount={5}
-        value={rating}
-        starColor={theme.colors.secondary}
-      />
-    </Container>
+    <div>
+      {STARS.map(({ id }) => (
+        <StarItem key={id} disabled active={rating >= id} height="1.75rem" />
+      ))}
+    </div>
   )
 }

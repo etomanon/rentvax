@@ -75,7 +75,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
   return (
     <Container ref={refContainer}>
       <Flex justifyContent="space-between" mx={1}>
-        <Stars name={id} rating={rating} />
+        <Stars rating={rating} />
         <Flex flexDirection="column">
           <Flex mt={1} justifyContent="flex-end" alignItems="center">
             <Text fontSize={1} textAlign="right">
