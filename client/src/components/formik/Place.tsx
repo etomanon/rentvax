@@ -35,7 +35,6 @@ export const Place: React.FC<PlaceProps> = ({
   initAddress,
   error,
 }) => {
-  const { i18n } = useTranslation()
   const dispatch = useDispatch()
   const [address, setAddress] = useState('')
   const onChange = (address: string) => {
@@ -86,9 +85,8 @@ export const Place: React.FC<PlaceProps> = ({
         highlightFirstSuggestion
         searchOptions={
           {
-            types: ['address'],
+            types: filterPredictions ? undefined : ['address'],
             // componentRestrictions: { country: 'cz' },
-            language: i18n.language,
           } as any
         }
         // @ts-ignore

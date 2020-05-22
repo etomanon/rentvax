@@ -16,6 +16,7 @@ import {
   HeaderNavLink,
   HeaderBackground,
   HeaderLang,
+  GoogleLogo,
 } from './styled/Header'
 import { useSelectorApp } from '@/redux'
 import { useTranslation } from 'react-i18next'
@@ -101,12 +102,14 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               </HeaderLink>
             </>
           ) : (
-            <HeaderLink
-              onClick={() => setActive(false)}
-              href="/api/auth/google"
-            >
-              {t('login')}
-            </HeaderLink>
+            <>
+              <HeaderLink
+                onClick={() => setActive(false)}
+                href="/api/auth/google"
+              >
+                <GoogleLogo /> {t('login')}
+              </HeaderLink>
+            </>
           )}
         </HeaderWrapperLinks>
       </HeaderWrapper>

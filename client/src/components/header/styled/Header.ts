@@ -12,6 +12,7 @@ import {
 } from 'styled-system'
 import { Building2 } from '@styled-icons/remix-fill/Building2'
 import { Text } from '@/components/text/styled/Text'
+import Google from './google.svg'
 
 interface MobileMenuProps {
   active: boolean
@@ -49,7 +50,7 @@ export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   width: 100%;
   max-width: 75em;
   color: ${({ theme }) => theme.colors.text};
-  background: #fff;
+  background: #fcfcfc;
   ${space}
   ${flexDirection}
 `
@@ -83,7 +84,7 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
     height: auto;
     width: auto;
     flex-direction: row;
-    background: #fff;
+    background: #FCFCFC;
     color: ${({ theme }) => theme.colors.text};
     transform: translate3d(0, 0, 0);
     padding-right: 1rem;
@@ -187,6 +188,9 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
 export const HeaderLink = styled.a<
   FontWeightProps & SpaceProps & ColorProps
   >`
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.5rem;
   color: #fff;
   text-decoration: none;
   transition: 0.3s ease-in color;
@@ -214,9 +218,10 @@ export const HeaderBackground = styled.div`
   left: 0%;
   height: 5rem;
   width: 100%;
-  background: '#fff';
+  background: '#FCFCFC';
 `
 export const HeaderLang = styled(Text)`
+  padding-bottom: 0.5rem;
   &:hover {
     color: inherit;
   }
@@ -225,4 +230,10 @@ export const HeaderLang = styled(Text)`
       color: ${({ theme }) => theme.colors.primary};
     }
   }
+`
+export const GoogleLogo = styled.div`
+  background-image: url(${Google});
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
 `

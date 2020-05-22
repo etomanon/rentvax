@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 		height: 100%;
 		margin: 0;
 		padding: 0;
+		background: #FCFCFC;
 		text-rendering: optimizeLegibility;
 		font-family: 'Montserrat', sans-serif;
 		-webkit-font-smoothing: antialiased;
