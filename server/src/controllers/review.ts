@@ -173,10 +173,16 @@ export const reviewPutId = async (req: Request, res: Response) => {
 export const reviewDeleteId = async (req: Request, res: Response) => {
   const { id } = req.params
   const review = await getRepository(Review).findOne(id, {
-    relations: ['user'],
+    relations: ['user', 'flat'],
   })
   if (review.user.id === req.user.id) {
     const results = await getRepository(Review).remove(review)
+    const flat = await getRepository(Flat).findOne(review.flat.id, {
+      relations: ['reviews'],
+    })
+    if (flat.reviews.length === 0) {
+      await getRepository(Flat).remove(flat)
+    }
     return res.send(results)
   } else {
     return res.status(500).send({
