@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATH_BUILD = path.join(__dirname, '..', 'build');
+const PATH_PUBLIC = path.join(__dirname, '..', 'public')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -76,7 +77,8 @@ module.exports = {
       // cause hashes to be based on the relative path of the module
       new webpack.HashedModuleIdsPlugin(),
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, '..', 'public', 'index.html')
+        template: path.join(PATH_PUBLIC, 'index.html'),
+        favicon: path.join(PATH_PUBLIC, 'icon.svg'),
       }),
       // extracts CSS into separate files.
       // It creates a CSS file per JS file which contains CSS.

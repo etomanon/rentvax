@@ -125,7 +125,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
         mt={1}
         ml={2}
         pr="1.7rem"
-        maxHeight={truncated ? '5rem' : 'auto'}
+        height={truncated ? '2.5rem' : 'auto'}
         truncated={truncated}
         ref={refDescription}
       >

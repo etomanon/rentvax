@@ -35,7 +35,7 @@ export const Home = () => {
       >
         <Flex
           style={{ position: 'relative' }}
-          width={[1, 1, 'auto']}
+          width={[1, 1, 0.55]}
           mt={['2rem', '2rem', '10rem']}
           mr={[0, 0, '4rem', 'auto']}
           pb="2rem"

@@ -15,6 +15,7 @@ import { locationSet } from '../../redux/location'
 import { Loader } from '../loader/styled/Loader'
 import { callAsyncAction } from '../../utils/func/callAsyncAction'
 import { ErrorMessage } from './styled/ErrorMessage'
+import { useTranslation } from 'react-i18next'
 
 export const ADRESS_TYPES_FILTER = ['street_address', 'premise']
 
@@ -34,6 +35,7 @@ export const Place: React.FC<PlaceProps> = ({
   initAddress,
   error,
 }) => {
+  const { i18n } = useTranslation()
   const dispatch = useDispatch()
   const [address, setAddress] = useState('')
   const onChange = (address: string) => {
@@ -82,10 +84,13 @@ export const Place: React.FC<PlaceProps> = ({
         onChange={onChange}
         onSelect={onSelectHandler}
         highlightFirstSuggestion
-        searchOptions={{
-          types: ['address'],
-          componentRestrictions: { country: 'cz' },
-        }}
+        searchOptions={
+          {
+            types: ['address'],
+            // componentRestrictions: { country: 'cz' },
+            language: i18n.language,
+          } as any
+        }
         // @ts-ignore
         filterPredictions={(prediction) => {
           if (filterPredictions) {

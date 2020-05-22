@@ -12,6 +12,8 @@
 // hour12?: boolean;
 // timeZone?: string;
 
+import i18n from '@/i18n/i18n'
+
 export const timeParse = (dateLike: string) => {
   // const options: Intl.DateTimeFormatOptions = {
   //   weekday: 'long',
@@ -21,5 +23,5 @@ export const timeParse = (dateLike: string) => {
   // }
   const options = {}
   const date = new Date(dateLike)
-  return date.toLocaleDateString('cs-CZ', options)
+  return date.toLocaleDateString(i18n.language, options)
 }

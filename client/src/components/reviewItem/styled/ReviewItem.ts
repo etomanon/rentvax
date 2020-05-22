@@ -24,15 +24,15 @@ export const Description = styled(Text)<
 >`
   position: relative;
   transition: 0.3s height easy-in;
-  white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: pre-wrap;
   ${height}
   ${maxHeight}
   ${(props) =>
     !props.truncated &&
     css`
-      white-space: normal;
+      white-space: pre-wrap;
       text-overflow: clip;
     `}
 `

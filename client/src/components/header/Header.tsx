@@ -19,7 +19,6 @@ import {
 } from './styled/Header'
 import { useSelectorApp } from '@/redux'
 import { useTranslation } from 'react-i18next'
-import { Tooltip } from '../tooltip/Tooltip'
 import { Flex } from '@rebass/grid'
 
 const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
