@@ -90,7 +90,7 @@ export const reviewGetByDistance = async (req: Request, res: Response) => {
       .where(`flat.id = (:flat)`, {
         flat: flat.id,
       })
-      .orderBy('review.updatedAt', 'ASC')
+      .orderBy('review.updatedAt', 'DESC')
       .take(3)
       .getMany()
 

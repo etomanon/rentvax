@@ -54,7 +54,7 @@ export const Rating = ({ label, ...props }: Props) => {
             key={id}
             tabIndex={0}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' || e.key === ' ') {
                 onStarClick(id)
               }
             }}

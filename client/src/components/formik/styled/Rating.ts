@@ -23,7 +23,7 @@ interface PropsStar extends HeightProps {
 }
 
 const iconCss = (props: ThemedStyledProps<PropsStar, DefaultTheme>) => {
-  const { secondary } = props.theme.colors
+  const { secondary, primary } = props.theme.colors
   const { active, disabled } = props
   return css`
     height: 3rem;
@@ -35,7 +35,7 @@ const iconCss = (props: ThemedStyledProps<PropsStar, DefaultTheme>) => {
     border: 1px solid transparent;
     &:focus {
       outline: none;
-      border: 1px solid ${secondary}
+      color: ${primary}
     }
   `
 }
