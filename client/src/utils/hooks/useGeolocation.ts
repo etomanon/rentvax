@@ -46,7 +46,7 @@ export const useGeolocation = (
   }, [])
   const onEventError = (error: PositionError) =>
     mounted.current &&
-    setState(oldState => ({ ...oldState, loading: false, error }))
+    setState((oldState) => ({ ...oldState, loading: false, error }))
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onEvent, onEventError, options)

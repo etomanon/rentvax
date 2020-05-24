@@ -36,7 +36,7 @@ export const useResize = (
 
     const element = ref.current
     // @ts-ignore
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       if (!Array.isArray(entries)) {
         return
       }

@@ -1,13 +1,8 @@
 import { config } from 'dotenv'
-import {
-  createConnection,
-  getRepository,
-  getConnection,
-  EntitySchema,
-} from 'typeorm'
+import { createConnection, getRepository, getConnection } from 'typeorm'
 import { User } from '../entities/User'
 import { Flat } from '../entities/Flat'
-import { Review, Rating } from '../entities/Review'
+import { Review } from '../entities/Review'
 import { USER } from './user'
 import { FLAT } from './flat'
 import { reviewSeed } from './review'
@@ -22,7 +17,7 @@ const createData = async <T>(Entity: any, seed: T[]) => {
   }
 }
 
-createConnection().then(async connection => {
+createConnection().then(async () => {
   // remove data
   await getConnection().synchronize(true)
 

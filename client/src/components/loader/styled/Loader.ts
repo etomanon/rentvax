@@ -30,7 +30,7 @@ export const Loader = styled.div<LoaderProps & SpaceProps>`
   background: ${({ theme }) => theme.colors.primary};
   animation: ${move} 1s ease-in infinite;
   z-index: 999;
-  ${props => props.static && cssLocal}
+  ${(props) => props.static && cssLocal}
   ${space};
 `
 

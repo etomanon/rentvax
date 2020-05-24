@@ -4,7 +4,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Error404 } from '../modules/error404/Error404'
 
 import { Header } from '../components/header/Header'
-import { Footer } from '../components/footer/Footer'
 import { WrapperMain } from '../components/wrapper/styled/Wrapper'
 
 import { ScrollToTop } from './ScrollToTop'
@@ -48,7 +47,6 @@ export const Router: React.FC = () => {
           <Route component={Error404} />
         </Switch>
       </WrapperMain>
-      {/* <Footer /> */}
     </BrowserRouter>
   )
 }

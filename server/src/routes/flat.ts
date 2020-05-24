@@ -10,7 +10,3 @@ export const router = Router({
 router.get('/:name', flat.flatGetName)
 
 router.post('/', logged, flat.flatPost)
-
-// router.put("/user/:id", user.userPutId);
-
-// router.delete("/user/:id", user.userDeleteId);

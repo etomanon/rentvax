@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
-import { useGeolocation } from '../../utils/hooks/useGeolocation'
 import { Place } from '../../components/formik/Place'
 import { Flex } from '../../components/grid/Flex'
 import { Text } from '../../components/text/styled/Text'
@@ -42,7 +41,6 @@ export const Search = () => {
   const refList = useRef<HTMLDivElement>(null)
   const user = useSelectorApp((state) => state.user)
   const location = useSelectorApp((state) => state.location)
-  const geo = useGeolocation()
   const [reviews, setReviews] = useState<ReviewState>({})
 
   useEffect(() => {

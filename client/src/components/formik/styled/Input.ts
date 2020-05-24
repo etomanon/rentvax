@@ -19,7 +19,7 @@ export const Input = styled.input<WidthProps & SpaceProps & Props>`
   ${width};
   ${space};
 
-  ${props =>
+  ${(props) =>
     props.error &&
     css`
       border: 2px solid ${({ theme }) => theme.colors.error};

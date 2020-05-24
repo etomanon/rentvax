@@ -15,7 +15,6 @@ import { locationSet } from '../../redux/location'
 import { Loader } from '../loader/styled/Loader'
 import { callAsyncAction } from '../../utils/func/callAsyncAction'
 import { ErrorMessage } from './styled/ErrorMessage'
-import { useTranslation } from 'react-i18next'
 
 export const ADRESS_TYPES_FILTER = ['street_address', 'premise']
 

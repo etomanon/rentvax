@@ -19,7 +19,7 @@ export const TextArea = styled.textarea<WidthProps & SpaceProps & Props>`
   ${width};
   ${space};
 
-  ${props =>
+  ${(props) =>
     props.error &&
     css`
       border: 2px solid ${({ theme }) => theme.colors.error};

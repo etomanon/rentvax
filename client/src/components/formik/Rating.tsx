@@ -9,7 +9,6 @@ import {
 import { ErrorMessage } from './styled/ErrorMessage'
 import { Flex } from '../grid/Flex'
 import { Label } from './styled/Label'
-import { theme } from '@/theme/theme'
 import { RaitingContainer, StarItem } from './styled/Rating'
 
 interface Props {

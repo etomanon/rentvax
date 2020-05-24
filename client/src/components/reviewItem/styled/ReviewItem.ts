@@ -1,14 +1,6 @@
 import styled, { css } from 'styled-components'
 import { Text } from '@/components/text/styled/Text'
-import {
-  height,
-  HeightProps,
-  overflow,
-  OverflowProps,
-  maxHeight,
-  MaxHeightProps,
-} from 'styled-system'
-import { Link } from '@/components/control/Link'
+import { height, HeightProps, maxHeight, MaxHeightProps } from 'styled-system'
 
 export const Container = styled.div`
   display: flex;

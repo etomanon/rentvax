@@ -28,7 +28,7 @@ export class User {
   email: string
 
   @OneToMany(
-    type => Review,
+    () => Review,
     review => review.user
   )
   reviews: Review[]

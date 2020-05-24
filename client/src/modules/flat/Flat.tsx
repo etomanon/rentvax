@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
-import { useApi } from '@/utils/api/useApi'
 import { Pagination } from '@/components/pagination/Pagination'
 import { ApiProps } from '@/utils/api/api'
 import { Review } from '@/utils/types/review'
-import { Flex, Box } from '@rebass/grid'
+import { Flex } from '@rebass/grid'
 import { ReviewItem } from '@/components/reviewItem/ReviewItem'
 import { Tooltip } from '@/components/tooltip/Tooltip'
 import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
@@ -83,7 +82,7 @@ export const Flat = () => {
           alignItems="flex-start"
           ref={refList}
         >
-          {reviews.map((r, i) => (
+          {reviews.map((r) => (
             <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.33333333]}>
               <ReviewItem review={r} />
             </Flex>

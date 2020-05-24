@@ -4,8 +4,8 @@ const slice = createSlice({
   name: 'loading',
   initialState: 0,
   reducers: {
-    loadingAdd: state => state + 1,
-    loadingRemove: state => state - 1,
+    loadingAdd: (state) => state + 1,
+    loadingRemove: (state) => state - 1,
   },
 })
 

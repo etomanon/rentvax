@@ -3,7 +3,7 @@ import loading from './loading'
 import user from './user'
 
 import { combineReducers, Action } from 'redux'
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { ThunkAction } from 'redux-thunk'
 
 const rootReducer = combineReducers({
   location,

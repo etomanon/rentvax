@@ -41,7 +41,7 @@ createConnection().then(async connection => {
   app.use(passport.session())
   // register routes
   ROUTES.forEach(r => app.use(`/api${r.path}`, r.router))
-  // serve react build
+  // serve react build in production mode
   app.use(express.static(join(__dirname, '/../../client/build')))
   app.get('*', (req, res) => {
     res.sendFile(join(__dirname, '/../../client/build/index.html'))

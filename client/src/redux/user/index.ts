@@ -1,7 +1,6 @@
 import { AppThunk } from './../rootReducer'
 import { User } from './../../utils/types/user'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { useApi } from '@/utils/api/useApi'
 import { apiCall } from '../apiCall'
 
 type State = User | null

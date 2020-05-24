@@ -14,7 +14,7 @@ type PaginationNUmber = {
 }
 
 export const PaginationNumber = styled.button<PaginationNUmber>`
-  ${props => {
+  ${(props) => {
     const { active } = props
     const { secondary } = props.theme.colors
     return css`
@@ -25,11 +25,11 @@ export const PaginationNumber = styled.button<PaginationNUmber>`
         color: ${secondary};
       }
       ${active &&
-        css`
-          cursor: default;
-          color: ${secondary};
-          border-bottom: 2px solid ${secondary};
-        `}
+      css`
+        cursor: default;
+        color: ${secondary};
+        border-bottom: 2px solid ${secondary};
+      `}
     `
   }}
 `

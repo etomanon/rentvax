@@ -29,13 +29,13 @@ export class Review {
   description: string
 
   @ManyToOne(
-    type => Flat,
+    () => Flat,
     flat => flat.reviews
   )
   flat: Flat
 
   @ManyToOne(
-    type => User,
+    () => User,
     user => user.reviews
   )
   user: User

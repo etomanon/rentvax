@@ -8,7 +8,7 @@ export const NavLink = styled(ReactNavLink).attrs({
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   transition: 0.3s ease-in color;
-  &.${p => p.activeClassName} {
+  &.${(p) => p.activeClassName} {
     font-weight: 500;
   }
   &:hover,

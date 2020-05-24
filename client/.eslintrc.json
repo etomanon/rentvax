@@ -27,10 +27,10 @@
   ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-var-requires": "warn",
-    "@typescript-eslint/ban-ts-ignore": "warn",
+    "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/camelcase": "off",
     "no-console": "off",
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks

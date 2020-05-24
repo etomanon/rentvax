@@ -32,7 +32,7 @@ const isOverflown = ({
 }
 
 export const ReviewItem: React.FC<ReviewItemProps> = ({
-  review: { id, rating, description, user, flat, createdAt, updatedAt },
+  review: { id, rating, description, user, updatedAt },
   editable,
   onDelete,
 }) => {
