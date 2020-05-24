@@ -122,7 +122,7 @@ export const Place: React.FC<PlaceProps> = ({
           )
         }}
         // @ts-ignore
-        numbersOnly
+        numbersOnly={!filterPredictions}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <PlacesContainer>
