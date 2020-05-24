@@ -93,14 +93,13 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
 
 export const HeaderBurger = styled.div<MobileMenuProps>`
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 2rem;
+  right: 1.5rem;
   width: 3rem;
   height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
   cursor: pointer;
   z-index: 29;
   @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {

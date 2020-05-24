@@ -121,6 +121,8 @@ export const Place: React.FC<PlaceProps> = ({
             (p: string) => ADRESS_TYPES_FILTER.findIndex((f) => f === p) !== -1
           )
         }}
+        // @ts-ignore
+        numbersOnly
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <PlacesContainer>
