@@ -32,4 +32,6 @@ export default {
   notFound: 'Stránka neexistuje',
   cs: 'CZ',
   en: 'EN',
+  queryError:
+    'Rentvax vyčerpal denní limit pro neplacenou verzi Google Maps. Zítra se limit opět obnoví.',
 }

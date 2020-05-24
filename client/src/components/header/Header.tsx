@@ -106,6 +106,8 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               <HeaderLink
                 onClick={() => setActive(false)}
                 href="/api/auth/google"
+                mt={[4, 4, 0]}
+                logo
               >
                 <GoogleLogo /> {t('login')}
               </HeaderLink>

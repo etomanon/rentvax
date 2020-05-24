@@ -15,8 +15,16 @@ import { locationSet } from '../../redux/location'
 import { Loader } from '../loader/styled/Loader'
 import { callAsyncAction } from '../../utils/func/callAsyncAction'
 import { ErrorMessage } from './styled/ErrorMessage'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 export const ADRESS_TYPES_FILTER = ['street_address', 'premise']
+type PlaceError =
+  | 'ZERO_RESULTS'
+  | 'OVER_QUERY_LIMIT'
+  | 'REQUEST_DENIED'
+  | 'INVALID_REQUEST'
+  | 'UNKNOWN_ERROR'
 
 interface PlaceProps {
   onSelect?: (formatted_address: string, place_id: string) => void
@@ -36,6 +44,7 @@ export const Place: React.FC<PlaceProps> = ({
   error,
   placeholder,
 }) => {
+  const { t } = useTranslation('common')
   const dispatch = useDispatch()
   const [address, setAddress] = useState('')
   const onChange = (address: string) => {
@@ -76,11 +85,24 @@ export const Place: React.FC<PlaceProps> = ({
       onSelectHandler(initAddress.formatted_address, initAddress.place_id)
     }
   }, [initAddress, onSelectHandler])
+
+  const onError = useCallback(
+    (status: string, clearSuggestions: () => void) => {
+      const placeError = status as PlaceError
+      if (placeError === 'OVER_QUERY_LIMIT') {
+        toast.error(t('queryError'), { autoClose: 10000 })
+      }
+      clearSuggestions()
+    },
+    [t]
+  )
+
   return (
     <>
       <PlacesAutocomplete
         debounce={350}
         value={address}
+        onError={onError}
         onChange={onChange}
         onSelect={onSelectHandler}
         highlightFirstSuggestion

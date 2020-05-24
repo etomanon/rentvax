@@ -32,4 +32,6 @@ export default {
   notFound: 'Page does not exist',
   cs: 'CZ',
   en: 'EN',
+  queryError:
+    'Rentvax used up free daily limit for Google Maps. Limit will restore tomorrow.',
 }

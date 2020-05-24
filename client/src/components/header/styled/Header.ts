@@ -186,8 +186,8 @@ export const HeaderNavLink = styled(ReactNavLink).attrs({
 
 // eslint-disable-next-line
 export const HeaderLink = styled.a<
-  FontWeightProps & SpaceProps & ColorProps
-  >`
+  FontWeightProps & SpaceProps & ColorProps & { logo?: boolean }
+>`
   display: flex;
   align-items: center;
   padding-bottom: 0.5rem;
@@ -200,9 +200,18 @@ export const HeaderLink = styled.a<
     text-decoration: none;
     outline: none;
   }
-  ${space};
-  ${color};
-  ${fontWeight};
+  ${(props) =>
+    props.logo &&
+    css`
+      background: #fff;
+      color: ${({ theme }) => theme.colors.text};
+      padding: 2px 5px;
+      border-radius: 5px;
+      &:hover,
+      &:focus {
+        color: ${({ theme }) => theme.colors.primary};
+      }
+    `}
   @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     color: ${({ theme }) => theme.colors.text};
     &:hover,
@@ -210,6 +219,10 @@ export const HeaderLink = styled.a<
       color: ${({ theme }) => theme.colors.primary};
     }
   }
+  ${space};
+  ${color};
+  ${fontWeight};
+  
 `
 
 export const HeaderBackground = styled.div`
