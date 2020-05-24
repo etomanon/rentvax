@@ -19,12 +19,12 @@ export const GlobalStyles = createGlobalStyle`
 		scroll-behavior: smooth;
 		padding-top: 5rem;
     font-size: 1.6rem;
-		overflow-x: hidden;
   }
 
 	#root {
 		display: flex; 
   	flex-direction: column; 
+		overflow-x: hidden;
 	}
 
 	h1,
