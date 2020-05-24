@@ -11,6 +11,13 @@
 
 ### Server
 
+#### Server Stack
+
+* TypeScript
+* Express
+* TypeORM
+* Passport
+
 #### Server setup
 
 * Copy .env_example as .env
@@ -27,13 +34,16 @@
   * Change `NODE_ENV` and `TYPEORM_ENTITIES` .env values to `production` and `entities/*.js`
   * Run Express and serve React code (`client/build/index.html`): `node build/app.js`
 
-* Stack:
-  * TypeScript
-  * Express
-  * TypeORM
-  * Passport
-
 ### Client
+
+#### Client Stack
+
+* TypeScript
+* React
+* Styled components & styled system
+* Formik
+* @reduxjs/toolkit
+* i18next
 
 #### Client setup
 
@@ -48,4 +58,4 @@
 
 ### Deployment
 
-GitHub Actions deploys app on each push and pull request to master (Digital Ocean droplet)
+GitHub Actions deploy app on each push and pull request to master (Digital Ocean droplet)
