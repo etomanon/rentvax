@@ -20,6 +20,8 @@ import { Tooltip } from '@/components/tooltip/Tooltip'
 import { Box } from '@rebass/grid'
 import { QS_FLAT_NAME } from '../flat/Flat'
 import { useTranslation } from 'react-i18next'
+import { GoogleLogo } from '@/components/header/styled/Header'
+import { Link } from '@/components/control/Link'
 
 export const QS_ADDRESS = 'address'
 export const QS_PLACE_ID = 'place_id'
@@ -121,9 +123,18 @@ export const Search = () => {
               </Button>
 
               {!user && (
-                <Text mt={1} mb={3}>
-                  {t('loginToRate')}
-                </Text>
+                <Link
+                  display="flex"
+                  alignItems="center"
+                  flexDirection={['column', 'row']}
+                  mt={1}
+                  mb={3}
+                  href="/api/auth/google"
+                  target="_self"
+                  textAlign="center"
+                >
+                  <GoogleLogo /> {t('loginToRate')}
+                </Link>
               )}
             </Flex>
           )}

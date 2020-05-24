@@ -6,10 +6,31 @@ import { Text } from '../../components/text/styled/Text'
 import { TextHeader } from '../../components/text/styled/TextHeader'
 import { Place } from '../../components/formik/Place'
 
-import { HomeImg } from './styled/Home'
+import { HomeImg, IconSecret, IconGithub, IconDonate } from './styled/Home'
 import { RoutePathEnum } from '@/router/routes'
 import { QS_ADDRESS, QS_PLACE_ID } from '../search/Search'
 import { useTranslation } from 'react-i18next'
+import { HomeInfoProps, HomeInfo } from './HomeInfo'
+import { Link } from '@/components/control/Link'
+
+const INFO_ITEMS: HomeInfoProps[] = [
+  {
+    title: 'infoAnonymousTitle',
+    Icon: <IconSecret />,
+    text: 'infoAnonymousText',
+  },
+  {
+    Icon: <IconGithub />,
+    title: 'infoOpenTitle',
+    text: 'infoOpenText',
+    Extra: <Link href="https://github.com/etomanon/rentvax">GitHub</Link>,
+  },
+  {
+    Icon: <IconDonate />,
+    title: 'infoDonateTitle',
+    text: 'infoDonateText',
+  },
+]
 
 export const Home = () => {
   const { t } = useTranslation('common')
@@ -48,6 +69,18 @@ export const Home = () => {
           <Place onSelect={onSelect} placeholder={t('placeholder')} />
         </Flex>
         <HomeImg />
+      </Flex>
+      <Flex
+        flex={1}
+        mx={-3}
+        width={1}
+        mt={[0, 0, '10rem']}
+        flexWrap="wrap"
+        mb="4rem"
+      >
+        {INFO_ITEMS.map((i) => (
+          <HomeInfo key={i.title} {...i} />
+        ))}
       </Flex>
     </>
   )

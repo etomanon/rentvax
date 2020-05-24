@@ -93,13 +93,14 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
 
 export const HeaderBurger = styled.div<MobileMenuProps>`
   position: fixed;
-  top: 1rem;
+  bottom: 1rem;
   right: 1rem;
   width: 3rem;
   height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #fff;
   cursor: pointer;
   z-index: 29;
   @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
@@ -190,7 +191,7 @@ export const HeaderLink = styled.a<
 >`
   display: flex;
   align-items: center;
-  padding-bottom: 0.5rem;
+  padding: 0 0 0.5rem 0;
   color: #fff;
   text-decoration: none;
   transition: 0.3s ease-in color;
@@ -213,6 +214,8 @@ export const HeaderLink = styled.a<
       }
     `}
   @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
+    background: transparent;
+    padding: 0 0 0.5rem 0;
     color: ${({ theme }) => theme.colors.text};
     &:hover,
     &:focus {

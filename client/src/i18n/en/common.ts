@@ -34,4 +34,13 @@ export default {
   en: 'EN',
   queryError:
     'Rentvax used up free daily limit for Google Maps. Limit will restore tomorrow.',
+  infoAnonymousTitle: 'Anonymous',
+  infoAnonymousText:
+    'No analytics, no tracking tools. We do not publish your email address or username.',
+  infoOpenTitle: 'Open source',
+  infoOpenText:
+    'Source code is open to anyone who wants to check or contribute. Go to',
+  infoDonateTitle: 'Ads free',
+  infoDonateText:
+    'Rentvax uses free tiers of Google services. We depend on donations to upgrade our services.',
 }

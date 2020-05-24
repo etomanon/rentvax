@@ -6,5 +6,6 @@ export const WrapperMain = styled.main<SpaceProps>`
   flex: 1;
   max-width: 75em;
   width: 100%;
+  flex-wrap: wrap;
   ${space}
 `

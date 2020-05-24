@@ -5,9 +5,14 @@ import {
   DisplayProps,
   AlignContentProps,
   alignContent,
+  textAlign,
+  TextAlignProps,
 } from 'styled-system'
 
-export const Flex = styled(FlexGrid)<DisplayProps & AlignContentProps>`
+export const Flex = styled(FlexGrid)<
+  DisplayProps & AlignContentProps & TextAlignProps
+>`
   ${display}
   ${alignContent}
+  ${textAlign}
 `

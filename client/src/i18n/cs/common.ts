@@ -34,4 +34,13 @@ export default {
   en: 'EN',
   queryError:
     'Rentvax vyčerpal denní limit pro neplacenou verzi Google Maps. Zítra se limit opět obnoví.',
+  infoAnonymousTitle: 'Anonymní',
+  infoAnonymousText:
+    'Žádné Google Analytics nebo sledovací software. Nezveřejňujeme Váš email ani login.',
+  infoOpenTitle: 'Open source',
+  infoOpenText:
+    'Zdrojový kód je otevřený pro kohokoliv, kdo ho chce zkontrolovat nebo se přidat k vývoji -',
+  infoDonateTitle: 'Bez reklam',
+  infoDonateText:
+    'Rentvax používá Google služby v bezplatném režimu. Pro rozšíření našich služeb se spoléháme na dary.',
 }
