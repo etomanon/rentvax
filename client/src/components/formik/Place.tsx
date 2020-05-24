@@ -27,6 +27,7 @@ interface PlaceProps {
     place_id: string
   }
   error?: string
+  placeholder?: string
 }
 
 export const Place: React.FC<PlaceProps> = ({
@@ -34,6 +35,7 @@ export const Place: React.FC<PlaceProps> = ({
   filterPredictions = true,
   initAddress,
   error,
+  placeholder,
 }) => {
   const dispatch = useDispatch()
   const [address, setAddress] = useState('')
@@ -103,7 +105,7 @@ export const Place: React.FC<PlaceProps> = ({
           <PlacesContainer>
             <Input
               {...getInputProps({
-                placeholder: 'Rooseveltova 42',
+                placeholder: placeholder ?? 'Rooseveltova 42',
                 className: 'location-search-input',
               })}
               error={error ? true : false}

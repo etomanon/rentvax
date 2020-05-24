@@ -1,5 +1,7 @@
 export default {
-  title: 'Rent rating',
+  title: 'Rentvax',
+  header: 'Rate your rent',
+  placeholder: 'Prague',
   search: 'Find address',
   home: 'Home',
   addReview: 'Add review',

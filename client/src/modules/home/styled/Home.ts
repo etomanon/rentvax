@@ -13,7 +13,7 @@ export const HomeImg = styled.div`
   box-shadow: 0px 5px 1rem 0px rgba(0, 0, 0, 0.25);
   border: 2px solid #e0e0e0;
   @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
-    width: 37%;
+    width: 34%;
     margin-top: 5rem;
     margin-right: auto;
     margin-left: auto;

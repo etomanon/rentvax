@@ -41,11 +41,11 @@ export const Home = () => {
           pb="2rem"
           flexDirection="column"
         >
-          <TextHeader textAlign="center">{t('title')}</TextHeader>
+          <TextHeader textAlign="center">{t('header')}</TextHeader>
           <Text fontSize={3} mt="1rem" mb="2rem" textAlign="center">
             {t('search')}
           </Text>
-          <Place onSelect={onSelect} />
+          <Place onSelect={onSelect} placeholder={t('placeholder')} />
         </Flex>
         <HomeImg />
       </Flex>

@@ -1,5 +1,7 @@
 export default {
-  title: 'Hodnocení podnájmů',
+  title: 'Rentvax',
+  header: 'Ohodnoťte svůj podnájem',
+  placeholder: 'Praha',
   search: 'Najděte adresu',
   home: 'Domů',
   addReview: 'Přidat recenzi',
