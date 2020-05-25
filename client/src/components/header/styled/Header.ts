@@ -13,6 +13,7 @@ import {
 import { Building2 } from '@styled-icons/remix-fill/Building2'
 import { Text } from '@/components/text/styled/Text'
 import Google from './google.svg'
+import { Heart } from '@styled-icons/boxicons-solid/Heart'
 
 interface MobileMenuProps {
   active: boolean
@@ -35,12 +36,10 @@ export const HeaderLogo = styled(Building2)`
     color: ${({ theme }) => theme.colors.secondary};
   }
 `
-
 export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   position: fixed;
-  top: 0;
   left: 0;
-  right: 0;
+  bottom: 0;
   margin-left: auto;
   margin-right: auto;
   z-index: 2;
@@ -53,6 +52,10 @@ export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   background: #fcfcfc;
   ${space}
   ${flexDirection}
+  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
+    top: 0;
+    height: 5rem;
+  }
 `
 
 export const Logo = styled.img`
@@ -93,7 +96,7 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
 
 export const HeaderBurger = styled.div<MobileMenuProps>`
   position: fixed;
-  bottom: 2rem;
+  bottom: 1.5rem;
   right: 1.5rem;
   width: 3rem;
   height: 2rem;
@@ -226,15 +229,6 @@ export const HeaderLink = styled.a<
   ${fontWeight};
   
 `
-
-export const HeaderBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0%;
-  height: 5rem;
-  width: 100%;
-  background: '#FCFCFC';
-`
 export const HeaderLang = styled(Text)`
   padding-bottom: 0.5rem;
   &:hover {
@@ -251,4 +245,10 @@ export const GoogleLogo = styled.div`
   width: 2rem;
   height: 2rem;
   margin-right: 0.5rem;
+`
+export const HeartIcon = styled(Heart)`
+  color: #ff1a1e;
+  height: 2rem;
+  width: 2rem;
+  margin-left: 0.8rem;
 `

@@ -1,5 +1,7 @@
 export const scrollSmooth = (element: Element) => {
-  const offset = 50
+  const width = window.innerWidth
+  const isMobile = width <= 899
+  const offset = isMobile ? 0 : 50
   const bodyRect = document.body.getBoundingClientRect().top
   const elementRect = element.getBoundingClientRect().top
 

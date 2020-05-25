@@ -83,7 +83,7 @@ export const Flat = () => {
           ref={refList}
         >
           {reviews.map((r) => (
-            <Flex key={r.id} mt={2} px={2} width={[1, 0.5, 0.33333333]}>
+            <Flex key={r.id} mt={2} px={2} width={[1, 0.5]}>
               <ReviewItem review={r} />
             </Flex>
           ))}

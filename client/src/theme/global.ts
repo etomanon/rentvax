@@ -5,7 +5,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 62.5%;
 		width: 100%;
 		height: 100%;
-		overflow-x: hidden
   }
   body {
 		height: 100%;
@@ -17,14 +16,21 @@ export const GlobalStyles = createGlobalStyle`
 		-webkit-font-smoothing: antialiased;
 		color: ${({ theme }) => theme.colors.text};
 		scroll-behavior: smooth;
-		padding-top: 5rem;
     font-size: 1.6rem;
+		overflow-x: hidden;
   }
 
 	#root {
 		display: flex; 
-  	flex-direction: column; 
+  	flex-direction: column;
+	}
+
+	main {
 		overflow-x: hidden;
+		margin-bottom: 5rem;
+		@media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
+    	margin-top: 5rem;
+  	}
 	}
 
 	h1,

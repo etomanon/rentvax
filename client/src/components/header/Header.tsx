@@ -14,9 +14,9 @@ import {
   HeaderBurgerLine,
   HeaderLink,
   HeaderNavLink,
-  HeaderBackground,
   HeaderLang,
   GoogleLogo,
+  HeartIcon,
 } from './styled/Header'
 import { useSelectorApp } from '@/redux'
 import { useTranslation } from 'react-i18next'
@@ -42,12 +42,11 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
         <HeaderBurgerLine active={active} />
         <HeaderBurgerLine active={active} />
       </HeaderBurger>
-      <HeaderBackground />
       <HeaderWrapper
         id="navbar"
+        flexDirection={['column', 'row']}
         p={['1rem 0.5rem', '1rem 0.5rem', '1rem 0']}
         mx="auto"
-        flexDirection={['column', 'row']}
       >
         <HeaderTitleWrapper onClick={() => history.push('/')}>
           <HeaderLogo size="3rem" />
@@ -56,7 +55,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
           </Text>
         </HeaderTitleWrapper>
         <HeaderWrapperLinks active={active} {...handlers}>
-          <Flex mr={[0, 0, '5rem']} mb={['5rem', '5rem', 0]}>
+          <Flex mr={[0, 0, '4rem']} mb={[2, 2, 0]}>
             <HeaderLang
               pointer
               onClick={() => i18n.changeLanguage(isEn ? 'cs' : 'en')}
@@ -64,6 +63,14 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               {isEn ? t('cs') : t('en')}
             </HeaderLang>
           </Flex>
+          <HeaderLink
+            mr={[0, 0, '5rem']}
+            mb={['5rem', '5rem', 0]}
+            href="https://www.paypal.me/etomanon"
+            target="_blank"
+          >
+            {t('donate')} <HeartIcon />
+          </HeaderLink>
           <HeaderNavLink
             exact
             to="/"

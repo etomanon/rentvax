@@ -168,7 +168,7 @@ export const Search = () => {
                   key={r.id}
                   mt={2}
                   px={2}
-                  width={[1, i < 2 ? 0.5 : 1, 0.3333]}
+                  width={[1, i < 2 ? 0.5 : 1, i < 2 ? 0.4 : 0.2]}
                 >
                   {i < 2 ? (
                     <ReviewItem review={r} />

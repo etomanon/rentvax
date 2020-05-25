@@ -100,7 +100,7 @@ export const Place: React.FC<PlaceProps> = ({
   return (
     <>
       <PlacesAutocomplete
-        debounce={350}
+        debounce={700}
         value={address}
         onError={onError}
         onChange={onChange}

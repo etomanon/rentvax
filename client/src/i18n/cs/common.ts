@@ -42,5 +42,6 @@ export default {
     'Zdrojový kód je otevřený pro kohokoliv, kdo ho chce zkontrolovat nebo se přidat k vývoji -',
   infoDonateTitle: 'Bez reklam',
   infoDonateText:
-    'Rentvax používá Google služby v bezplatném režimu. Pro rozšíření našich služeb se spoléháme na dary.',
+    'Rentvax používá Google služby v bezplatném režimu. Pro rozšíření našich služeb se spoléháme na dary -',
+  donate: 'Darujte',
 }

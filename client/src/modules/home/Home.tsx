@@ -29,6 +29,7 @@ const INFO_ITEMS: HomeInfoProps[] = [
     Icon: <IconDonate />,
     title: 'infoDonateTitle',
     text: 'infoDonateText',
+    Extra: <Link href="https://www.paypal.me/etomanon">PayPal</Link>,
   },
 ]
 
