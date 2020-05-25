@@ -23,6 +23,7 @@ export const GlobalStyles = createGlobalStyle`
 	#root {
 		display: flex; 
   	flex-direction: column;
+		height: 100%;
 	}
 
 	main {
