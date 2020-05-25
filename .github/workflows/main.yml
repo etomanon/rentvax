@@ -20,7 +20,7 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
       with:
         source: "."
-        target: "/home/js/rates"
+        target: "/home/js/rentvax"
 
     - name: Build app and restart pm2
       uses: appleboy/ssh-action@master
@@ -30,7 +30,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
-            cd rates/client
+            cd rentvax/client
             npm install
             npm run build
             cd ../server
