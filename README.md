@@ -4,7 +4,7 @@
 
 * Node v12.x
 * npm v6.x
-* PostgreSQL + PostGIS (default username: postgres; password: postgres; database: rates)
+* PostgreSQL + PostGIS (default username: postgres; password: postgres; database: rentvax)
 * Google API keys (default api keys are provided but they have limited free usage):
   * Google OAuth 2.0 Client IDs (client ID & client secret)
   * Google Maps API key (geocoding, places, maps JavaScript)
