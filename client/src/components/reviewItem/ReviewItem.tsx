@@ -91,8 +91,8 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                       color: theme.colors.secondary,
                       cursor: 'pointer',
                     }}
-                    width="2rem"
-                    height="2rem"
+                    width="2.5rem"
+                    height="2.5rem"
                     onClick={() => push(`${RoutePathEnum.REVIEW}/${id}`)}
                   />
                 </Tooltip>
@@ -107,8 +107,8 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                         color: theme.colors.error,
                         cursor: 'pointer',
                       }}
-                      width="2rem"
-                      height="2rem"
+                      width="2.5rem"
+                      height="2.5rem"
                     />
                   </Confirm>
                 </Tooltip>
