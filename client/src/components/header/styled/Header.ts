@@ -39,6 +39,7 @@ export const HeaderLogo = styled(Building2)`
 export const HeaderWrapper = styled.header<SpaceProps & FlexDirectionProps>`
   position: fixed;
   left: 0;
+  right: 0;
   bottom: 0;
   margin-left: auto;
   margin-right: auto;

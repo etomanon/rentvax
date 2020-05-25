@@ -24,7 +24,7 @@ export class User {
   @Column({ type: 'enum', enum: Role, default: 'user' })
   role: string
 
-  @Column()
+  @Column({ select: false })
   email: string
 
   @OneToMany(

@@ -25,6 +25,7 @@ type Props = {
     | 'left'
     | 'left-start'
   trigger?: Trigger | Trigger[]
+  fullWidth?: boolean
 }
 
 export const Tooltip = ({
@@ -32,6 +33,7 @@ export const Tooltip = ({
   tooltip,
   placement = 'top',
   hideArrow,
+  fullWidth,
   ...props
 }: Props) => (
   <TooltipTrigger
@@ -69,6 +71,7 @@ export const Tooltip = ({
           ref: triggerRef,
           className: 'trigger',
         })}
+        style={fullWidth ? { width: '100%' } : undefined}
       >
         {children}
       </span>

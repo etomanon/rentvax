@@ -144,31 +144,37 @@ export const Search = () => {
         {Object.keys(reviews).map((key) => (
           <React.Fragment key={key}>
             <Box mt={4} />
-            <Tooltip tooltip={t('showOnMap')}>
-              <TextSubtitle
-                as="a"
-                width={1}
-                textAlign="center"
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                  key
-                )}`}
-                target="_blank"
-              >
-                {key}
-                <MapMarkerAlt
-                  style={{ marginLeft: '1rem' }}
-                  width="1.5rem"
-                  height="2rem"
-                />
-              </TextSubtitle>
-            </Tooltip>
-            <Flex mx={-2} flexWrap="wrap" alignItems="flex-start">
+            <Flex width={1} textAlign="center">
+              <Tooltip tooltip={t('showOnMap')} fullWidth>
+                <TextSubtitle
+                  as="a"
+                  textAlign="center"
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    key
+                  )}`}
+                  target="_blank"
+                >
+                  {key}
+                  <MapMarkerAlt
+                    style={{ marginLeft: '1rem' }}
+                    width="1.5rem"
+                    height="2rem"
+                  />
+                </TextSubtitle>
+              </Tooltip>
+            </Flex>
+            <Flex
+              mx={-2}
+              flexWrap="wrap"
+              alignItems="flex-start"
+              justifyContent={reviews[key].length > 2 ? 'flex-start' : 'center'}
+            >
               {reviews[key].map((r, i) => (
                 <Flex
                   key={r.id}
                   mt={2}
                   px={2}
-                  width={[1, i < 2 ? 0.5 : 1, i < 2 ? 0.4 : 0.2]}
+                  width={[1, 1, i < 2 ? 0.5 : 1, i < 2 ? 0.4 : 0.2]}
                 >
                   {i < 2 ? (
                     <ReviewItem review={r} />
