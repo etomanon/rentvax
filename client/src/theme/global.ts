@@ -23,11 +23,11 @@ export const GlobalStyles = createGlobalStyle`
 	#root {
 		display: flex; 
   	flex-direction: column;
-		height: 100%;
 	}
 
 	main {
 		overflow-x: hidden;
+		overflow-y: visible;
 		margin-bottom: 5rem;
 		@media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
     	margin-top: 5rem;

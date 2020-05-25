@@ -49,7 +49,7 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
         mx="auto"
       >
         <HeaderTitleWrapper onClick={() => history.push('/')}>
-          <HeaderLogo size="3rem" />
+          <HeaderLogo />
           <Text ml={2} mr={3} fontSize={3} mb={0} style={{ cursor: 'pointer' }}>
             {t('title')}
           </Text>

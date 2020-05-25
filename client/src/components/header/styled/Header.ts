@@ -30,6 +30,8 @@ export const HeaderTitleWrapper = styled.div`
 
 export const HeaderLogo = styled(Building2)`
   color: ${({ theme }) => theme.colors.primary};
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
   transition: 0.3s ease-in color;
   ${/* sc-selector */ HeaderTitleWrapper}:hover & {
