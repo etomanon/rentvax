@@ -6,11 +6,11 @@ import { Review } from '@/utils/types/review'
 import { Flex } from '@rebass/grid'
 import { ReviewItem } from '@/components/reviewItem/ReviewItem'
 import { Tooltip } from '@/components/tooltip/Tooltip'
-import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
 import { TextSubtitle } from '@/components/text/styled/TextSubtitle'
 import { RoutePathEnum } from '@/router/routes'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
 import { useTranslation } from 'react-i18next'
+import { MapMarkerIcon } from '@/components/reviewItem/styled/ReviewItem'
 
 export const QS_FLAT_NAME = 'flatName'
 
@@ -66,11 +66,7 @@ export const Flat = () => {
               target="_blank"
             >
               {name}
-              <MapMarkerAlt
-                style={{ marginLeft: '1rem' }}
-                width="1.5rem"
-                height="2rem"
-              />
+              <MapMarkerIcon />
             </TextSubtitle>
           </Tooltip>
         )}

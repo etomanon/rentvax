@@ -12,8 +12,6 @@ import { ReviewItem } from '@/components/reviewItem/ReviewItem'
 import { groupBy } from 'lodash'
 import { NativeMap } from '@/utils/types/helpers'
 import { RoutePathEnum } from '@/router/routes'
-import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
-import { ArrowRight } from '@styled-icons/fa-solid/ArrowRight'
 import { Pagination } from '@/components/pagination/Pagination'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
 import { Tooltip } from '@/components/tooltip/Tooltip'
@@ -22,6 +20,8 @@ import { QS_FLAT_NAME } from '../flat/Flat'
 import { useTranslation } from 'react-i18next'
 import { GoogleLogo } from '@/components/header/styled/Header'
 import { Link } from '@/components/control/Link'
+import { MapMarkerIcon } from '@/components/reviewItem/styled/ReviewItem'
+import { ArrowRightIcon } from './styled/Search'
 
 export const QS_ADDRESS = 'address'
 export const QS_PLACE_ID = 'place_id'
@@ -155,11 +155,7 @@ export const Search = () => {
                   target="_blank"
                 >
                   {key}
-                  <MapMarkerAlt
-                    style={{ marginLeft: '1rem' }}
-                    width="1.5rem"
-                    height="2rem"
-                  />
+                  <MapMarkerIcon />
                 </TextSubtitle>
               </Tooltip>
             </Flex>
@@ -194,11 +190,7 @@ export const Search = () => {
                       }
                     >
                       {t('moreReviews')}
-                      <ArrowRight
-                        style={{ marginLeft: '1rem' }}
-                        width="1.5rem"
-                        height="2.5rem"
-                      />
+                      <ArrowRightIcon />
                     </Button>
                   )}
                 </Flex>

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 import { Text } from '@/components/text/styled/Text'
 import { height, HeightProps, maxHeight, MaxHeightProps } from 'styled-system'
+import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
 
 export const Container = styled.div`
   display: flex;
@@ -105,4 +106,11 @@ export const Toggle = styled.a<{
           }
         `
   }}
+`
+
+export const MapMarkerIcon = styled(MapMarkerAlt)`
+  margin-left: 1rem;
+  width: 1.5rem;
+  height: 2rem;
+  color: ${(props) => props.theme.colors.secondary};
 `
