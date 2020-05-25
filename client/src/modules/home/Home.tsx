@@ -75,9 +75,9 @@ export const Home = () => {
         flex={1}
         mx={-3}
         width={1}
-        mt={[0, 0, '10rem']}
+        mt={[0, 0, '8rem']}
         flexWrap="wrap"
-        mb="4rem"
+        mb="1rem"
       >
         {INFO_ITEMS.map((i) => (
           <HomeInfo key={i.title} {...i} />

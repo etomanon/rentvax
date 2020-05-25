@@ -27,10 +27,9 @@ export const GlobalStyles = createGlobalStyle`
 
 	main {
 		overflow-x: hidden;
-		overflow-y: visible;
-		margin-bottom: 5rem;
+		padding: 0.5rem 0.5rem 5rem 0.5rem;
 		@media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
-    	margin-top: 5rem;
+    	padding: 5rem 0.5rem 1rem 0.5rem;
   	}
 	}
 

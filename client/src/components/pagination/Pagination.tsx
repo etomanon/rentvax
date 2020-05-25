@@ -77,7 +77,11 @@ export const Pagination = <T extends {}>({
         <>
           <PaginationWrapper>
             {pageActive > 1 && (
-              <PaginationFirst size="2.8rem" onClick={() => setSkip(0)} />
+              <PaginationFirst
+                width="2.8rem"
+                height="2.8rem"
+                onClick={() => setSkip(0)}
+              />
             )}
             {pageActive > 0 && (
               <PaginationPrev
@@ -100,13 +104,15 @@ export const Pagination = <T extends {}>({
             )}
             {pageActive + 1 < pageMax && (
               <PaginationNext
-                size="2.5rem"
+                width="2.5rem"
+                height="2.5rem"
                 onClick={() => setSkip(take * (pageActive + 1))}
               />
             )}
             {pageActive + 2 < pageMax && (
               <PaginationLast
-                size="2.8rem"
+                width="2.8rem"
+                height="2.8rem"
                 onClick={() => setSkip((pageMax - 1) * take)}
               />
             )}

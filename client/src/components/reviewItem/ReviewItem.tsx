@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Review } from '@/utils/types/review'
-import { Container, Description, Toggle } from './styled/ReviewItem'
+import {
+  Container,
+  Description,
+  Toggle,
+  EditIcon,
+  DeleteIcon,
+} from './styled/ReviewItem'
 import { Text } from '../text/styled/Text'
 import { Stars } from '../stars/Stars'
 import { Flex } from '@rebass/grid'
 import { timeParse } from '@/utils/func/time'
 import { scrollSmooth } from '@/utils/func/scrollSmooth'
-import { Edit } from '@styled-icons/boxicons-solid/Edit'
 import { useTheme } from 'styled-components'
 import { Tooltip } from '../tooltip/Tooltip'
-import { Delete } from '@styled-icons/material/Delete'
 import { useApi } from '@/utils/api/useApi'
 import { Confirm } from '../confirm/Confirm'
 import { useHistory } from 'react-router-dom'
@@ -85,14 +89,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
             {editable && (
               <>
                 <Tooltip tooltip={t('edit')}>
-                  <Edit
-                    style={{
-                      marginLeft: '.5rem',
-                      color: theme.colors.secondary,
-                      cursor: 'pointer',
-                    }}
-                    width="2.5rem"
-                    height="2.5rem"
+                  <EditIcon
                     onClick={() => push(`${RoutePathEnum.REVIEW}/${id}`)}
                   />
                 </Tooltip>
@@ -101,15 +98,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
                     onConfirm={handleDelete}
                     confirmText={`${t('delete')}?`}
                   >
-                    <Delete
-                      style={{
-                        marginLeft: '.5rem',
-                        color: theme.colors.error,
-                        cursor: 'pointer',
-                      }}
-                      width="2.5rem"
-                      height="2.5rem"
-                    />
+                    <DeleteIcon />
                   </Confirm>
                 </Tooltip>
               </>
@@ -125,7 +114,7 @@ export const ReviewItem: React.FC<ReviewItemProps> = ({
         mt={1}
         ml={2}
         pr="2.25rem"
-        height={truncated ? '2.5rem' : 'auto'}
+        height={truncated ? '2.9rem' : 'auto'}
         truncated={truncated}
         ref={refDescription}
       >

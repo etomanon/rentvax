@@ -3,6 +3,7 @@ import { ChevronLeft } from '@styled-icons/boxicons-solid/ChevronLeft'
 import { ChevronRight } from '@styled-icons/boxicons-solid/ChevronRight'
 import { ArrowToLeft } from '@styled-icons/boxicons-solid/ArrowToLeft'
 import { ArrowToRight } from '@styled-icons/boxicons-solid/ArrowToRight'
+import { WidthProps, HeightProps } from 'styled-system'
 
 export const PaginationWrapper = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ export const PaginationNumber = styled.button<PaginationNUmber>`
   }}
 `
 
-const iconCss = (props: ThemedStyledProps<{}, DefaultTheme>) => {
+const iconCss = (props: ThemedStyledProps<IconProps, DefaultTheme>) => {
   const { secondary } = props.theme.colors
   return css`
     font-size: 3rem;
@@ -46,16 +47,18 @@ const iconCss = (props: ThemedStyledProps<{}, DefaultTheme>) => {
   `
 }
 
-export const PaginationPrev = styled(ChevronLeft)`
+type IconProps = WidthProps & HeightProps
+
+export const PaginationPrev = styled(ChevronLeft)<IconProps>`
   ${iconCss}
 `
-export const PaginationNext = styled(ChevronRight)`
+export const PaginationNext = styled(ChevronRight)<IconProps>`
   ${iconCss}
 `
 
-export const PaginationFirst = styled(ArrowToLeft)`
+export const PaginationFirst = styled(ArrowToLeft)<IconProps>`
   ${iconCss}
 `
-export const PaginationLast = styled(ArrowToRight)`
+export const PaginationLast = styled(ArrowToRight)<IconProps>`
   ${iconCss}
 `

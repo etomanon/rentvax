@@ -43,5 +43,5 @@ export default {
   infoDonateTitle: 'Ads free',
   infoDonateText:
     'Rentvax uses free tiers of Google services. We depend on donations to upgrade our services -',
-  donate: 'Donate',
+  donate: 'Donation',
 }

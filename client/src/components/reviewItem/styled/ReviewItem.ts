@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components'
 import { Text } from '@/components/text/styled/Text'
 import { height, HeightProps, maxHeight, MaxHeightProps } from 'styled-system'
 import { MapMarkerAlt } from '@styled-icons/fa-solid/MapMarkerAlt'
+import { Edit } from '@styled-icons/boxicons-solid/Edit'
+import { Delete } from '@styled-icons/material/Delete'
 
 export const Container = styled.div`
   display: flex;
@@ -20,6 +22,7 @@ export const Description = styled(Text)<
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: pre-wrap;
+  line-height: 1.5;
   ${height}
   ${maxHeight}
   ${(props) =>
@@ -39,7 +42,7 @@ export const Toggle = styled.a<{
   top: 0;
   right: 2px;
   height: calc(100% - 4px);
-  width: 2rem;
+  width: 2.5rem;
   cursor: pointer;
   &::after {
     content: '';
@@ -113,4 +116,18 @@ export const MapMarkerIcon = styled(MapMarkerAlt)`
   width: 1.5rem;
   height: 2rem;
   color: ${(props) => props.theme.colors.secondary};
+`
+export const EditIcon = styled(Edit)`
+  margin-left: 0.5rem;
+  color: ${(props) => props.theme.colors.secondary};
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+`
+export const DeleteIcon = styled(Delete)`
+  margin-left: 0.5rem;
+  color: ${(props) => props.theme.colors.error};
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
 `

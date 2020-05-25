@@ -30,15 +30,7 @@ export const Router: React.FC = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Header />
-      <WrapperMain
-        p={['0 0.5rem', '0 0.5rem', '0 0.5rem', '0']}
-        m={[
-          '0.5rem 0 5rem 0',
-          '0.5rem 0 5rem 0',
-          '5rem 0 0 0',
-          '5rem auto 0 auto',
-        ]}
-      >
+      <WrapperMain m={['0', '0', '0', '0 auto 0 auto']}>
         <Switch>
           {routesFiltered.map((r) => (
             <Route

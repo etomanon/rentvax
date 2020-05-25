@@ -25,8 +25,8 @@ export const HomeImg = styled.div`
   }
   @media (min-width: ${({ theme }) => theme.breakpoints[2]}) {
     margin-top: 7rem;
-    width: 40%;
-    height: 35rem;
+    width: 35%;
+    height: 30rem;
   }
 `
 
