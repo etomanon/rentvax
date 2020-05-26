@@ -100,7 +100,7 @@ export const HeaderWrapperLinks = styled.div<MobileMenuProps>`
 export const HeaderBurger = styled.div<MobileMenuProps>`
   position: fixed;
   bottom: 1.5rem;
-  right: 3.5rem;
+  right: 5.5rem;
   width: 5rem;
   height: 2rem;
   display: flex;

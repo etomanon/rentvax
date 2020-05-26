@@ -19,7 +19,7 @@ router.get(
   '/google/callback',
   authenticate('google', {
     failureRedirect: '/',
-    successRedirect: '/',
+    successRedirect: '/review',
   })
 )
 
