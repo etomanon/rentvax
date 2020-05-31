@@ -29,7 +29,7 @@ export const Flat = () => {
       setName(qsName)
       setApiProps({
         method: 'POST',
-        url: '/review/flat-name',
+        url: 'review/flat-name',
         body: {
           name: qsName,
         },
