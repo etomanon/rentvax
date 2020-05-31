@@ -5,6 +5,10 @@ import { USER } from './user'
 import { Flat } from '../entities/Flat'
 import { FLAT } from './flat'
 
+const description = `Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum 
+  
+Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum`
+
 export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
   {
     description: 'Lorem ipsum',
@@ -17,7 +21,7 @@ export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
     rating: Rating.BEST,
   },
   {
-    description: 'Old',
+    description,
     user: await getRepository(User).findOne({
       email: USER[0].email,
     }),
@@ -27,8 +31,7 @@ export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
     rating: Rating.BEST,
   },
   {
-    description:
-      'Lorem ipsum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum ',
+    description,
     user: await getRepository(User).findOne({
       email: USER[1].email,
     }),
@@ -38,8 +41,7 @@ export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
     rating: Rating.WORST,
   },
   {
-    description:
-      'Lorem ipsum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum ',
+    description,
     user: await getRepository(User).findOne({
       email: USER[1].email,
     }),
@@ -49,8 +51,7 @@ export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
     rating: Rating.NORMAL,
   },
   {
-    description:
-      'Lorem ipsum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum ',
+    description,
     user: await getRepository(User).findOne({
       email: USER[2].email,
     }),
@@ -60,8 +61,7 @@ export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
     rating: Rating.BAD,
   },
   {
-    description:
-      'Lorem ipsum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum ',
+    description,
     user: await getRepository(User).findOne({
       email: USER[3].email,
     }),
@@ -71,8 +71,7 @@ export const reviewSeed: () => Promise<Partial<Review>[]> = async () => [
     rating: Rating.GOOD,
   },
   {
-    description:
-      'Lorem ipsum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum lorem ispum ',
+    description,
     user: await getRepository(User).findOne({
       email: USER[3].email,
     }),

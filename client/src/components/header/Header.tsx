@@ -16,7 +16,6 @@ import {
   HeaderNavLink,
   HeaderLang,
   GoogleLogo,
-  HeartIcon,
 } from './styled/Header'
 import { useSelectorApp } from '@/redux'
 import { useTranslation } from 'react-i18next'
@@ -63,14 +62,6 @@ const HeaderView: React.FC<RouteComponentProps> = ({ history }) => {
               {isEn ? t('cs') : t('en')}
             </HeaderLang>
           </Flex>
-          <HeaderLink
-            mr={[0, 0, '5rem']}
-            mb={['5rem', '5rem', 0]}
-            href="https://www.paypal.me/etomanon"
-            target="_blank"
-          >
-            {t('donate')} <HeartIcon />
-          </HeaderLink>
           <HeaderNavLink
             exact
             to="/"

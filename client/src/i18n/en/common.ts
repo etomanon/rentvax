@@ -41,7 +41,5 @@ export default {
   infoOpenText:
     'Source code is open to anyone who wants to check or contribute. Go to',
   infoDonateTitle: 'Ads free',
-  infoDonateText:
-    'Rentvax uses free tiers of Google services. We depend on donations to upgrade our services -',
-  donate: 'Donation',
+  infoDonateText: 'Rentvax uses free tiers of Google services.',
 }
