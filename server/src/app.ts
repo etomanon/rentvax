@@ -13,40 +13,46 @@ import { Session } from './entities/Session'
 import './passport/passport'
 
 // create typeorm connection
-createConnection().then(async connection => {
-  // create and setup express app
-  const app = express()
-  // gzip
-  app.use(compression())
-  // body parser
-  app.use(bodyParser.json())
-  // proper headers
-  app.use(helmet())
-  // no cache
-  app.use(helmet.noCache())
-  // session for Passport.js with TypeORM
-  const session = await connection.getRepository(Session)
-  app.use(
-    ExpressSession({
-      resave: false,
-      saveUninitialized: false,
-      store: new TypeormStore({
-        cleanupLimit: 1,
-        ttl: 86400,
-      }).connect(session),
-      secret: process.env.SESSION_SECRET,
+createConnection()
+  .then(async connection => {
+    // create and setup express app
+    const app = express()
+    // gzip
+    app.use(compression())
+    // body parser
+    app.use(bodyParser.json())
+    // proper headers
+    app.use(helmet())
+    // no cache
+    app.use(helmet.noCache())
+    // session for Passport.js with TypeORM
+    const session = connection.getRepository(Session)
+    app.use(
+      ExpressSession({
+        resave: false,
+        saveUninitialized: false,
+        store: new TypeormStore({
+          cleanupLimit: 1,
+          ttl: 86400,
+        }).connect(session),
+        secret: process.env.SESSION_SECRET,
+      })
+    )
+    app.use(passport.initialize())
+    app.use(passport.session())
+    // register routes
+    ROUTES.forEach(r => app.use(`/api${r.path}`, r.router))
+    // serve react build in production mode
+    app.use(express.static(join(__dirname, '/../../client/build')))
+    app.get('*', (req, res) => {
+      res.sendFile(join(__dirname, '/../../client/build/index.html'))
     })
-  )
-  app.use(passport.initialize())
-  app.use(passport.session())
-  // register routes
-  ROUTES.forEach(r => app.use(`/api${r.path}`, r.router))
-  // serve react build in production mode
-  app.use(express.static(join(__dirname, '/../../client/build')))
-  app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, '/../../client/build/index.html'))
-  })
 
-  // start express server
-  app.listen(3001)
-})
+    // start express server
+    app.listen(3001, () => {
+      console.log('App listening on port 3001')
+    })
+  })
+  .catch(e => {
+    console.log('CreateConnection Error', e)
+  })

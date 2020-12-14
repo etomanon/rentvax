@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node-dev --respawn --no-notify --transpileOnly ./src/app.ts",
+    "start": "ts-node-dev --respawn --no-notify ./src/app.ts",
     "lint:es": "eslint ./src/**/*.ts --fix",
     "db:seed": "ts-node-dev --no-notify ./src/seed/index.ts"
   },
@@ -37,9 +37,9 @@
     "helmet": "^3.21.2",
     "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0",
-    "pg": "^7.18.1",
+    "pg": "^8.3.3",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.22",
+    "typeorm": "^0.2.25",
     "typeorm-static": "^1.1.1"
   }
 }
